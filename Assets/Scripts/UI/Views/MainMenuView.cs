@@ -25,14 +25,9 @@ public class MainMenuView : View
 
     private void Play()
     {
-        if (PlayerController.Instance.IsReadyToPlay)
-        {
-            UIManager.Instance.Show<PlayerNetworkSelectionView>();
-        }
-        else
-        {
-            Warn("You must create a profile to play");
-        }
+
+        UIManager.Instance.Show<PlayerNetworkSelectionView>();
+
     }
 
     private void Profile()

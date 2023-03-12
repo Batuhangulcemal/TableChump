@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public bool isPlayingLAN = false;
-
     public static GameManager Instance {  get; private set; }
+
+    public bool isPlayingLAN = true;
+
 
     private void Awake()
     {

@@ -16,6 +16,7 @@ public class ProfileView : View
 
     private void Back()
     {
+        PlayerController.Instance.IsReadyToPlay = true;
         UIManager.Instance.Show<MainMenuView>();
 
     }
