@@ -2,64 +2,50 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using System.Linq;
+using System;
 
-public class PlayerManager : NetworkBehaviour
+
+public enum PlayerOperation
 {
-    public Player[] players;
+    Added,
+    Removed
+}
 
-    public override void OnNetworkSpawn()
+public class PlayerManager : MonoBehaviour
+{
+    public static PlayerManager Instance {  get; private set; }
+
+    public List<Player> Players;
+
+    public event Action<Player, PlayerOperation> OnPlayerListChanged; 
+
+    private void Awake()
     {
-        base.OnNetworkSpawn();
-
-        NetworkManager.Singleton.OnClientConnectedCallback += Singleton_OnClientConnectedCallback;
-        NetworkManager.Singleton.OnClientDisconnectCallback += Singleton_OnClientDisconnectCallback;
-    }
-
-    public override void OnNetworkDespawn()
-    {
-        base.OnNetworkDespawn();
-
-        NetworkManager.Singleton.OnClientConnectedCallback -= Singleton_OnClientConnectedCallback;
-        NetworkManager.Singleton.OnClientDisconnectCallback -= Singleton_OnClientDisconnectCallback;
-    }
-
-    private void Singleton_OnClientConnectedCallback(ulong obj)
-    {
-        Debug.Log("asd");
-        SendRefreshRpcToClients();
-    }
-
-    private void Singleton_OnClientDisconnectCallback(ulong obj)
-    {
-        Debug.Log("asd");
-        SendRefreshRpcToClients();
-    }
-
-    private void SendRefreshRpcToClients()
-    {
-        if (!IsServer)
+        if(Instance == null)
         {
-            Debug.Log("How?");
-            return;
+            Instance = this;
         }
-
-        ClientRpcParams clientRpcParams = new ClientRpcParams
+        else
         {
-            Send = new ClientRpcSendParams
-            {
-                TargetClientIds = NetworkManager.Singleton.ConnectedClientsIds
-            }
-        };
-
-        RefreshPlayerListClientRpc(clientRpcParams);
+            Destroy(this);
+        }
     }
 
-
-
-    [ClientRpc]
-    public void RefreshPlayerListClientRpc(ClientRpcParams clientRpcParams = default)
+    public void AddPlayer(Player player)
     {
-        players = FindObjectsOfType(typeof(Player)) as Player[];
+        Players.Add(player);
+        OnPlayerListChanged.Invoke(player, PlayerOperation.Added);
     }
 
+    public void RemovePlayer(Player player)
+    {
+        Players.Remove(player);
+        OnPlayerListChanged.Invoke(player, PlayerOperation.Removed);
+    }
+
+    public Player GetPlayerFromClientId(ulong clientID)
+    {
+        return (from p in Players where p.OwnerClientId == clientID select p).First();
+    }
 }

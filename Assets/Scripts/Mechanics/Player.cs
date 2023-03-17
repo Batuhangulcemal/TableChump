@@ -7,24 +7,41 @@ using UnityEngine;
 
 public class Player : NetworkBehaviour
 {
-    public FixedString32Bytes UserName = new ();
-    public int[] Cards;
-    public int Health = new();
-    public bool IsAuthorized;
+    public NetworkVariable<FixedString32Bytes> UserName;
+    public NetworkList<int> Cards;
+    public NetworkVariable<int> Health;
 
+    private void Awake()
+    {
+        UserName = new(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        Cards = new(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        Health = new(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    }
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
 
         if (IsLocalPlayer)
         {
-            GameManager.Instance.OnLocalPlayerConnected();
+            LocalGameManager.Instance.OnLocalPlayerConnected();
+            UserName.Value = LocalGameManager.Instance.userName;
         }
+
+        PlayerManager.Instance.AddPlayer(this);
+
+    }
+
+    public override void OnNetworkDespawn()
+    {
+        base.OnNetworkDespawn();
+
+        PlayerManager.Instance.RemovePlayer(this);
+
     }
 
 
-    private void OnUserNameValueChanged(FixedString32Bytes previous, FixedString32Bytes current)
+    public override string ToString()
     {
-        Debug.Log($"Detected NetworkVariable Change: Previous: {previous} | Current: {current}");
+        return UserName.Value.ToString();
     }
 }
