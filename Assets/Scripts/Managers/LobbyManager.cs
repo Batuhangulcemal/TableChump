@@ -2,12 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
-using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class LobbyManager : NetworkBehaviour
 {
     public static LobbyManager Instance { get; private set; }
+
+    public event EventHandler OnPlayerDataNetworkListChanged;
 
     private NetworkList<PlayerData> playerDataNetworkList;
 
@@ -15,7 +16,6 @@ public class LobbyManager : NetworkBehaviour
     private void Awake()
     {
         Instance = this;
-        DontDestroyOnLoad(gameObject);
 
         playerDataNetworkList = new();
         playerDataNetworkList.OnListChanged += PlayerDataNetworkList_OnListChanged;
@@ -26,11 +26,6 @@ public class LobbyManager : NetworkBehaviour
     {
         base.OnNetworkSpawn();
 
-        if (IsClient)
-        {
-            NetworkManager.Singleton.OnClientDisconnectCallback += NetworkManager_Client_OnClientDisconnectedCallback;
-        }
-
         if (IsServer)
         {
             NetworkManager.Singleton.ConnectionApprovalCallback += NetworkManager_Server_ConnectionApprovalCallback;
@@ -39,14 +34,11 @@ public class LobbyManager : NetworkBehaviour
         }
     }
 
-    private void NetworkManager_Client_OnClientDisconnectedCallback(ulong obj)
-    {
-        Debug.Log("Client could not connect");
-    }
 
-    private void NetworkManager_Server_ConnectionApprovalCallback(NetworkManager.ConnectionApprovalRequest arg1, NetworkManager.ConnectionApprovalResponse arg2)
+    private void NetworkManager_Server_ConnectionApprovalCallback(NetworkManager.ConnectionApprovalRequest connectionApprovalRequest, NetworkManager.ConnectionApprovalResponse connectionApprovalResponse)
     {
         Debug.Log("Connection approval");
+        connectionApprovalResponse.Approved = true;
 
     }
 
@@ -78,5 +70,18 @@ public class LobbyManager : NetworkBehaviour
     private void PlayerDataNetworkList_OnListChanged(NetworkListEvent<PlayerData> changeEvent)
     {
         Debug.Log("Player List Changed");
+        OnPlayerDataNetworkListChanged?.Invoke(this, EventArgs.Empty);
     }
+
+    public List<PlayerData> GetPlayerDataList()
+    {
+        List<PlayerData> result = new();
+        foreach(var playerData in playerDataNetworkList)
+        {
+            result.Add(playerData);
+        }
+
+        return result;
+    }
+
 }
