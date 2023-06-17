@@ -1,4 +1,4 @@
-namespace BoardsStake.API.Dto
+namespace AsepStudios.API.Dto
 {
     public class IPDTO
     {

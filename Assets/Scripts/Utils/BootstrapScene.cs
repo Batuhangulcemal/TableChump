@@ -1,4 +1,4 @@
-using BoardsStake.SceneManagement;
+using AsepStudios.SceneManagement;
 using UnityEngine;
 
 public class BootstrapScene : MonoBehaviour

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace BoardsStake.UI
+namespace AsepStudios.UI
 {
     public abstract class View : MonoBehaviour
     {

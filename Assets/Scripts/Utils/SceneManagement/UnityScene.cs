@@ -1,4 +1,4 @@
-namespace BoardsStake.SceneManagement
+namespace AsepStudios.SceneManagement
 {
     public enum UnityScene
     {

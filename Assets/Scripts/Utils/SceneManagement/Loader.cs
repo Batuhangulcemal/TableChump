@@ -1,8 +1,7 @@
-using BoardsStake.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace BoardsStake.SceneManagement
+namespace AsepStudios.SceneManagement
 {
     public class Loader : MonoBehaviour
     {

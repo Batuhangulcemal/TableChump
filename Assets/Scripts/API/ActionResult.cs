@@ -1,4 +1,4 @@
-namespace BoardsStake.API
+namespace AsepStudios.API
 {
     public class ActionResult<T> : ActionResult
     {

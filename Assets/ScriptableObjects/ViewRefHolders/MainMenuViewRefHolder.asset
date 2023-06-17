@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cc7f0d4cdacf9b4282f6066626c0290, type: 3}
   m_Name: MainMenuViewRefHolder
   m_EditorClassIdentifier: 
-  ViewList: []
-  DefaultView: {fileID: 0}
+  ViewList:
+  - {fileID: 1986997371415073518, guid: dacbe64780ae11a4bbc202420b515651, type: 3}
+  DefaultView: {fileID: 1986997371415073518, guid: dacbe64780ae11a4bbc202420b515651, type: 3}

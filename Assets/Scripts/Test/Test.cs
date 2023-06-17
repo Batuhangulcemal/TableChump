@@ -1,6 +1,6 @@
-using BoardsStake.API;
-using BoardsStake.API.Dto;
-using BoardsStake.API.Service;
+using AsepStudios.API;
+using AsepStudios.API.Dto;
+using AsepStudios.API.Service;
 using UnityEngine;
 
 public class Test : MonoBehaviour

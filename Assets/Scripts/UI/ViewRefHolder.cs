@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BoardsStake.UI
+namespace AsepStudios.UI
 {
     internal class ViewRefHolder : MonoBehaviour
     {

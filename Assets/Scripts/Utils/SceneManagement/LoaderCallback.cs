@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace BoardsStake.SceneManagement
+namespace AsepStudios.SceneManagement
 {
     public class LoaderCallback : MonoBehaviour
     {

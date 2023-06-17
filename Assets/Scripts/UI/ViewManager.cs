@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BoardsStake.UI
+namespace AsepStudios.UI
 {
     [RequireComponent(typeof(ViewRefHolder))]
     public class ViewManager : MonoBehaviour
@@ -32,6 +32,7 @@ namespace BoardsStake.UI
                 OpenView(DefaultView);
             }
         }
+
         public static void ShowView<TView>(object args = null) where TView : View
         {
             foreach (View view in instance.ViewList)

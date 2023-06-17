@@ -1,8 +1,8 @@
 using BestHTTP;
-using BoardsStake.API.Dto;
+using AsepStudios.API.Dto;
 using System.Threading.Tasks;
 
-namespace BoardsStake.API.Service
+namespace AsepStudios.API.Service
 {
     public class IPService
     {
