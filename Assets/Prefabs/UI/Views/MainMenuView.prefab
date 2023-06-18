@@ -325,8 +325,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playButton: {fileID: 5305861847373537904}
   profileButton: {fileID: 5447636902707341484}
-  settingsButton: {fileID: 0}
-  quitButton: {fileID: 0}
+  settingsButton: {fileID: 3087214163298907555}
+  quitButton: {fileID: 4385481190282035629}
 --- !u!1 &2845043417183117643
 GameObject:
   m_ObjectHideFlags: 0

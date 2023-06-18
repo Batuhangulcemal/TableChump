@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ViewList:
   - {fileID: 1986997371415073518, guid: dacbe64780ae11a4bbc202420b515651, type: 3}
+  - {fileID: 8951513428752490967, guid: 82ce90eaa490cdd48ab5086f102e3775, type: 3}
   DefaultView: {fileID: 1986997371415073518, guid: dacbe64780ae11a4bbc202420b515651, type: 3}
