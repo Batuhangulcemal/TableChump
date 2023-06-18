@@ -1,11 +1,13 @@
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace AsepStudios.UI
 {
-    public class SelectJoinOrHostView : View
+    public class HostGameView : View
     {
-        [SerializeField] private Button joinButton;
         [SerializeField] private Button hostButton;
         [SerializeField] private Button backButton;
 
@@ -13,21 +15,17 @@ namespace AsepStudios.UI
         {
             base.OnEnable();
 
-            joinButton.onClick.AddListener(() =>
-            {
-                ViewManager.ShowView<JoinGameView>();
-            });
-
             hostButton.onClick.AddListener(() =>
             {
-                ViewManager.ShowView<HostGameView>();
+                ConnectionService.ConnectAsHostLocally();
             });
 
             backButton.onClick.AddListener(() =>
             {
-                ViewManager.ShowView<MainMenuView>();
+                ViewManager.ShowView<SelectJoinOrHostView>();
             });
         }
     }
+
 }
 

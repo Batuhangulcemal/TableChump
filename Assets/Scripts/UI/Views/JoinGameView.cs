@@ -1,33 +1,29 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace AsepStudios.UI
 {
-    public class SelectJoinOrHostView : View
+    public class JoinGameView : View
     {
         [SerializeField] private Button joinButton;
-        [SerializeField] private Button hostButton;
         [SerializeField] private Button backButton;
 
+        [SerializeField] private TMP_InputField sessionCodeInputField; //To be activated
         protected override void OnEnable()
         {
             base.OnEnable();
 
             joinButton.onClick.AddListener(() =>
             {
-                ViewManager.ShowView<JoinGameView>();
-            });
-
-            hostButton.onClick.AddListener(() =>
-            {
-                ViewManager.ShowView<HostGameView>();
+                ConnectionService.ConnectAsClientLocally();
             });
 
             backButton.onClick.AddListener(() =>
             {
-                ViewManager.ShowView<MainMenuView>();
+                ViewManager.ShowView<SelectJoinOrHostView>();
             });
         }
     }
-}
 
+}
