@@ -1,19 +1,17 @@
 using AsepStudios.API;
 using AsepStudios.API.Dto;
 using AsepStudios.API.Service;
+using AsepStudios.Mechanic.Lobby;
 using UnityEngine;
 
 public class Test : MonoBehaviour
 {
-    private void Start()
-    {
-        GetIP();
-    }
 
-    private async void GetIP()
+    private void Update()
     {
-        ActionResult<IPDTO> result = await IPService.GetIPAddress();
-
-        Debug.Log(result.Data.ip);
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            Debug.Log(Lobby.Instance.GetPlayers().Count);
+        }
     }
 }

@@ -14,6 +14,12 @@ public class ConnectionService
         NetworkManager.Singleton.SceneManager.LoadScene(UnityScene.GameScene.ToString(), UnityEngine.SceneManagement.LoadSceneMode.Single);
     }
 
+    public static void Disconnect()
+    {
+        NetworkManager.Singleton.Shutdown();
+        Loader.Load(UnityScene.MainMenuScene);
+    }
+
     public static void ConnectAsClient(string ipAddress, ushort port = 7777)
     {
         SetConnectionData(ipAddress, port);
@@ -25,7 +31,6 @@ public class ConnectionService
         SetConnectionData(ipAddress, port);
         ConnectAsHost();
     }
-
 
     public static void ConnectAsClientLocally()
     {
