@@ -23,7 +23,7 @@ namespace AsepStudios.UI
                 }
                 else
                 {
-                    ViewManager.ShowView<ProfileView>();
+                    ViewManager.ShowView<ProfileView>(true);
                 }
             });
 

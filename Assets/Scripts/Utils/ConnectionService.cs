@@ -16,8 +16,8 @@ public class ConnectionService
 
     public static void Disconnect()
     {
-        NetworkManager.Singleton.Shutdown();
         Loader.Load(UnityScene.MainMenuScene);
+        NetworkManager.Singleton.Shutdown();
     }
 
     public static void ConnectAsClient(string ipAddress, ushort port = 7777)

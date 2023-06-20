@@ -11,6 +11,8 @@ namespace AsepStudios.UI
 
         [SerializeField] private Button backButton;
 
+        private bool isGoingToPlayGame;
+
         protected override void OnEnable()
         {
             base.OnEnable();
@@ -24,11 +26,31 @@ namespace AsepStudios.UI
                 else
                 {
                     Session.SetSession(usernameInputField.text, 0);
-                    ViewManager.ShowView<MainMenuView>();
+                    ShowNextView();
                 }
             });
+        }
 
-            
+        public override void PassArgs(object args = null)
+        {
+            base.PassArgs(args);
+
+            if(args != null)
+            {
+                isGoingToPlayGame = true;
+            }
+        }
+
+        private void ShowNextView()
+        {
+            if (isGoingToPlayGame)
+            {
+                ViewManager.ShowView<SelectJoinOrHostView>();
+            }
+            else
+            {
+                ViewManager.ShowView<MainMenuView>();
+            }
         }
     }
 

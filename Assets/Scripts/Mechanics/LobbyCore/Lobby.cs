@@ -1,4 +1,5 @@
 using AsepStudios.Mechanic.PlayerCore;
+using AsepStudios.Mechanics.PlayerCore;
 using System;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -14,9 +15,7 @@ namespace AsepStudios.Mechanic.Lobby
         public bool IsHostPlayerActive => NetworkManager.Singleton.IsHost;
         public bool IsAllReady => GetIsAllReady();
 
-
-
-        private NetworkList<NetworkObjectReference> players;
+        private NetworkList<PlayerData> players;
 
         [SerializeField] private NetworkObject playerPrefab;
 
@@ -51,11 +50,13 @@ namespace AsepStudios.Mechanic.Lobby
 
             List<Player> playerList = new();
 
-            foreach(NetworkObject playerNO in players)
+            foreach(PlayerData playerData in players)
             {
-                playerList.Add(playerNO.GetComponent<Player>());
+                if(playerData.Player.TryGet(out NetworkObject networkObject))
+                {
+                    playerList.Add(networkObject.GetComponent<Player>());
+                }
             }
-
             return playerList;
         }
 
@@ -72,13 +73,14 @@ namespace AsepStudios.Mechanic.Lobby
             return true;
         }
 
-        private void Players_OnListChanged(NetworkListEvent<NetworkObjectReference> changeEvent)
+        private void Players_OnListChanged(NetworkListEvent<PlayerData> changeEvent)
         {
             OnPlayerListChanged.Invoke(this, EventArgs.Empty);
         }
 
         private void NetworkManager_OnClientConnectedCallback(ulong clientId)
         {
+            if (clientId == NetworkManager.LocalClientId) return; 
             SpawnPlayerObject(clientId);
         }
 
@@ -94,17 +96,28 @@ namespace AsepStudios.Mechanic.Lobby
             ConnectionService.Disconnect();
         }
 
-        private NetworkObject SpawnPlayerObject(ulong clientId)
+        private void SpawnPlayerObject(ulong clientId)
         {
             NetworkObject playerNetworkObject = Instantiate(playerPrefab);
             playerNetworkObject.SpawnAsPlayerObject(clientId, true);
-            players.Add(playerNetworkObject);
-            return playerNetworkObject;
+            players.Add(new PlayerData
+            {
+                Player = playerNetworkObject,
+                ClientId = clientId
+            });
         }
 
         private void RemovePlayerObject(ulong clientId)
         {
-            players.Remove(NetworkManager.Singleton.ConnectedClients[clientId].PlayerObject);
+            for (int i = 0; i < players.Count; i++)
+            {
+                PlayerData playerData = players[i];
+                if (playerData.ClientId == clientId)
+                {
+                    //disconnected
+                    players.RemoveAt(i);
+                }
+            }
         }
 
 

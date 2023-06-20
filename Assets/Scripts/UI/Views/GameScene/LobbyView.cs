@@ -28,6 +28,8 @@ namespace AsepStudios.UI
 
             if (Lobby.Instance.IsHostPlayerActive)
             {
+                startButton.gameObject.SetActive(true);
+
                 startButton.onClick.AddListener(() =>
                 {
                     if (Lobby.Instance.IsAllReady)
@@ -41,12 +43,6 @@ namespace AsepStudios.UI
                         Debug.Log("Someones is not ready");
                     }
                 });
-
-
-            }
-            else
-            {
-                startButton.gameObject.SetActive(false);
             }
 
             backButton.onClick.AddListener(() =>
@@ -91,6 +87,7 @@ namespace AsepStudios.UI
 
         private void SetReadyButton()
         {
+            if (readyButton == null) return;
             readyButton.name = LocalPlayer.Instance.Player.GetReady() ? "ready" : "notReady";
         }
 
