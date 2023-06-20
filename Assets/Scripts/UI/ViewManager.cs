@@ -56,7 +56,7 @@ namespace AsepStudios.UI
         }
      
 
-        public static void CloseView()
+        public static void HideView()
         {
             if (instance.activeView != null)
             {

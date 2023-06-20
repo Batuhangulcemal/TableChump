@@ -1,12 +1,15 @@
 using AsepStudios.Mechanic.PlayerCore;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace AsepStudios.UI
 {
     public class LobbyPlayerRect : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI userNameText;
+        [SerializeField] private TextMeshProUGUI readyText;
+        [SerializeField] private Outline rectOutline;
 
         private Player player;
 
@@ -26,7 +29,8 @@ namespace AsepStudios.UI
         private void SetRectFields()
         {
             userNameText.text = player.GetUsername();
-
+            readyText.text = player.GetReady() ? "Ready" : "Not Ready";
+            rectOutline.effectColor = player.GetReady() ? Color.green : Color.red;
         }
     }
 }

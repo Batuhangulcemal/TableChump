@@ -11,6 +11,10 @@ namespace AsepStudios.Mechanic.Lobby
         public static Lobby Instance { get; private set; }
 
         public event EventHandler OnPlayerListChanged;
+        public bool IsHostPlayerActive => NetworkManager.Singleton.IsHost;
+        public bool IsAllReady => GetIsAllReady();
+
+
 
         private NetworkList<NetworkObjectReference> players;
 
@@ -53,6 +57,19 @@ namespace AsepStudios.Mechanic.Lobby
             }
 
             return playerList;
+        }
+
+        private bool GetIsAllReady()
+        {
+            foreach(Player player in GetPlayers())
+            {
+                if (!player.GetReady())
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         private void Players_OnListChanged(NetworkListEvent<NetworkObjectReference> changeEvent)

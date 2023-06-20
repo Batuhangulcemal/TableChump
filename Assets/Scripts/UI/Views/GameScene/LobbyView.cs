@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using AsepStudios.Mechanic.PlayerCore;
 using UnityEngine.UI;
+using AsepStudios.Mechanic.PlayerCore.LocalPlayerCore;
 
 namespace AsepStudios.UI
 {
@@ -21,26 +22,60 @@ namespace AsepStudios.UI
             base.OnEnable();
 
             Lobby.Instance.OnPlayerListChanged += Lobby_OnPlayerListChanged;
+            LocalPlayer.Instance.OnPlayerAttached += LocalPlayer_OnPlayerAttached;
 
             RefreshPlayerList();
+
+            if (Lobby.Instance.IsHostPlayerActive)
+            {
+                startButton.onClick.AddListener(() =>
+                {
+                    if (Lobby.Instance.IsAllReady)
+                    {
+                        //StartGame();
+                        Debug.Log("StartGame");
+
+                    }
+                    else
+                    {
+                        Debug.Log("Someones is not ready");
+                    }
+                });
+
+
+            }
+            else
+            {
+                startButton.gameObject.SetActive(false);
+            }
 
             backButton.onClick.AddListener(() =>
             {
                 ConnectionService.Disconnect();
             });
 
-        }
+            readyButton.onClick.AddListener(() =>
+            {
+                LocalPlayer.Instance.Player.SetReady(!LocalPlayer.Instance.Player.GetReady());
+            });
 
-        protected override void OnDisable()
-        {
-            base.OnDisable();
 
-            Lobby.Instance.OnPlayerListChanged -= Lobby_OnPlayerListChanged;
         }
 
         private void Lobby_OnPlayerListChanged(object sender, EventArgs e)
         {
             RefreshPlayerList();
+        }
+
+        private void LocalPlayer_OnPlayerAttached(object sender, EventArgs e)
+        {
+            LocalPlayer.Instance.Player.OnAnyPlayerPropertyChanged += Player_OnAnyPlayerPropertyChanged;
+            SetReadyButton();
+        }
+
+        private void Player_OnAnyPlayerPropertyChanged(object sender, EventArgs e)
+        {
+            SetReadyButton();
         }
 
         private void RefreshPlayerList()
@@ -52,6 +87,11 @@ namespace AsepStudios.UI
                 LobbyPlayerRect playerRect = Instantiate(lobbyPlayerRectPrefab, lobbyPlayerRectsTransform);
                 playerRect.SetLobbyPlayerRect(player);
             }
+        }
+
+        private void SetReadyButton()
+        {
+            readyButton.name = LocalPlayer.Instance.Player.GetReady() ? "ready" : "notReady";
         }
 
     }

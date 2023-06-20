@@ -14,6 +14,10 @@ namespace AsepStudios.Mechanic.PlayerCore
             NetworkVariableReadPermission.Everyone,
             NetworkVariableWritePermission.Owner);
 
+        private NetworkVariable<bool> ready = new(false,
+            NetworkVariableReadPermission.Everyone,
+            NetworkVariableWritePermission.Owner);
+
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
@@ -25,6 +29,12 @@ namespace AsepStudios.Mechanic.PlayerCore
             }
 
             username.OnValueChanged += UsernameOnValueChanged;
+            ready.OnValueChanged += ReadyOnValueChanged;
+        }
+
+        private void ReadyOnValueChanged(bool previousValue, bool newValue)
+        {
+            OnAnyPlayerPropertyChanged?.Invoke(this, EventArgs.Empty);
         }
 
         private void UsernameOnValueChanged(FixedString32Bytes previousValue, FixedString32Bytes newValue)
@@ -36,10 +46,17 @@ namespace AsepStudios.Mechanic.PlayerCore
         {
             return username.Value.ToString();
         }
-
+        public bool GetReady()
+        {
+            return ready.Value;
+        }
         internal void SetUserName(string newUsername)
         {
             username.Value = newUsername;
+        }
+        internal void SetReady(bool newReady)
+        {
+            ready.Value = newReady;
         }
     }
 

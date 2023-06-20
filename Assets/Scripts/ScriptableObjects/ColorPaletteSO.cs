@@ -8,4 +8,6 @@ public class ColorPaletteSO : ScriptableObject
     public Color Cream;
     public Color Navy;
     public Color Blue;
+    public Color Red;
+    public Color Green;
 }
