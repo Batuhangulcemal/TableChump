@@ -1,3 +1,4 @@
+using AsepStudios.App;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,12 +17,19 @@ namespace AsepStudios.UI
 
             playButton.onClick.AddListener(() =>
             {
-                ViewManager.ShowView<SelectJoinOrHostView>();
+                if (Session.IsInitialized)
+                {
+                    ViewManager.ShowView<SelectJoinOrHostView>();
+                }
+                else
+                {
+                    ViewManager.ShowView<ProfileView>();
+                }
             });
 
             profileButton.onClick.AddListener(() =>
             {
-
+                ViewManager.ShowView<ProfileView>();
             });
 
             settingsButton.onClick.AddListener(() =>
@@ -31,7 +39,7 @@ namespace AsepStudios.UI
 
             quitButton.onClick.AddListener(() =>
             {
-
+                Application.Quit();
             });
         }
     }

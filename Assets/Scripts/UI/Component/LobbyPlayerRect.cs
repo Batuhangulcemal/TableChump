@@ -1,3 +1,4 @@
+using AsepStudios.Mechanic.PlayerCore;
 using TMPro;
 using UnityEngine;
 
@@ -7,9 +8,25 @@ namespace AsepStudios.UI
     {
         [SerializeField] private TextMeshProUGUI userNameText;
 
-        public void SetLobbyPlayerRect(string userName)
+        private Player player;
+
+        public void SetLobbyPlayerRect(Player _player)
         {
-            userNameText.text = userName;
+            player = _player;
+            player.OnAnyPlayerPropertyChanged += Player_OnAnyPlayerPropertyChanged;
+
+            SetRectFields();
+        }
+
+        private void Player_OnAnyPlayerPropertyChanged(object sender, System.EventArgs e)
+        {
+            SetRectFields();
+        }
+
+        private void SetRectFields()
+        {
+            userNameText.text = player.GetUsername();
+
         }
     }
 }

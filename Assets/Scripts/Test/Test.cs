@@ -2,6 +2,7 @@ using AsepStudios.API;
 using AsepStudios.API.Dto;
 using AsepStudios.API.Service;
 using AsepStudios.Mechanic.Lobby;
+using AsepStudios.Mechanic.PlayerCore.LocalPlayerCore;
 using UnityEngine;
 
 public class Test : MonoBehaviour
@@ -12,6 +13,11 @@ public class Test : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.T))
         {
             Debug.Log(Lobby.Instance.GetPlayers().Count);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            LocalPlayer.Instance.TestChangeName("asdasd");
         }
     }
 }

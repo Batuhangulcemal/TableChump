@@ -9,7 +9,6 @@ namespace AsepStudios.UI
 {
     public class LobbyView : View
     {
-
         [SerializeField] private Transform lobbyPlayerRectsTransform;
         [SerializeField] private LobbyPlayerRect lobbyPlayerRectPrefab;
 
@@ -50,9 +49,9 @@ namespace AsepStudios.UI
 
             foreach(Player player in Lobby.Instance.GetPlayers())
             {
-                Instantiate(lobbyPlayerRectPrefab, lobbyPlayerRectsTransform);
+                LobbyPlayerRect playerRect = Instantiate(lobbyPlayerRectPrefab, lobbyPlayerRectsTransform);
+                playerRect.SetLobbyPlayerRect(player);
             }
-
         }
 
     }
