@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8840182570175816876}
   - component: {fileID: 6415579099789877054}
   - component: {fileID: 6783462020682832676}
-  - component: {fileID: 3037438560558121727}
   m_Layer: 5
   m_Name: LobbyPlayerRect
   m_TagString: Untagged
@@ -95,22 +94,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   userNameText: {fileID: 6075230093084177390}
   readyText: {fileID: 247355266700769551}
-  rectOutline: {fileID: 3037438560558121727}
---- !u!114 &3037438560558121727
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1377330628919745138}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0.9882353, g: 0.050980393, b: 0, a: 1}
-  m_EffectDistance: {x: 3, y: 3}
-  m_UseGraphicAlpha: 0
+  rectOutline: {fileID: 0}
 --- !u!1 &4161934257894659970
 GameObject:
   m_ObjectHideFlags: 0

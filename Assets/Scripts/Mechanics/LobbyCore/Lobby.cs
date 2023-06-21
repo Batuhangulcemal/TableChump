@@ -22,8 +22,9 @@ namespace AsepStudios.Mechanic.Lobby
         private void Awake()
         {
             Instance = this;
-            players = new();
+            players = new NetworkList<PlayerData>();
         }
+
 
         public override void OnNetworkSpawn()
         {
@@ -75,7 +76,7 @@ namespace AsepStudios.Mechanic.Lobby
 
         private void Players_OnListChanged(NetworkListEvent<PlayerData> changeEvent)
         {
-            OnPlayerListChanged.Invoke(this, EventArgs.Empty);
+            OnPlayerListChanged?.Invoke(this, EventArgs.Empty);
         }
 
         private void NetworkManager_OnClientConnectedCallback(ulong clientId)

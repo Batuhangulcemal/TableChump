@@ -1,4 +1,5 @@
 using AsepStudios.Mechanic.PlayerCore;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +10,6 @@ namespace AsepStudios.UI
     {
         [SerializeField] private TextMeshProUGUI userNameText;
         [SerializeField] private TextMeshProUGUI readyText;
-        [SerializeField] private Outline rectOutline;
 
         private Player player;
 
@@ -19,6 +19,7 @@ namespace AsepStudios.UI
             player.OnAnyPlayerPropertyChanged += Player_OnAnyPlayerPropertyChanged;
 
             SetRectFields();
+
         }
 
         private void Player_OnAnyPlayerPropertyChanged(object sender, System.EventArgs e)
@@ -30,7 +31,6 @@ namespace AsepStudios.UI
         {
             userNameText.text = player.GetUsername();
             readyText.text = player.GetReady() ? "Ready" : "Not Ready";
-            rectOutline.effectColor = player.GetReady() ? Color.green : Color.red;
         }
     }
 }

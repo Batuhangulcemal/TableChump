@@ -32,23 +32,12 @@ namespace AsepStudios.UI
 
                 startButton.onClick.AddListener(() =>
                 {
-                    if (Lobby.Instance.IsAllReady)
-                    {
-                        //StartGame();
-                        Debug.Log("StartGame");
-
-                    }
-                    else
-                    {
-                        Debug.Log("Someones is not ready");
-                    }
+                    //StartGame();
+                    Debug.Log(Lobby.Instance.IsAllReady ? "StartGame" : "Someones is not ready");
                 });
             }
 
-            backButton.onClick.AddListener(() =>
-            {
-                ConnectionService.Disconnect();
-            });
+            backButton.onClick.AddListener(ConnectionService.Disconnect);
 
             readyButton.onClick.AddListener(() =>
             {

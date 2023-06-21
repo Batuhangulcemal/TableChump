@@ -1,6 +1,6 @@
 namespace AsepStudios.App
 {
-    public class Session
+    public static class Session
     {
         public static string Username { get; private set; }
         public static int Avatar { get; private set; } //TODO make enum
