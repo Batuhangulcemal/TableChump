@@ -17,7 +17,7 @@ namespace AsepStudios.Mechanic.PlayerCore
         private readonly NetworkVariable<bool> ready = new(false,
             NetworkVariableReadPermission.Everyone,
             NetworkVariableWritePermission.Owner);
-
+        
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();

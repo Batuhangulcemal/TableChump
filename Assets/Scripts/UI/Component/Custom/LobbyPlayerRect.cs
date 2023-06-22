@@ -37,8 +37,7 @@ namespace AsepStudios.UI
         {
             userNameText.text = player.GetUsername();
             readyText.text = player.GetReady() ? "Ready" : "Not Ready";
-            outline.effectColor = player.GetReady() ? Color.green : Color.red;
-
+            outline.effectColor = player.GetReady() ? ResourceProvider.Colors.Green : ResourceProvider.Colors.Red;
         }
     }
 }

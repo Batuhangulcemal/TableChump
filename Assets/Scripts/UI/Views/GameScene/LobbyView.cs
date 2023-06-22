@@ -87,6 +87,5 @@ namespace AsepStudios.UI
             if (readyButton == null) return;
             readyButton.name = LocalPlayer.Instance.Player.GetReady() ? "ready" : "notReady";
         }
-
     }
 }
