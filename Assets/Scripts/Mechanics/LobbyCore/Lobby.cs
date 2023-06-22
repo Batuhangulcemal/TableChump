@@ -2,10 +2,11 @@ using AsepStudios.Mechanic.PlayerCore;
 using AsepStudios.Mechanics.PlayerCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
 
-namespace AsepStudios.Mechanic.Lobby
+namespace AsepStudios.Mechanic.LobbyCore
 {
     public class Lobby : NetworkBehaviour
     {
@@ -51,7 +52,7 @@ namespace AsepStudios.Mechanic.Lobby
 
             List<Player> playerList = new();
 
-            foreach(PlayerData playerData in players)
+            foreach(var playerData in players)
             {
                 if(playerData.Player.TryGet(out NetworkObject networkObject))
                 {
@@ -63,15 +64,7 @@ namespace AsepStudios.Mechanic.Lobby
 
         private bool GetIsAllReady()
         {
-            foreach(Player player in GetPlayers())
-            {
-                if (!player.GetReady())
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            return GetPlayers().All(player => player.GetReady());
         }
 
         private void Players_OnListChanged(NetworkListEvent<PlayerData> changeEvent)
@@ -110,7 +103,7 @@ namespace AsepStudios.Mechanic.Lobby
 
         private void RemovePlayerObject(ulong clientId)
         {
-            for (int i = 0; i < players.Count; i++)
+            for (var i = 0; i < players.Count; i++)
             {
                 PlayerData playerData = players[i];
                 if (playerData.ClientId == clientId)

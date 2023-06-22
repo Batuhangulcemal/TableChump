@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu()]
-public class ColorPaletteSO : ScriptableObject
+public class ColorPaletteSo : ScriptableObject
 {
     public Color Orange;
     public Color Beach;

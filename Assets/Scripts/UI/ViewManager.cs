@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace AsepStudios.UI
@@ -10,10 +11,10 @@ namespace AsepStudios.UI
 
         private View activeView;
         private ViewRefHolder RefHolder => GetViewSystemRefHolder();
-        private ViewRefHolder _refHolder;
+        private ViewRefHolder refHolder;
         private List<View> ViewList => RefHolder.ViewList;
         private View DefaultView => RefHolder.DefaultView;
-        private Transform ViewTransform => RefHolder.ViewTransform;
+        private Transform ViewTransform => RefHolder.viewTransform;
 
         private void Awake()
         {
@@ -25,7 +26,7 @@ namespace AsepStudios.UI
             Initialize();
         }
 
-        public void Initialize()
+        private void Initialize()
         {
             if (DefaultView != null)
             {
@@ -35,21 +36,18 @@ namespace AsepStudios.UI
 
         public static void ShowView<TView>(object args = null) where TView : View
         {
-            foreach (View view in instance.ViewList)
+            foreach (var view in instance.ViewList.OfType<TView>())
             {
-                if (view is TView)
+                if (instance.activeView == null)
                 {
-                    if (instance.activeView == null)
+                    instance.OpenView(view, args);
+                }
+                else
+                {
+                    if (instance.activeView is not TView)
                     {
+                        instance.CloseView(instance.activeView);
                         instance.OpenView(view, args);
-                    }
-                    else
-                    {
-                        if (instance.activeView is not TView)
-                        {
-                            instance.CloseView(instance.activeView);
-                            instance.OpenView(view, args);
-                        }
                     }
                 }
             }
@@ -77,12 +75,12 @@ namespace AsepStudios.UI
 
         private ViewRefHolder GetViewSystemRefHolder()
         {
-            if (_refHolder == null)
+            if (refHolder == null)
             {
-                _refHolder = GetComponent<ViewRefHolder>();
+                refHolder = GetComponent<ViewRefHolder>();
             }
 
-            return _refHolder;
+            return refHolder;
         }
     }
 

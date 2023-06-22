@@ -8,13 +8,13 @@ namespace AsepStudios.API.Service
     {
         private const string IPIFY_ADDRESS = "https://api.ipify.org?format=json";
 
-        public async static Task<ActionResult<IPDTO>> GetIPAddress()
+        public static async Task<ActionResult<IpDto>> GetIPAddress()
         {
-            HTTPRequest request = ServiceHelper.GetHTTPRequest(IPIFY_ADDRESS, HTTPMethods.Get);
+            var request = ServiceHelper.GetHTTPRequest(IPIFY_ADDRESS, HTTPMethods.Get);
 
-            HTTPResponse response = await ServiceHelper.GetHTTPResponse(request);
+            var response = await ServiceHelper.GetHTTPResponse(request);
 
-            return ServiceHelper.GetActionResult<IPDTO>(response);
+            return ServiceHelper.GetActionResult<IpDto>(response);
         }
     }
 }

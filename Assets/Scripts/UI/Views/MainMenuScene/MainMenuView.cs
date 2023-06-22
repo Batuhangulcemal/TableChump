@@ -46,10 +46,7 @@ namespace AsepStudios.UI
 
             });
 
-            quitButton.onClick.AddListener(() =>
-            {
-                Application.Quit();
-            });
+            quitButton.onClick.AddListener(Application.Quit);
         }
 
 

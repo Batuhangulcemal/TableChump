@@ -15,10 +15,7 @@ namespace AsepStudios.UI
         {
             base.OnEnable();
 
-            hostButton.onClick.AddListener(() =>
-            {
-                ConnectionService.ConnectAsHostLocally();
-            });
+            hostButton.onClick.AddListener(ConnectionService.ConnectAsHostLocally);
 
             backButton.onClick.AddListener(() =>
             {

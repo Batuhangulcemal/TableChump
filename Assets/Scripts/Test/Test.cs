@@ -1,7 +1,7 @@
 using AsepStudios.API;
 using AsepStudios.API.Dto;
 using AsepStudios.API.Service;
-using AsepStudios.Mechanic.Lobby;
+using AsepStudios.Mechanic.LobbyCore;
 using AsepStudios.Mechanic.PlayerCore.LocalPlayerCore;
 using UnityEngine;
 

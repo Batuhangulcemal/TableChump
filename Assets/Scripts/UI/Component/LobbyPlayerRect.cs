@@ -2,7 +2,6 @@ using AsepStudios.Mechanic.PlayerCore;
 using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace AsepStudios.UI
 {
@@ -13,16 +12,16 @@ namespace AsepStudios.UI
 
         private Player player;
 
-        public void SetLobbyPlayerRect(Player _player)
+        public void SetLobbyPlayerRect(Player player)
         {
-            player = _player;
-            player.OnAnyPlayerPropertyChanged += Player_OnAnyPlayerPropertyChanged;
+            this.player = player;
+            this.player.OnAnyPlayerPropertyChanged += Player_OnAnyPlayerPropertyChanged;
 
             SetRectFields();
 
         }
 
-        private void Player_OnAnyPlayerPropertyChanged(object sender, System.EventArgs e)
+        private void Player_OnAnyPlayerPropertyChanged(object sender, EventArgs e)
         {
             SetRectFields();
         }

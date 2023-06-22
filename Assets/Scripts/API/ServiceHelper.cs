@@ -11,7 +11,7 @@ namespace AsepStudios.API
     {
         public static HTTPRequest GetHTTPRequest(string body, string address, HTTPMethods hTTPMethod)
         {
-            HTTPRequest request = GetHTTPRequest(address, hTTPMethod);
+            var request = GetHTTPRequest(address, hTTPMethod);
 
             request.RawData = System.Text.Encoding.UTF8.GetBytes(body);
 
@@ -20,14 +20,14 @@ namespace AsepStudios.API
 
         public static HTTPRequest GetHTTPRequest(string address, HTTPMethods hTTPMethod)
         {
-            HTTPRequest request = new HTTPRequest(new Uri(address), hTTPMethod);
+            var request = new HTTPRequest(new Uri(address), hTTPMethod);
 
             request.SetHeader("Content-Type", "application/json; charset=UTF-8");
 
             return request;
         }
 
-        public async static Task<HTTPResponse> GetHTTPResponse(HTTPRequest request)
+        public static async Task<HTTPResponse> GetHTTPResponse(HTTPRequest request)
         {
             HTTPResponse response;
 
@@ -58,20 +58,20 @@ namespace AsepStudios.API
         {
             Debug.Log(response.StatusCode + " " + response.Message);
 
-            T responseDTO;
+            T responseDto;
 
             try
             {
-                responseDTO = JsonConvert.DeserializeObject<T>(response.DataAsText);
+                responseDto = JsonConvert.DeserializeObject<T>(response.DataAsText);
             }
             catch (Exception ex)
             {
-                responseDTO = default;
+                responseDto = default;
                 Debug.Log(ex);
             }
             return new ActionResult<T>
             {
-                Data = responseDTO,
+                Data = responseDto,
                 StatusCode = response.StatusCode,
                 Message = response.Message,
             };
@@ -81,21 +81,21 @@ namespace AsepStudios.API
         {
             Debug.Log(response.StatusCode + " " + response.Message);
 
-            List<T> responseDTO;
+            List<T> responseDto;
             try
             {
-                responseDTO = JsonConvert.DeserializeObject<List<T>>(response.DataAsText);
+                responseDto = JsonConvert.DeserializeObject<List<T>>(response.DataAsText);
             }
             catch (Exception ex)
             {
-                responseDTO = new List<T>();
+                responseDto = new List<T>();
                 Debug.Log(ex);
 
             }
 
             return new ActionResult<List<T>>
             {
-                Data = responseDTO,
+                Data = responseDto,
                 StatusCode = response.StatusCode,
                 Message = response.Message,
             };

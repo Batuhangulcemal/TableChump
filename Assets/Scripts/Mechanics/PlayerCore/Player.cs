@@ -10,11 +10,11 @@ namespace AsepStudios.Mechanic.PlayerCore
     {
         public event EventHandler OnAnyPlayerPropertyChanged;
 
-        private NetworkVariable<FixedString32Bytes> username = new("",
+        private readonly NetworkVariable<FixedString32Bytes> username = new("",
             NetworkVariableReadPermission.Everyone,
             NetworkVariableWritePermission.Owner);
 
-        private NetworkVariable<bool> ready = new(false,
+        private readonly NetworkVariable<bool> ready = new(false,
             NetworkVariableReadPermission.Everyone,
             NetworkVariableWritePermission.Owner);
 

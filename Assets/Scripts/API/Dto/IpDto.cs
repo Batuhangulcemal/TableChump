@@ -1,6 +1,6 @@
 namespace AsepStudios.API.Dto
 {
-    public class IPDTO
+    public class IpDto
     {
         public string ip { get; set; }
     }

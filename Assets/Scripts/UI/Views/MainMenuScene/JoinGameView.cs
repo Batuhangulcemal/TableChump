@@ -14,10 +14,7 @@ namespace AsepStudios.UI
         {
             base.OnEnable();
 
-            joinButton.onClick.AddListener(() =>
-            {
-                ConnectionService.ConnectAsClientLocally();
-            });
+            joinButton.onClick.AddListener(ConnectionService.ConnectAsClientLocally);
 
             backButton.onClick.AddListener(() =>
             {

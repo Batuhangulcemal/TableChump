@@ -570,8 +570,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 854a53dc97a2b8647bef8a21b5b8b920, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRefHolderSO: {fileID: 11400000, guid: d3dc26cd434443c4bbdd1575c59e1e8e, type: 2}
-  ViewTransform: {fileID: 1033166367}
+  viewRefHolderSo: {fileID: 11400000, guid: d3dc26cd434443c4bbdd1575c59e1e8e, type: 2}
+  viewTransform: {fileID: 1033166367}
 --- !u!4 &1016864047
 Transform:
   m_ObjectHideFlags: 0

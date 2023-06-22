@@ -1,5 +1,5 @@
 using AsepStudios.Utils;
-using AsepStudios.Mechanic.Lobby;
+using AsepStudios.Mechanic.LobbyCore;
 using System;
 using UnityEngine;
 using AsepStudios.Mechanic.PlayerCore;
