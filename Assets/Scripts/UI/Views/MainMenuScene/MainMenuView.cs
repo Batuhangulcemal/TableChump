@@ -22,7 +22,6 @@ namespace AsepStudios.UI
         {
             base.OnEnable();
             
-            SetProfilePanel();
 
             playButton.onClick.AddListener(() =>
             {
@@ -47,6 +46,9 @@ namespace AsepStudios.UI
             });
 
             quitButton.onClick.AddListener(Application.Quit);
+            
+            SetProfilePanel();
+
         }
 
 
@@ -56,6 +58,7 @@ namespace AsepStudios.UI
             {
                 profilePanel.gameObject.SetActive(true);
                 usernameText.text = username;
+                avatarImage.sprite = ResourceProvider.GetAvatarFromIndex(avatarIndex);
             }
             else
             {

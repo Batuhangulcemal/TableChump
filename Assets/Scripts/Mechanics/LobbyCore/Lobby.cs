@@ -3,6 +3,7 @@ using AsepStudios.Mechanics.PlayerCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -11,12 +12,14 @@ namespace AsepStudios.Mechanic.LobbyCore
     public class Lobby : NetworkBehaviour
     {
         public static Lobby Instance { get; private set; }
-
         public event EventHandler OnPlayerListChanged;
+        public event EventHandler OnLobbyNameChanged;
         public bool IsHostPlayerActive => NetworkManager.Singleton.IsHost;
         public bool IsAllReady => GetIsAllReady();
 
+        private NetworkVariable<FixedString32Bytes> lobbyName = new("");
         private NetworkList<PlayerData> players;
+        
 
         [SerializeField] private NetworkObject playerPrefab;
 
@@ -45,7 +48,10 @@ namespace AsepStudios.Mechanic.LobbyCore
             NetworkManager.Singleton.OnClientDisconnectCallback += Client_NetworkManager_OnClientDisconnectCallback;
 
             players.OnListChanged += Players_OnListChanged;
+            lobbyName.OnValueChanged += LobbyName_OnValueChanged;
         }
+
+
 
         public override void OnNetworkDespawn()
         {
@@ -75,6 +81,16 @@ namespace AsepStudios.Mechanic.LobbyCore
             return playerList;
         }
 
+        public string GetLobbyName()
+        {
+            return lobbyName.Value.ToString();
+        }
+
+        public void SetLobbyName(string lobbyName)
+        {
+            this.lobbyName.Value = lobbyName;
+        }
+
         private bool GetIsAllReady()
         {
             return GetPlayers().All(player => player.GetReady());
@@ -83,6 +99,10 @@ namespace AsepStudios.Mechanic.LobbyCore
         private void Players_OnListChanged(NetworkListEvent<PlayerData> changeEvent)
         {
             OnPlayerListChanged?.Invoke(this, EventArgs.Empty);
+        }
+        private void LobbyName_OnValueChanged(FixedString32Bytes previousName, FixedString32Bytes newName)
+        {
+            OnLobbyNameChanged?.Invoke(this, EventArgs.Empty);
         }
 
         private void NetworkManager_OnClientConnectedCallback(ulong clientId)

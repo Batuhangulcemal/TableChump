@@ -2,6 +2,7 @@ using AsepStudios.Mechanic.PlayerCore;
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace AsepStudios.UI
@@ -9,8 +10,10 @@ namespace AsepStudios.UI
     public class LobbyPlayerRect : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI userNameText;
-        [SerializeField] private TextMeshProUGUI readyText;
+        [SerializeField] private TextMeshProUGUI identifierText;
         [SerializeField] private Outline outline;
+        [SerializeField] private Image avatarImage;
+        [SerializeField] private Image rectImage;
 
         private Player player;
 
@@ -36,8 +39,17 @@ namespace AsepStudios.UI
         private void SetRectFields()
         {
             userNameText.text = player.GetUsername();
-            readyText.text = player.GetReady() ? "Ready" : "Not Ready";
+            
             outline.effectColor = player.GetReady() ? ResourceProvider.Colors.Green : ResourceProvider.Colors.Red;
+            avatarImage.sprite = ResourceProvider.GetAvatarFromIndex(player.GetAvatarIndex());
+            
+            rectImage.color = player.IsLocalPlayer ?
+                ResourceProvider.Colors.Navy : player.IsOwnedByServer ?
+                    ResourceProvider.Colors.Orange : ResourceProvider.Colors.Beach;
+            
+            identifierText.text = player.IsLocalPlayer ?
+                "YOU" : player.IsOwnedByServer ?
+                    "HOST" : string.Empty;
         }
     }
 }

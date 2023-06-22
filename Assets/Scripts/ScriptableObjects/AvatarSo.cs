@@ -11,7 +11,7 @@ namespace ScriptableObjects
 
         public Sprite GetAvatarFromIndex(int index)
         {
-            return avatars[index];
+            return index == -1 ? avatars[0] : avatars[index];
         }
 
         public int GetIndexFromAvatar(Sprite sprite)

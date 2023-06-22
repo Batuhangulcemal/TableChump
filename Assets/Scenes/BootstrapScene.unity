@@ -294,7 +294,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colorPaletteSo: {fileID: 11400000, guid: 47f3f1172336ec24b827e026ea277d53, type: 2}
-  avatars: {fileID: 11400000, guid: f0aeea6a35945414e8d24f295b850242, type: 2}
+  avatarSo: {fileID: 11400000, guid: f0aeea6a35945414e8d24f295b850242, type: 2}
 --- !u!4 &993130953
 Transform:
   m_ObjectHideFlags: 0

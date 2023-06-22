@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using AsepStudios.App;
 using TMPro;
 using UnityEngine;
@@ -7,11 +8,15 @@ namespace AsepStudios.UI
 {
     public class ProfileView : View
     {
+        [SerializeField] private Transform profileAvatarButtonsTransform;
+        [SerializeField] private ToggleButton profileAvatarButtonPrefab;
         [SerializeField] private TMP_InputField usernameInputField;
 
         [SerializeField] private Button backButton;
 
         private bool isGoingToPlayGame;
+        private List<ToggleButton> avatarButtons = new();
+        private int chosenAvatarIndex = -1;
 
         protected override void OnEnable()
         {
@@ -19,17 +24,22 @@ namespace AsepStudios.UI
 
             backButton.onClick.AddListener(() =>
             {
-                if (string.IsNullOrEmpty(usernameInputField.text))
+                if (string.IsNullOrEmpty(usernameInputField.text) || chosenAvatarIndex == -1)
                 {
                     //TOdo make info text
                 }
                 else
                 {
-                    Session.SetSession(usernameInputField.text, 0);
+                    Session.SetSession(usernameInputField.text, chosenAvatarIndex);
                     ShowNextView();
                 }
             });
+
+            CreateAvatarButtons();
+            AssingAvatarButtonOnClicks();
         }
+
+
 
         public override void PassArgs(object args = null)
         {
@@ -50,6 +60,37 @@ namespace AsepStudios.UI
             else
             {
                 ViewManager.ShowView<MainMenuView>();
+            }
+        }
+        
+        private void CreateAvatarButtons()
+        {
+            foreach (var sprite in ResourceProvider.Avatars)
+            {
+                var avatarButton = Instantiate(profileAvatarButtonPrefab, profileAvatarButtonsTransform);
+                avatarButtons.Add(avatarButton);
+                avatarButton.ButtonSprite = sprite;
+            }
+        }
+        
+        private void AssingAvatarButtonOnClicks()
+        {
+            foreach (var button in avatarButtons)
+            {
+                button.OnClick.AddListener(() =>
+                {
+                    SetOfAllAvatarButtons();
+                    chosenAvatarIndex = ResourceProvider.GetIndexFromSprite(button.ButtonSprite);
+                    button.SetOn(true);
+                });
+            }
+        }
+
+        private void SetOfAllAvatarButtons()
+        {
+            foreach (var button in avatarButtons)
+            {
+                button.SetOn(false);
             }
         }
     }
