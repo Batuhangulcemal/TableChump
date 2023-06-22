@@ -8,11 +8,13 @@ namespace AsepStudios.Mechanic.GameCore
 {
     public class Game : NetworkBehaviour
     {
+        public event EventHandler OnGameStateChanged;
         public static Game Instance { get; private set; }
         
-        private readonly NetworkVariable<GameState> gameState = new();
+        public readonly NetworkVariable<GameState> GameState = new();
 
         private readonly NetworkVariable<bool> isGameInitialized = new();
+
         private void Awake()
         {
             Instance = this;
@@ -21,41 +23,22 @@ namespace AsepStudios.Mechanic.GameCore
         {
             base.OnNetworkSpawn();
 
-            gameState.OnValueChanged += GameStateOnValueChanged;
+            GameState.OnValueChanged += GameStateOnValueChanged;
             ChangeViewByGameState();
         }
         
-        public void ChangeGameState(GameState gameState)
-        {
-            if (!IsServer)
-            {
-                Debug.LogWarning("Clients can not change game state!");
-            }
-
-            switch (gameState)
-            {
-                case GameState.NotStarted:
-                    TryResetGame();
-                    break;
-                case GameState.Playing:
-                    TryInitializeGame();
-                    break;
-                case GameState.Paused:
-                    break;
-                case GameState.Over:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(gameState), gameState, null);
-            }
-
-            this.gameState.Value = gameState;
-        }
-
+        public void StartGame(){ ChangeGameState(Enum.GameState.Playing); }
+        public void PauseGame(){ ChangeGameState(Enum.GameState.Paused); }
+        public void StopGame(){ ChangeGameState(Enum.GameState.Over); }
+        public void RestartGame(){ ChangeGameState(Enum.GameState.NotStarted); }
+        
         private void TryInitializeGame()
         {
             if (isGameInitialized.Value) return;
 
             isGameInitialized.Value = true;
+            
+            //Deal Cards
             
         }
         
@@ -67,25 +50,53 @@ namespace AsepStudios.Mechanic.GameCore
             
         }
         
+        private void ChangeGameState(GameState gameState)
+        {
+            if (!IsServer)
+            {
+                Debug.LogWarning("Clients can not change game state!");
+                return;
+            }
+
+            switch (gameState)
+            {
+                case Enum.GameState.NotStarted:
+                    TryResetGame();
+                    break;
+                case Enum.GameState.Playing:
+                    TryInitializeGame();
+                    break;
+                case Enum.GameState.Paused:
+                    break;
+                case Enum.GameState.Over:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(gameState), gameState, null);
+            }
+
+            GameState.Value = gameState;
+        }
+
         private void GameStateOnValueChanged(GameState previousGameState, GameState newGameState)
         {
+            OnGameStateChanged?.Invoke(this, EventArgs.Empty);
             ChangeViewByGameState();
         }
 
         private void ChangeViewByGameState()
         {
-            switch (gameState.Value)
+            switch (GameState.Value)
             {
-                case GameState.NotStarted:
+                case Enum.GameState.NotStarted:
                     ViewManager.ShowView<LobbyView>();
                     break;
-                case GameState.Playing:
+                case Enum.GameState.Playing:
                     ViewManager.ShowView<GameView>();
                     break;
-                case GameState.Paused:
+                case Enum.GameState.Paused:
                     ViewManager.ShowView<PauseView>();
                     break;
-                case GameState.Over:
+                case Enum.GameState.Over:
                     ViewManager.ShowView<GameOverView>();
                     break;
                 default:

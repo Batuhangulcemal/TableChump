@@ -1,4 +1,6 @@
 using System;
+using AsepStudios.Mechanic.GameCore;
+using AsepStudios.Mechanic.GameCore.Enum;
 using UnityEngine;
 
 namespace AsepStudios.Mechanic.PlayerCore.LocalPlayerCore
@@ -14,16 +16,21 @@ namespace AsepStudios.Mechanic.PlayerCore.LocalPlayerCore
         {
             Instance = this;
         }
-
+        
         public void AttachPlayer(Player player)
         {
             Player = player;
             OnPlayerAttached?.Invoke(this, EventArgs.Empty);
+            
+            Game.Instance.OnGameStateChanged += Game_OnGameStateChanged;
         }
-
-        public void TestChangeName(string asd)
+        
+        private void Game_OnGameStateChanged(object sender, EventArgs e)
         {
-            Player.SetUserName(asd);
+            if (Game.Instance.GameState.Value == GameState.NotStarted)
+            {
+                Player.SetReady(false);
+            }
         }
     }
 }

@@ -47,6 +47,19 @@ namespace AsepStudios.Mechanic.LobbyCore
             players.OnListChanged += Players_OnListChanged;
         }
 
+        public override void OnNetworkDespawn()
+        {
+            base.OnNetworkDespawn();
+            
+            if (IsServer)
+            {
+                NetworkManager.Singleton.OnClientConnectedCallback -= NetworkManager_OnClientConnectedCallback;
+                NetworkManager.Singleton.OnClientDisconnectCallback -= NetworkManager_OnClientDisconnectCallback;
+            }
+            NetworkManager.Singleton.OnClientDisconnectCallback -= Client_NetworkManager_OnClientDisconnectCallback;
+        }
+        
+
         public List<Player> GetPlayers()
         {
 

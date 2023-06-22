@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace AsepStudios.Utils
 {
-    public class DestroyService
+    public static class DestroyService
     {
         public static void ClearChildren(Transform parent)
         {

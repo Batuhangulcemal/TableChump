@@ -1,8 +1,8 @@
 using AsepStudios.Utils;
 using AsepStudios.Mechanic.LobbyCore;
 using System;
+using AsepStudios.Mechanic.GameCore;
 using UnityEngine;
-using AsepStudios.Mechanic.PlayerCore;
 using UnityEngine.UI;
 using AsepStudios.Mechanic.PlayerCore.LocalPlayerCore;
 
@@ -23,16 +23,17 @@ namespace AsepStudios.UI
 
             Lobby.Instance.OnPlayerListChanged += Lobby_OnPlayerListChanged;
             LocalPlayer.Instance.OnPlayerAttached += LocalPlayer_OnPlayerAttached;
-
-            RefreshPlayerList();
-
+            
             if (Lobby.Instance.IsHostPlayerActive)
             {
                 startButton.gameObject.SetActive(true);
 
                 startButton.onClick.AddListener(() =>
                 {
-                    //StartGame();
+                    if (Lobby.Instance.IsAllReady)
+                    {
+                        Game.Instance.StartGame();
+                    }
                     Debug.Log(Lobby.Instance.IsAllReady ? "StartGame" : "Someones is not ready");
                 });
             }
@@ -43,8 +44,16 @@ namespace AsepStudios.UI
             {
                 LocalPlayer.Instance.Player.SetReady(!LocalPlayer.Instance.Player.GetReady());
             });
+            
+            RefreshPlayerList();
 
+        }
 
+        protected void OnDestroy()
+        {
+            Lobby.Instance.OnPlayerListChanged -= Lobby_OnPlayerListChanged;
+            LocalPlayer.Instance.OnPlayerAttached -= LocalPlayer_OnPlayerAttached;
+            LocalPlayer.Instance.Player.OnAnyPlayerPropertyChanged -= Player_OnAnyPlayerPropertyChanged;
         }
 
         private void Lobby_OnPlayerListChanged(object sender, EventArgs e)
@@ -67,10 +76,9 @@ namespace AsepStudios.UI
         {
             DestroyService.ClearChildren(lobbyPlayerRectsTransform);
 
-            foreach(Player player in Lobby.Instance.GetPlayers())
+            foreach(var player in Lobby.Instance.GetPlayers())
             {
-                LobbyPlayerRect playerRect = Instantiate(lobbyPlayerRectPrefab, lobbyPlayerRectsTransform);
-                playerRect.SetLobbyPlayerRect(player);
+                Instantiate(lobbyPlayerRectPrefab, lobbyPlayerRectsTransform).SetLobbyPlayerRect(player);
             }
         }
 

@@ -14,10 +14,6 @@ public class Test : MonoBehaviour
         {
             Debug.Log(Lobby.Instance.GetPlayers().Count);
         }
-
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            LocalPlayer.Instance.TestChangeName("asdasd");
-        }
+        
     }
 }

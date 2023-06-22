@@ -1,3 +1,5 @@
+using AsepStudios.Mechanic.GameCore;
+using AsepStudios.Mechanic.GameCore.Enum;
 using AsepStudios.SceneManagement;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
@@ -40,13 +42,39 @@ public static class ConnectionService
 
     private static void ConnectAsHost()
     {
+        NetworkManager.Singleton.ConnectionApprovalCallback = ApprovalCheck;
         NetworkManager.Singleton.StartHost();
         NetworkManager.Singleton.SceneManager.LoadScene(UnityScene.GameScene.ToString(), UnityEngine.SceneManagement.LoadSceneMode.Single);
     }
+    
+    private static void ApprovalCheck(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse response)
+    {
+        if (NetworkManager.Singleton.LocalClientId == request.ClientNetworkId)
+        {
+            response.Approved = true;
+            return;
+
+        }
+        if (Game.Instance != null)
+        {
+            if (Game.Instance.GameState.Value == GameState.NotStarted)
+            {
+                response.Approved = true;
+                return;
+            }
+        }
+        response.Reason = "Game is already started";
+        response.Approved = false;
+        return;
+    }
+
+
 
     private static void SetConnectionData(string ipAddress, ushort port = 7777)
     {
         NetworkManager.Singleton.GetComponent<UnityTransport>().ConnectionData.Address = ipAddress;
         NetworkManager.Singleton.GetComponent<UnityTransport>().ConnectionData.Port = port;
     }
+    
+
 }

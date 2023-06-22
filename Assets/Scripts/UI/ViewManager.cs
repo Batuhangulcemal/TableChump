@@ -9,7 +9,7 @@ namespace AsepStudios.UI
     {
         private static ViewManager instance;
 
-        private View activeView;
+        public View activeView;
         private ViewRefHolder RefHolder => GetViewSystemRefHolder();
         private ViewRefHolder refHolder;
         private List<View> ViewList => RefHolder.ViewList;
