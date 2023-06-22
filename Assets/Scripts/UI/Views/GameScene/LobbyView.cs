@@ -34,7 +34,6 @@ namespace AsepStudios.UI
                     {
                         Game.Instance.StartGame();
                     }
-                    Debug.Log(Lobby.Instance.IsAllReady ? "StartGame" : "Someones is not ready");
                 });
             }
 
@@ -46,11 +45,12 @@ namespace AsepStudios.UI
             });
             
             RefreshPlayerList();
-
         }
 
-        protected void OnDestroy()
+        protected override void OnDisable()
         {
+            base.OnDisable();
+            
             Lobby.Instance.OnPlayerListChanged -= Lobby_OnPlayerListChanged;
             LocalPlayer.Instance.OnPlayerAttached -= LocalPlayer_OnPlayerAttached;
             LocalPlayer.Instance.Player.OnAnyPlayerPropertyChanged -= Player_OnAnyPlayerPropertyChanged;
