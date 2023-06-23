@@ -23,14 +23,14 @@ namespace AsepStudios.UI
 
         private void Start()
         {
-            Initialize();
+            //Initialize();
         }
 
-        private void Initialize()
+        public static void Initialize()
         {
-            if (DefaultView != null)
+            if (instance.DefaultView != null)
             {
-                OpenView(DefaultView);
+                instance.OpenView(instance.DefaultView);
             }
         }
 

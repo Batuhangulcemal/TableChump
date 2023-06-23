@@ -16,6 +16,7 @@ namespace AsepStudios.Mechanic.LobbyCore
         public event EventHandler OnLobbyNameChanged;
         public bool IsHostPlayerActive => NetworkManager.Singleton.IsHost;
         public bool IsAllReady => GetIsAllReady();
+        public int PlayerCount => players.Count;
 
         private NetworkVariable<FixedString32Bytes> lobbyName = new("");
         private NetworkList<PlayerData> players;

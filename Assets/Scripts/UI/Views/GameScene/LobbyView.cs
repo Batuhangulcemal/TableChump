@@ -19,7 +19,7 @@ namespace AsepStudios.UI
         [SerializeField] private LobbyPlayerRect lobbyPlayerRectPrefab;
 
         [SerializeField] private Button backButton;
-        [SerializeField] private Button readyButton;
+        [SerializeField] private ButtonBase readyButton;
         [SerializeField] private Button startButton;
         
         protected override void OnEnable()
@@ -28,7 +28,7 @@ namespace AsepStudios.UI
             
             Lobby.Instance.OnPlayerListChanged += Lobby_OnPlayerListChanged;
             Lobby.Instance.OnLobbyNameChanged += Lobby_OnLobbyNameChanged;
-            LocalPlayer.Instance.OnPlayerAttached += LocalPlayer_OnPlayerAttached;
+            LocalPlayer.Instance.Player.OnAnyPlayerPropertyChanged += Player_OnAnyPlayerPropertyChanged;
             
             if (Lobby.Instance.IsHostPlayerActive)
             {
@@ -36,7 +36,7 @@ namespace AsepStudios.UI
                 youAreTheHostText.gameObject.SetActive(true);
                 startButton.onClick.AddListener(() =>
                 {
-                    if (Lobby.Instance.IsAllReady)
+                    if (Lobby.Instance.IsAllReady && Lobby.Instance.PlayerCount >= 2)
                     {
                         Game.Instance.StartGame();
                     }
@@ -45,7 +45,7 @@ namespace AsepStudios.UI
             
             backButton.onClick.AddListener(ConnectionService.Disconnect);
 
-            readyButton.onClick.AddListener(() =>
+            readyButton.OnClick.AddListener(() =>
             {
                 LocalPlayer.Instance.Player.SetReady(!LocalPlayer.Instance.Player.GetReady());
             });
@@ -60,9 +60,10 @@ namespace AsepStudios.UI
             
             Lobby.Instance.OnPlayerListChanged -= Lobby_OnPlayerListChanged;
             Lobby.Instance.OnLobbyNameChanged -= Lobby_OnLobbyNameChanged;
-            LocalPlayer.Instance.OnPlayerAttached -= LocalPlayer_OnPlayerAttached;
             LocalPlayer.Instance.Player.OnAnyPlayerPropertyChanged -= Player_OnAnyPlayerPropertyChanged;
         }
+
+
 
         private void Lobby_OnPlayerListChanged(object sender, EventArgs e)
         {
@@ -73,13 +74,7 @@ namespace AsepStudios.UI
         {
             RefreshLobbyName();
         }
-
-        private void LocalPlayer_OnPlayerAttached(object sender, EventArgs e)
-        {
-            LocalPlayer.Instance.Player.OnAnyPlayerPropertyChanged += Player_OnAnyPlayerPropertyChanged;
-            SetReadyButton();
-        }
-
+        
         private void Player_OnAnyPlayerPropertyChanged(object sender, EventArgs e)
         {
             SetReadyButton();
@@ -102,8 +97,8 @@ namespace AsepStudios.UI
 
         private void SetReadyButton()
         {
-            if (readyButton == null) return;
-            readyButton.name = LocalPlayer.Instance.Player.GetReady() ? "ready" : "notReady";
+            readyButton.Text.text = LocalPlayer.Instance.Player.GetReady() ? "READY" : "NOT READY";
+            readyButton.ButtonColor = LocalPlayer.Instance.Player.GetReady() ? ResourceProvider.Colors.Orange : ResourceProvider.Colors.Beach;
         }
     }
 }

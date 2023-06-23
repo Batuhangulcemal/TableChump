@@ -192,7 +192,7 @@ MonoBehaviour:
   lobbyPlayerRectsTransform: {fileID: 2873929453078685564}
   lobbyPlayerRectPrefab: {fileID: 6783462020682832676, guid: 75d0c3a01755e9c4e89740d67c904ad0, type: 3}
   backButton: {fileID: 3116659140922082384}
-  readyButton: {fileID: 5471449646144169967}
+  readyButton: {fileID: 4656357456664640589}
   startButton: {fileID: 1041001026917127788}
 --- !u!1 &3252014413714255797
 GameObject:
@@ -207,6 +207,7 @@ GameObject:
   - component: {fileID: 2967456861449324715}
   - component: {fileID: 5471449646144169967}
   - component: {fileID: 692991260690972841}
+  - component: {fileID: 4656357456664640589}
   m_Layer: 5
   m_Name: ReadyButton
   m_TagString: Untagged
@@ -332,6 +333,18 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0.30588236, b: 0.5372549, a: 1}
   m_EffectDistance: {x: 3, y: 3}
   m_UseGraphicAlpha: 1
+--- !u!114 &4656357456664640589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3252014413714255797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f4eca17e0c74053b1b12aaa6e886306, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4200657889783478834
 GameObject:
   m_ObjectHideFlags: 0
@@ -1072,7 +1085,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: READY
+  m_text: NOT READY
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0ea02ddb0789e804bb995edd9070a1b7, type: 2}
   m_sharedMaterial: {fileID: -138961156700816910, guid: 0ea02ddb0789e804bb995edd9070a1b7, type: 2}
