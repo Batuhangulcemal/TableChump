@@ -29,7 +29,7 @@ namespace AsepStudios.Mechanic.PlayerCore.LocalPlayerCore
         {
             if (Game.Instance.GameState.Value == GameState.NotStarted)
             {
-                Player.SetReady(false);
+                Player.SetReadyLocal(false);
             }
         }
     }

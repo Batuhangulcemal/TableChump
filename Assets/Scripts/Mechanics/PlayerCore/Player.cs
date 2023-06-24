@@ -4,12 +4,17 @@ using System;
 using AsepStudios.Mechanic.LobbyCore;
 using Unity.Collections;
 using Unity.Netcode;
+using UnityEngine;
 
 namespace AsepStudios.Mechanic.PlayerCore
 {
+    [RequireComponent(typeof(GamePlayer))]
     public class Player : NetworkBehaviour
     {
         public event EventHandler OnAnyPlayerPropertyChanged;
+        
+        public GamePlayer GamePlayer => GetGamePlayer();
+        private GamePlayer gamePlayer;
 
         private readonly NetworkVariable<FixedString32Bytes> username = new("",
             NetworkVariableReadPermission.Everyone,
@@ -45,7 +50,35 @@ namespace AsepStudios.Mechanic.PlayerCore
             avatarIndex.OnValueChanged += AvatarIndexOnValueChanged;
             ready.OnValueChanged += ReadyOnValueChanged;
         }
+        
+        public string GetUsername()
+        {
+            return username.Value.ToString();
+        }
+        public int GetAvatarIndex()
+        {
+            return avatarIndex.Value;
+        }
+        public bool GetReady()
+        {
+            return ready.Value;
+        }
+        
+        public void SetReadyLocal(bool newReady)
+        {
+            ready.Value = newReady;
+        }
 
+        private GamePlayer GetGamePlayer()
+        {
+            if (gamePlayer == null)
+            {
+                gamePlayer = GetComponent<GamePlayer>();
+            }
+
+            return gamePlayer;
+        }
+        
         private void AvatarIndexOnValueChanged(int previousvalue, int newvalue)
         {
             OnAnyPlayerPropertyChanged?.Invoke(this, EventArgs.Empty);
@@ -61,22 +94,8 @@ namespace AsepStudios.Mechanic.PlayerCore
             OnAnyPlayerPropertyChanged?.Invoke(this, EventArgs.Empty);
         }
 
-        public string GetUsername()
-        {
-            return username.Value.ToString();
-        }
-        public int GetAvatarIndex()
-        {
-            return avatarIndex.Value;
-        }
-        public bool GetReady()
-        {
-            return ready.Value;
-        }
-        internal void SetReady(bool newReady)
-        {
-            ready.Value = newReady;
-        }
+
+ 
     }
 
 }

@@ -18,7 +18,7 @@ namespace AsepStudios.Mechanic.LobbyCore
         public bool IsAllReady => GetIsAllReady();
         public int PlayerCount => players.Count;
 
-        private NetworkVariable<FixedString32Bytes> lobbyName = new("");
+        private readonly NetworkVariable<FixedString32Bytes> lobbyName = new("");
         private NetworkList<PlayerData> players;
         
 
@@ -69,7 +69,6 @@ namespace AsepStudios.Mechanic.LobbyCore
 
         public List<Player> GetPlayers()
         {
-
             List<Player> playerList = new();
 
             foreach(var playerData in players)

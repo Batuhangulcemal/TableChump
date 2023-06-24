@@ -14,7 +14,7 @@ public class ResourceProvider : MonoBehaviour
     [SerializeField] private ColorPaletteSo colorPaletteSo;
     [SerializeField] private AvatarSo avatarSo;
 
-    private void Awake()
+    public void Initialize()
     {
         Instance = this;
         DontDestroyOnLoad(this);

@@ -28,7 +28,7 @@ namespace AsepStudios.UI
             
             Lobby.Instance.OnPlayerListChanged += Lobby_OnPlayerListChanged;
             Lobby.Instance.OnLobbyNameChanged += Lobby_OnLobbyNameChanged;
-            LocalPlayer.Instance.Player.OnAnyPlayerPropertyChanged += Player_OnAnyPlayerPropertyChanged;
+            LocalPlayer.Instance.OnPlayerAttached += LocalPlayer_OnPlayerAttached;
             
             if (Lobby.Instance.IsHostPlayerActive)
             {
@@ -36,7 +36,7 @@ namespace AsepStudios.UI
                 youAreTheHostText.gameObject.SetActive(true);
                 startButton.onClick.AddListener(() =>
                 {
-                    if (Lobby.Instance.IsAllReady && Lobby.Instance.PlayerCount >= 2)
+                    if (Lobby.Instance.IsAllReady && Lobby.Instance.PlayerCount >= 0)
                     {
                         Game.Instance.StartGame();
                     }
@@ -47,38 +47,33 @@ namespace AsepStudios.UI
 
             readyButton.OnClick.AddListener(() =>
             {
-                LocalPlayer.Instance.Player.SetReady(!LocalPlayer.Instance.Player.GetReady());
+                LocalPlayer.Instance.Player.SetReadyLocal(!LocalPlayer.Instance.Player.GetReady());
             });
             
             RefreshPlayerList();
             RefreshLobbyName();
         }
-
+        
         protected override void OnDisable()
         {
             base.OnDisable();
             
             Lobby.Instance.OnPlayerListChanged -= Lobby_OnPlayerListChanged;
             Lobby.Instance.OnLobbyNameChanged -= Lobby_OnLobbyNameChanged;
+            LocalPlayer.Instance.OnPlayerAttached -= LocalPlayer_OnPlayerAttached;
             LocalPlayer.Instance.Player.OnAnyPlayerPropertyChanged -= Player_OnAnyPlayerPropertyChanged;
         }
-
-
-
-        private void Lobby_OnPlayerListChanged(object sender, EventArgs e)
+        
+        private void LocalPlayer_OnPlayerAttached(object sender, EventArgs e)
         {
-            RefreshPlayerList();
+            LocalPlayer.Instance.Player.OnAnyPlayerPropertyChanged += Player_OnAnyPlayerPropertyChanged;
         }
         
-        private void Lobby_OnLobbyNameChanged(object sender, EventArgs e)
-        {
-            RefreshLobbyName();
-        }
+        private void Lobby_OnPlayerListChanged(object sender, EventArgs e) { RefreshPlayerList(); }
         
-        private void Player_OnAnyPlayerPropertyChanged(object sender, EventArgs e)
-        {
-            SetReadyButton();
-        }
+        private void Lobby_OnLobbyNameChanged(object sender, EventArgs e) { RefreshLobbyName(); }
+        
+        private void Player_OnAnyPlayerPropertyChanged(object sender, EventArgs e) { SetReadyButton(); }
 
         private void RefreshPlayerList()
         {
@@ -90,10 +85,7 @@ namespace AsepStudios.UI
             }
         }
 
-        private void RefreshLobbyName()
-        {
-            lobbyNameText.text = Lobby.Instance.GetLobbyName();
-        }
+        private void RefreshLobbyName() { lobbyNameText.text = Lobby.Instance.GetLobbyName(); }
 
         private void SetReadyButton()
         {

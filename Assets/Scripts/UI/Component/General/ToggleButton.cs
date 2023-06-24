@@ -6,8 +6,8 @@ namespace AsepStudios.UI
 {
     public class ToggleButton : ButtonBase
     {
-        private readonly Color onColor = ResourceProvider.Colors.Orange;
-        private readonly Color offColor = ResourceProvider.Colors.Cream;
+        private Color OnColor => ResourceProvider.Colors.Orange;
+        private Color OffColor => ResourceProvider.Colors.Cream;
         
         public bool IsOn { get; private set; } = false;
 
@@ -20,7 +20,7 @@ namespace AsepStudios.UI
         {
             IsOn = value;
 
-            ButtonColor = value ? onColor : offColor;
+            ButtonColor = value ? OnColor : OffColor;
         }
     }
 }
