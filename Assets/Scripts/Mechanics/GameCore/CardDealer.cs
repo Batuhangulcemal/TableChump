@@ -2,20 +2,39 @@
 using System.Linq;
 using AsepStudios.Mechanic.PlayerCore;
 using AsepStudios.Utils;
+using UnityEngine.UIElements;
 
 namespace AsepStudios.Mechanic.GameCore
 {
     public class CardDealer
     {
         private static readonly List<int> Cards = Enumerable.Range(1, 200).ToList();
-        public static void DealCardsToPlayers(List<GamePlayer> players)
+
+        public static void DealCards(List<Player> players, Board board)
         {
             Cards.Shuffle();
+            DealCardsToPlayers(players);
+            DealCardsToBoard(board);
+        }
+        public static void RemoveAllCardsFromPlayers(List<Player> players)
+        {
+            foreach (var player in players)
+            {
+                player.GamePlayer.ClearCards();
+            }
+        }
+        private static void DealCardsToPlayers(List<Player> players)
+        {
             for (var index = 0; index < players.Count; index++)
             {
-                var player = players[index];
+                var player = players[index].GamePlayer;
                 player.SetCards(Cards.GetRange(index * 10, 10));
             }
+        }
+
+        private static void DealCardsToBoard(Board board)
+        {
+            board.PutInitialCards(Cards.TakeLast(4).ToList());
         }
     }
 }

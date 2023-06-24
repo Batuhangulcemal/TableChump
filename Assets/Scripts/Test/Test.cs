@@ -15,7 +15,6 @@ public class Test : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.T))
         {
             CardDealer cardDealer = new CardDealer();
-            CardDealer.DealCardsToPlayers(null);
         }
         
     }

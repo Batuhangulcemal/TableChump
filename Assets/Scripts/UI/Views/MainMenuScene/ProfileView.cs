@@ -36,7 +36,7 @@ namespace AsepStudios.UI
             });
 
             CreateAvatarButtons();
-            AssingAvatarButtonOnClicks();
+            AssignAvatarButtonOnClicks();
         }
 
 
@@ -73,7 +73,7 @@ namespace AsepStudios.UI
             }
         }
         
-        private void AssingAvatarButtonOnClicks()
+        private void AssignAvatarButtonOnClicks()
         {
             foreach (var button in avatarButtons)
             {

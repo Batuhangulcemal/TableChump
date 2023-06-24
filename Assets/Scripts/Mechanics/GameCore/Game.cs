@@ -1,5 +1,6 @@
 ﻿using System;
 using AsepStudios.Mechanic.GameCore.Enum;
+using AsepStudios.Mechanic.LobbyCore;
 using AsepStudios.UI;
 using Unity.Netcode;
 using UnityEngine;
@@ -10,7 +11,10 @@ namespace AsepStudios.Mechanic.GameCore
     {
         public event EventHandler OnGameStateChanged;
         public static Game Instance { get; private set; }
-        
+
+        [SerializeField] private Board board;
+        public Board Board => board;
+
         public readonly NetworkVariable<GameState> GameState = new();
 
         private readonly NetworkVariable<bool> isGameInitialized = new();
@@ -36,9 +40,11 @@ namespace AsepStudios.Mechanic.GameCore
         {
             if (isGameInitialized.Value) return;
 
-            isGameInitialized.Value = true;
+            board.Initialize();
             
-            //Deal Cards
+            isGameInitialized.Value = true;
+            Debug.Log("Deal Cards");
+            CardDealer.DealCards(Lobby.Instance.GetPlayers(), board);
             
         }
         
@@ -46,7 +52,12 @@ namespace AsepStudios.Mechanic.GameCore
         {
             if (!isGameInitialized.Value) return;
 
+            board.Reset();
+            
             isGameInitialized.Value = false;
+            CardDealer.RemoveAllCardsFromPlayers(Lobby.Instance.GetPlayers());
+
+            
             
         }
         
@@ -57,7 +68,7 @@ namespace AsepStudios.Mechanic.GameCore
                 Debug.LogWarning("Clients can not change game state!");
                 return;
             }
-
+            
             switch (gameState)
             {
                 case Enum.GameState.NotStarted:
@@ -71,9 +82,9 @@ namespace AsepStudios.Mechanic.GameCore
                 case Enum.GameState.Over:
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(gameState), gameState, null);
+                    throw new ArgumentOutOfRangeException();
             }
-
+            
             GameState.Value = gameState;
         }
 
@@ -89,9 +100,11 @@ namespace AsepStudios.Mechanic.GameCore
             {
                 case Enum.GameState.NotStarted:
                     ViewManager.ShowView<LobbyView>();
+                    TryResetGame();
                     break;
                 case Enum.GameState.Playing:
                     ViewManager.ShowView<GameView>();
+                    TryInitializeGame();
                     break;
                 case Enum.GameState.Paused:
                     ViewManager.ShowView<PauseView>();
