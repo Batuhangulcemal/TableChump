@@ -1,14 +1,22 @@
+using System;
 using AsepStudios.Mechanic.GameCore;
 using AsepStudios.Mechanic.GameCore.Enum;
+using AsepStudios.Mechanic.LobbyCore;
 using AsepStudios.SceneManagement;
+using AsepStudios.Utils;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public static class ConnectionService
 {
     public static void Disconnect()
     {
-        Loader.Load(UnityScene.MainMenuScene);
+        if (SceneManager.GetActiveScene().name != UnityScene.MainMenuScene.ToString())
+        {
+            Loader.Load(UnityScene.MainMenuScene);
+        }
         NetworkManager.Singleton.Shutdown();
     }
 
@@ -37,7 +45,15 @@ public static class ConnectionService
     
     private static void ConnectAsClient()
     {
-        NetworkManager.Singleton.StartClient();
+        try
+        {
+            NetworkManager.Singleton.StartClient();
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e.Message);
+        }
+        
     }
 
     private static void ConnectAsHost()
@@ -51,21 +67,33 @@ public static class ConnectionService
     {
         if (NetworkManager.Singleton.LocalClientId == request.ClientNetworkId)
         {
+            //Host player, always approve
             response.Approved = true;
             return;
 
         }
-        if (Game.Instance != null)
+        if (Game.Instance == null)
         {
-            if (Game.Instance.GameState.Value == GameState.NotStarted)
-            {
-                response.Approved = true;
-                return;
-            }
+            response.Reason = ErrorMessage.RoomIsBeingCreated;
+            response.Approved = false;
+            return;
         }
-        response.Reason = "Game is already started";
-        response.Approved = false;
-        return;
+
+        if (Game.Instance.GameState.Value != GameState.NotStarted)
+        {
+            response.Reason = ErrorMessage.GameAlreadyStarted;
+            response.Approved = false;
+            return;
+        }
+
+        if (Lobby.Instance.PlayerCount >= 8) //let the host player set the max count
+        {
+            response.Reason = ErrorMessage.RoomIsFull;
+            response.Approved = false;
+            return;
+        }
+
+        response.Approved = true;
     }
 
 
