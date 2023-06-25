@@ -11,11 +11,19 @@ namespace AsepStudios.Mechanic.PlayerCore
         public event EventHandler OnCardsChanged; 
         public event EventHandler OnPointChanged;
         public event EventHandler OnChosenCardChanged;
-        
-        private readonly NetworkVariable<int> point = new();
-        private readonly NetworkList<int> cards = new();
-        private readonly NetworkVariable<int> chosenCard = new(0);
+
+        private NetworkVariable<int> point;
+        private NetworkList<int> cards;
+        private NetworkVariable<int> chosenCard;
         public bool IsChoseCard => chosenCard.Value != 0;
+
+        private void Awake()
+        {
+            point = new();
+            cards = new();
+            chosenCard = new();
+        }
+
         public override void OnNetworkSpawn()
         {
             cards.OnListChanged += CardsOnListChanged;
@@ -36,7 +44,7 @@ namespace AsepStudios.Mechanic.PlayerCore
         public void SetCards(List<int> cards)
         {
             ClearCards();
-            point.Value = 80;
+            point.Value = 40;
             chosenCard.Value = 0;
 
             foreach (var card in cards)
@@ -72,7 +80,7 @@ namespace AsepStudios.Mechanic.PlayerCore
             chosenCard.Value = 0;
         }
 
-        public void ClearCards()
+        private void ClearCards()
         {
             cards.Clear();
         }

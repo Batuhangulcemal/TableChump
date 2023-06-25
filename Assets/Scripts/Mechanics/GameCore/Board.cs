@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AsepStudios.Mechanic.LobbyCore;
 using AsepStudios.Mechanic.PlayerCore;
 using Unity.Collections;
@@ -13,18 +15,28 @@ namespace AsepStudios.Mechanic.GameCore
     {
         public event EventHandler OnBoardChanged;
 
-        private readonly NetworkList<int> firstRow = new();
-        private readonly NetworkList<int> secondRow = new();
-        private readonly NetworkList<int> thirdRow = new();
-        private readonly NetworkList<int> fourthRow = new();
+        private NetworkList<int> firstRow;
+        private NetworkList<int> secondRow;
+        private NetworkList<int> thirdRow;
+        private NetworkList<int> fourthRow;
 
-        private readonly NetworkList<int> chosenCards = new();
-        private readonly NetworkList<ulong> chosenCardsPlayers = new();
+        private NetworkList<int> chosenCards;
+        private NetworkList<ulong> chosenCardsPlayers;
         
         public List<NetworkList<int>> board => GetBoard();
         public NetworkList<int> ChosenCards => chosenCards;
         public NetworkList<ulong> ChosenCardsPlayers => chosenCardsPlayers;
-        
+
+        private void Awake()
+        {
+            firstRow = new();
+            secondRow = new();
+            thirdRow = new();
+            fourthRow = new();
+            chosenCards = new();
+            chosenCardsPlayers = new();
+        }
+
         public void Initialize()
         {
             CardDealer.DealCards(Lobby.Instance.GetPlayers(), this);
@@ -43,7 +55,12 @@ namespace AsepStudios.Mechanic.GameCore
                 board[index].Clear();
                 board[index].Add(initialCards[index]);
             }
-            OnBoardChanged?.Invoke(this,EventArgs.Empty);
+            
+            chosenCards.Clear();
+            ChosenCardsPlayers.Clear();
+            
+            StartCoroutine(CallOnBoardChanged());
+
         }
 
         public List<NetworkList<int>> GetBoard()
@@ -78,7 +95,11 @@ namespace AsepStudios.Mechanic.GameCore
             }
             else
             {
-                //let player choose which row to take
+                //this code is temporary
+                var totalPoint = CalculateTotalPointInRow(0);
+                gamePlayer.DecreasePoint(totalPoint);
+                board[0].Clear();
+                board[0].Add(card);
             }
         }
 
@@ -119,7 +140,7 @@ namespace AsepStudios.Mechanic.GameCore
                 
                 //Remove chosen cards from players
                 RemoveChosenCardsFromPlayers();
-                OnBoardChanged?.Invoke(this,EventArgs.Empty);
+                StartCoroutine(CallOnBoardChanged());
 
             }
         }
@@ -183,15 +204,25 @@ namespace AsepStudios.Mechanic.GameCore
         {
             int result = 0;
 
-            foreach (var card in board[rowIndex])
+            foreach (var cardNumber in board[rowIndex])
             {
                 //calculate point from number 
-                
-                //this is tmp
-                result += card;
+                result += CardPointCalculator.Calculate(cardNumber);
             }
 
             return result;
+        }
+
+        private IEnumerator CallOnBoardChanged()
+        {
+            yield return new WaitForSeconds(0.5f);
+            CallOnBoardChangedClientRpc();
+        }
+    
+        [ClientRpc]
+        private void CallOnBoardChangedClientRpc()
+        {
+            OnBoardChanged?.Invoke(this,EventArgs.Empty);
         }
         
         

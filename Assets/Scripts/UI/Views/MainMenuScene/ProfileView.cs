@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using AsepStudios.App;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace AsepStudios.UI
@@ -9,13 +10,13 @@ namespace AsepStudios.UI
     public class ProfileView : View
     {
         [SerializeField] private Transform profileAvatarButtonsTransform;
-        [SerializeField] private ToggleButton profileAvatarButtonPrefab;
+        [SerializeField] private ProfileAvatarButton profileAvatarButtonBasePrefab;
         [SerializeField] private TMP_InputField usernameInputField;
 
         [SerializeField] private Button backButton;
 
         private bool isGoingToPlayGame;
-        private List<ToggleButton> avatarButtons = new();
+        private List<ProfileAvatarButton> avatarButtons = new();
         private int chosenAvatarIndex = -1;
 
         protected override void OnEnable()
@@ -67,7 +68,7 @@ namespace AsepStudios.UI
         {
             foreach (var sprite in ResourceProvider.Avatars)
             {
-                var avatarButton = Instantiate(profileAvatarButtonPrefab, profileAvatarButtonsTransform);
+                var avatarButton = Instantiate(profileAvatarButtonBasePrefab, profileAvatarButtonsTransform);
                 avatarButtons.Add(avatarButton);
                 avatarButton.ButtonSprite = sprite;
             }
@@ -81,7 +82,7 @@ namespace AsepStudios.UI
                 {
                     SetOfAllAvatarButtons();
                     chosenAvatarIndex = ResourceProvider.GetIndexFromSprite(button.ButtonSprite);
-                    button.SetOn(true);
+                    button.Highlight(true);
                 });
             }
         }
@@ -90,7 +91,7 @@ namespace AsepStudios.UI
         {
             foreach (var button in avatarButtons)
             {
-                button.SetOn(false);
+                button.Highlight(false);
             }
         }
     }

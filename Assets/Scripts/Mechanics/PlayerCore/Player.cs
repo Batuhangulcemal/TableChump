@@ -16,19 +16,28 @@ namespace AsepStudios.Mechanic.PlayerCore
         public GamePlayer GamePlayer => GetGamePlayer();
         private GamePlayer gamePlayer;
 
-        private readonly NetworkVariable<FixedString32Bytes> username = new("",
-            NetworkVariableReadPermission.Everyone,
-            NetworkVariableWritePermission.Owner);
-        
-        private readonly NetworkVariable<int> avatarIndex = new(0,
-            NetworkVariableReadPermission.Everyone,
-            NetworkVariableWritePermission.Owner);
+        private NetworkVariable<FixedString32Bytes> username;
 
-        private readonly NetworkVariable<bool> ready = new(false,
-            NetworkVariableReadPermission.Everyone,
-            NetworkVariableWritePermission.Owner);
-        
-        
+        private NetworkVariable<int> avatarIndex;
+
+        private NetworkVariable<bool> ready;
+
+        private void Awake()
+        {
+            username = new("",
+                NetworkVariableReadPermission.Everyone,
+                NetworkVariableWritePermission.Owner);
+            
+            avatarIndex = new(0,
+                NetworkVariableReadPermission.Everyone,
+                NetworkVariableWritePermission.Owner);
+            
+            ready = new(false,
+                NetworkVariableReadPermission.Everyone,
+                NetworkVariableWritePermission.Owner);
+
+        }
+
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();

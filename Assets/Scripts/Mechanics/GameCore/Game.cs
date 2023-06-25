@@ -1,6 +1,7 @@
 ﻿using System;
 using AsepStudios.Mechanic.GameCore.Enum;
 using AsepStudios.Mechanic.LobbyCore;
+using AsepStudios.Mechanic.PlayerCore.LocalPlayerCore;
 using AsepStudios.UI;
 using Unity.Netcode;
 using UnityEngine;
@@ -94,12 +95,17 @@ namespace AsepStudios.Mechanic.GameCore
             switch (GameState.Value)
             {
                 case Enum.GameState.NotStarted:
-                    ViewManager.ShowView<LobbyView>();
-                    TryResetGame();
+                    if (LocalPlayer.Instance.Player != null)
+                    {
+                        ViewManager.ShowView<LobbyView>();
+                    }
+                    else
+                    {
+                        ViewManager.ShowView<WaitLocalPlayerView>();
+                    }
                     break;
                 case Enum.GameState.Playing:
                     ViewManager.ShowView<GameView>();
-                    TryInitializeGame();
                     break;
                 case Enum.GameState.Paused:
                     ViewManager.ShowView<PauseView>();

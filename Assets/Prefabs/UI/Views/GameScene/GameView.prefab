@@ -92,7 +92,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardImage: {fileID: 8271291864312515378}
+  outline: {fileID: 0}
   numberText: {fileID: 0}
+  senderUsernameText: {fileID: 0}
 --- !u!114 &5914054522825852074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,7 +301,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardImage: {fileID: 3428560257195866974}
+  outline: {fileID: 0}
   numberText: {fileID: 0}
+  senderUsernameText: {fileID: 0}
 --- !u!114 &327642654092720646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -531,7 +535,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardImage: {fileID: 4571576561383843152}
+  outline: {fileID: 0}
   numberText: {fileID: 0}
+  senderUsernameText: {fileID: 0}
 --- !u!114 &4258102564109778991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -800,7 +806,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardImage: {fileID: 4013789106185979896}
+  outline: {fileID: 0}
   numberText: {fileID: 0}
+  senderUsernameText: {fileID: 0}
 --- !u!114 &3053881886882766934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1175,7 +1183,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardImage: {fileID: 3081432387926372512}
+  outline: {fileID: 0}
   numberText: {fileID: 0}
+  senderUsernameText: {fileID: 0}
 --- !u!114 &1651229456652780348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1327,7 +1337,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardImage: {fileID: 7575490806855578133}
+  outline: {fileID: 0}
   numberText: {fileID: 0}
+  senderUsernameText: {fileID: 0}
 --- !u!114 &7983023279812161334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1479,7 +1491,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardImage: {fileID: 196131322458284541}
+  outline: {fileID: 0}
   numberText: {fileID: 0}
+  senderUsernameText: {fileID: 0}
 --- !u!114 &4620886372796204444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1631,7 +1645,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardImage: {fileID: 2971861075885495469}
+  outline: {fileID: 0}
   numberText: {fileID: 0}
+  senderUsernameText: {fileID: 0}
 --- !u!114 &263668212462752371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1723,8 +1739,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2494393453234290208}
+  m_Children: []
   m_Father: {fileID: 1034105729398828982}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1784,7 +1799,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardImage: {fileID: 4590185771473950202}
+  outline: {fileID: 0}
   numberText: {fileID: 0}
+  senderUsernameText: {fileID: 0}
 --- !u!114 &2856390135277203248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1936,7 +1953,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardImage: {fileID: 8875369317285059301}
+  outline: {fileID: 0}
   numberText: {fileID: 0}
+  senderUsernameText: {fileID: 0}
 --- !u!114 &2661365305194876335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2088,7 +2107,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardImage: {fileID: 2088759647826499937}
+  outline: {fileID: 0}
   numberText: {fileID: 0}
+  senderUsernameText: {fileID: 0}
 --- !u!114 &4925387041190978000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2148,42 +2169,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!1 &5133176389903157041
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2494393453234290208}
-  m_Layer: 5
-  m_Name: Transform
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &2494393453234290208
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5133176389903157041}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4568635193242189732}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5239177780678331623
 GameObject:
   m_ObjectHideFlags: 0
@@ -2276,7 +2261,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardImage: {fileID: 5326356485275733484}
+  outline: {fileID: 0}
   numberText: {fileID: 0}
+  senderUsernameText: {fileID: 0}
 --- !u!114 &5166163466599946618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2428,7 +2415,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardImage: {fileID: 4317274762742184895}
+  outline: {fileID: 0}
   numberText: {fileID: 0}
+  senderUsernameText: {fileID: 0}
 --- !u!114 &5435074469618763262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2620,7 +2609,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardPrefab: {fileID: -167148856064728327, guid: da3d8d6bb1470524baf2edbdb717e1a0, type: 3}
   firstRowTransform:
-  - {fileID: 2494393453234290208}
+  - {fileID: 4568635193242189732}
   - {fileID: 6524425850370862605}
   - {fileID: 8382953021449100280}
   - {fileID: 6898085548682454899}
@@ -2849,7 +2838,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardImage: {fileID: 5128291552204823473}
+  outline: {fileID: 0}
   numberText: {fileID: 0}
+  senderUsernameText: {fileID: 0}
 --- !u!114 &1934532218517607860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3136,7 +3127,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardImage: {fileID: 8994589141189987956}
+  outline: {fileID: 0}
   numberText: {fileID: 0}
+  senderUsernameText: {fileID: 0}
 --- !u!114 &7204520417365753728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3288,7 +3281,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardImage: {fileID: 3888049391212712166}
+  outline: {fileID: 0}
   numberText: {fileID: 0}
+  senderUsernameText: {fileID: 0}
 --- !u!114 &6964376851344784458
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 using AsepStudios.Mechanic.PlayerCore;
 using System;
+using AsepStudios.Utils;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -19,6 +20,7 @@ namespace AsepStudios.UI
 
         public void SetLobbyPlayerRect(Player player)
         {
+            Debug.Log("Playeeer");
             this.player = player;
             this.player.OnAnyPlayerPropertyChanged += Player_OnAnyPlayerPropertyChanged;
 
@@ -28,7 +30,11 @@ namespace AsepStudios.UI
 
         private void OnDestroy()
         {
-            player.OnAnyPlayerPropertyChanged -= Player_OnAnyPlayerPropertyChanged;
+            if (player != null)
+            {
+                player.OnAnyPlayerPropertyChanged -= Player_OnAnyPlayerPropertyChanged;
+            }
+
         }
 
         private void Player_OnAnyPlayerPropertyChanged(object sender, EventArgs e)
@@ -40,12 +46,12 @@ namespace AsepStudios.UI
         {
             userNameText.text = player.GetUsername();
             
-            outline.effectColor = player.GetReady() ? ResourceProvider.Colors.Green : ResourceProvider.Colors.Red;
+            outline.effectColor = player.GetReady() ? ColorService.Green : ColorService.Red;
             avatarImage.sprite = ResourceProvider.GetAvatarFromIndex(player.GetAvatarIndex());
             
             rectImage.color = player.IsLocalPlayer ?
-                ResourceProvider.Colors.Navy : player.IsOwnedByServer ?
-                    ResourceProvider.Colors.Orange : ResourceProvider.Colors.Beach;
+                ColorService.Navy : player.IsOwnedByServer ?
+                    ColorService.Orange : ColorService.Beach;
             
             identifierText.text = player.IsLocalPlayer ?
                 "YOU" : player.IsOwnedByServer ?

@@ -2,13 +2,12 @@
 using System.Linq;
 using AsepStudios.Mechanic.PlayerCore;
 using AsepStudios.Utils;
-using UnityEngine.UIElements;
 
 namespace AsepStudios.Mechanic.GameCore
 {
     public class CardDealer
     {
-        private static readonly List<int> Cards = Enumerable.Range(1, 200).ToList();
+        private static readonly List<int> Cards = Enumerable.Range(1, 199).ToList();
 
         public static void DealCards(List<Player> players, Board board)
         {

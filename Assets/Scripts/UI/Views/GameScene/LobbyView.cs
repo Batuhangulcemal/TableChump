@@ -28,7 +28,8 @@ namespace AsepStudios.UI
             
             Lobby.Instance.OnPlayerListChanged += Lobby_OnPlayerListChanged;
             Lobby.Instance.OnLobbyNameChanged += Lobby_OnLobbyNameChanged;
-            LocalPlayer.Instance.OnPlayerAttached += LocalPlayer_OnPlayerAttached;
+            LocalPlayer.Instance.Player.OnAnyPlayerPropertyChanged += Player_OnAnyPlayerPropertyChanged;
+
             
             if (Lobby.Instance.IsHostPlayerActive)
             {
@@ -60,13 +61,7 @@ namespace AsepStudios.UI
             
             Lobby.Instance.OnPlayerListChanged -= Lobby_OnPlayerListChanged;
             Lobby.Instance.OnLobbyNameChanged -= Lobby_OnLobbyNameChanged;
-            LocalPlayer.Instance.OnPlayerAttached -= LocalPlayer_OnPlayerAttached;
             LocalPlayer.Instance.Player.OnAnyPlayerPropertyChanged -= Player_OnAnyPlayerPropertyChanged;
-        }
-        
-        private void LocalPlayer_OnPlayerAttached(object sender, EventArgs e)
-        {
-            LocalPlayer.Instance.Player.OnAnyPlayerPropertyChanged += Player_OnAnyPlayerPropertyChanged;
         }
         
         private void Lobby_OnPlayerListChanged(object sender, EventArgs e) { RefreshPlayerList(); }
@@ -90,7 +85,7 @@ namespace AsepStudios.UI
         private void SetReadyButton()
         {
             readyButton.Text.text = LocalPlayer.Instance.Player.GetReady() ? "READY" : "NOT READY";
-            readyButton.ButtonColor = LocalPlayer.Instance.Player.GetReady() ? ResourceProvider.Colors.Orange : ResourceProvider.Colors.Beach;
+            readyButton.ButtonColor = LocalPlayer.Instance.Player.GetReady() ? ColorService.Orange : ColorService.Beach;
         }
     }
 }

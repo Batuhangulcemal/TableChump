@@ -51,13 +51,13 @@ namespace AsepStudios.UI
                 {
                     if (chosenCard == card)
                     {
-                        card.SetOn(false);
+                        card.Highlight(false);
                         SetChosenCard(null);
                     }
                     else
                     {
                         SetOffAllCards();
-                        card.SetOn(true);
+                        card.Highlight(true);
                         SetChosenCard(card);
                     }
                 });
@@ -68,7 +68,7 @@ namespace AsepStudios.UI
         {
             foreach (var card in cards)
             {
-                card.SetOn(false);
+                card.Highlight(false);
             }
         }
 
