@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using AsepStudios.Mechanic.GameCore;
+using AsepStudios.Mechanic.LobbyCore;
 using AsepStudios.Utils;
 using UnityEngine;
 
@@ -14,6 +15,8 @@ namespace AsepStudios.UI
         [SerializeField] private List<Transform> secondRowTransform;
         [SerializeField] private List<Transform> thirdRowTransform;
         [SerializeField] private List<Transform> fourthRowTransform;
+
+        [SerializeField] private Transform chosenCardsTransform;
 
         private List<List<Transform>> boardTransforms;
 
@@ -38,7 +41,23 @@ namespace AsepStudios.UI
 
         private void OnBoardChanged(object sender, EventArgs e)
         {
+            RefreshChosenCards();
             RefreshBoard();
+        }
+
+        private void RefreshChosenCards()
+        {
+            DestroyService.ClearChildren(chosenCardsTransform);
+
+            for (var index = 0; index < Game.Instance.Board.ChosenCards.Count; index++)
+            {
+                var cardNumber = Game.Instance.Board.ChosenCards[index];
+                var playerClientId = Game.Instance.Board.ChosenCardsPlayers[index];
+
+                string userName = Lobby.Instance.GetPlayerFromClientId(playerClientId).GetUsername();
+
+                Instantiate(cardPrefab, chosenCardsTransform).SetCard(cardNumber, userName);
+            }
         }
 
         private void RefreshBoard()
@@ -49,7 +68,7 @@ namespace AsepStudios.UI
             {
                 for (var j = 0; j < Game.Instance.Board.GetBoard()[i].Count; j++)
                 {
-                    Instantiate(cardPrefab, boardTransforms[i][j], false).SetCard(Game.Instance.Board.GetBoard()[i][j]);
+                    Instantiate(cardPrefab, boardTransforms[i][j]).SetCard(Game.Instance.Board.GetBoard()[i][j]);
                 }
             }
         }

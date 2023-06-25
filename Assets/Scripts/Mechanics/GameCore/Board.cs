@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AsepStudios.Mechanic.LobbyCore;
 using AsepStudios.Mechanic.PlayerCore;
+using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -11,21 +12,18 @@ namespace AsepStudios.Mechanic.GameCore
     public class Board : NetworkBehaviour
     {
         public event EventHandler OnBoardChanged;
-            
+
         private readonly NetworkList<int> firstRow = new();
         private readonly NetworkList<int> secondRow = new();
         private readonly NetworkList<int> thirdRow = new();
         private readonly NetworkList<int> fourthRow = new();
 
+        private readonly NetworkList<int> chosenCards = new();
+        private readonly NetworkList<ulong> chosenCardsPlayers = new();
+        
         public List<NetworkList<int>> board => GetBoard();
-
-        public override void OnNetworkSpawn()
-        {
-            firstRow.OnListChanged += FirstRowOnListChanged;
-            secondRow.OnListChanged += SecondRowOnListChanged;
-            thirdRow.OnListChanged += ThirdRowOnListChanged;
-            fourthRow.OnListChanged += FourthRowOnListChanged;
-        }
+        public NetworkList<int> ChosenCards => chosenCards;
+        public NetworkList<ulong> ChosenCardsPlayers => chosenCardsPlayers;
         
         public void Initialize()
         {
@@ -45,6 +43,7 @@ namespace AsepStudios.Mechanic.GameCore
                 board[index].Clear();
                 board[index].Add(initialCards[index]);
             }
+            OnBoardChanged?.Invoke(this,EventArgs.Empty);
         }
 
         public List<NetworkList<int>> GetBoard()
@@ -57,6 +56,7 @@ namespace AsepStudios.Mechanic.GameCore
                 fourthRow
             };
         }
+        
         
         private void PutCard(int card, GamePlayer gamePlayer)
         {
@@ -104,15 +104,22 @@ namespace AsepStudios.Mechanic.GameCore
             if (CheckEveryPlayerChooseACard())
             {
                 //Put cards to board with order
-                Dictionary<int, GamePlayer> chosenCards = GetChosenCards();
+                Dictionary<int, GamePlayer> cards = GetChosenCards();
+                
+                chosenCards.Clear();
+                chosenCardsPlayers.Clear();
 
-                foreach (var chosenCard in chosenCards.OrderBy(x => x.Key))
+
+                foreach (var chosenCard in cards.OrderBy(x => x.Key))
                 {
+                    chosenCards.Add(chosenCard.Key);
+                    chosenCardsPlayers.Add(chosenCard.Value.OwnerClientId);
                     PutCard(chosenCard.Key, chosenCard.Value);
                 }
                 
                 //Remove chosen cards from players
                 RemoveChosenCardsFromPlayers();
+                OnBoardChanged?.Invoke(this,EventArgs.Empty);
 
             }
         }
@@ -187,55 +194,6 @@ namespace AsepStudios.Mechanic.GameCore
             return result;
         }
         
-        private void FirstRowOnListChanged(NetworkListEvent<int> changeevent)
-        {
-            OnBoardChanged?.Invoke(this,EventArgs.Empty);
-            string str = "First Row: ";
-            foreach (var number in firstRow)
-            {
-                str += $"{number} ";
-            }
-            
-            Debug.Log(str);
-            
-        }
-
-        private void SecondRowOnListChanged(NetworkListEvent<int> changeevent)
-        {
-            OnBoardChanged?.Invoke(this,EventArgs.Empty);
-            string str = "Second Row: ";
-            foreach (var number in secondRow)
-            {
-                str += $"{number} ";
-            }
-            
-            Debug.Log(str);
-        }
-
-        private void ThirdRowOnListChanged(NetworkListEvent<int> changeevent)
-        {
-            OnBoardChanged?.Invoke(this,EventArgs.Empty);
-
-            string str = "Third Row ";
-            foreach (var number in thirdRow)
-            {
-                str += $"{number} ";
-            }
-            
-            Debug.Log(str);
-        }
-
-        private void FourthRowOnListChanged(NetworkListEvent<int> changeevent)
-        {
-            OnBoardChanged?.Invoke(this,EventArgs.Empty);
-
-            string str = "Fourth Row: ";
-            foreach (var number in fourthRow)
-            {
-                str += $"{number} ";
-            }
-            
-            Debug.Log(str);
-        }
+        
     }
 }

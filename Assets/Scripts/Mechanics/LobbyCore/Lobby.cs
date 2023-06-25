@@ -29,8 +29,7 @@ namespace AsepStudios.Mechanic.LobbyCore
             Instance = this;
             players = new NetworkList<PlayerData>();
         }
-
-
+        
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
@@ -73,12 +72,23 @@ namespace AsepStudios.Mechanic.LobbyCore
 
             foreach(var playerData in players)
             {
-                if(playerData.Player.TryGet(out NetworkObject networkObject))
-                {
-                    playerList.Add(networkObject.GetComponent<Player>());
-                }
+                playerList.Add(playerData.Player);
             }
             return playerList;
+        }
+
+        public Player GetPlayerFromClientId(ulong clientId)
+        {
+            foreach(var playerData in players)
+            {
+                if(playerData.ClientId == clientId)
+                {
+                    return playerData.Player;
+                }
+            }
+            
+            Debug.LogWarning("Player not found.");
+            return null;
         }
 
         public string GetLobbyName()
@@ -129,7 +139,7 @@ namespace AsepStudios.Mechanic.LobbyCore
             playerNetworkObject.SpawnAsPlayerObject(clientId, true);
             players.Add(new PlayerData
             {
-                Player = playerNetworkObject,
+                NetworkObject = playerNetworkObject,
                 ClientId = clientId
             });
         }

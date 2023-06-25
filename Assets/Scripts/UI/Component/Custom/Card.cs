@@ -9,6 +9,7 @@ namespace AsepStudios.UI
     {
         [SerializeField] private Image cardImage;
         [SerializeField] private TextMeshProUGUI numberText;
+        [SerializeField] private TextMeshProUGUI senderUsernameText;
         public int Number { get; private set; }
         
         public Card SetCard(int number)
@@ -18,9 +19,10 @@ namespace AsepStudios.UI
             return this;
         }
 
-        public void SetCard(int number, Player player)
+        public void SetCard(int number, string userName)
         {
             SetCard(number);
+            senderUsernameText.text = userName;
         }
         
     }
