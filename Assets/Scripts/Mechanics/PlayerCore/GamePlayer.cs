@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.ComTypes;
 using Unity.Netcode;
+using UnityEngine;
 
 namespace AsepStudios.Mechanic.PlayerCore
 {
@@ -10,7 +12,7 @@ namespace AsepStudios.Mechanic.PlayerCore
         public event EventHandler OnPointChanged;
         public event EventHandler OnChosenCardChanged;
         
-        private readonly NetworkVariable<int> point = new(0);
+        private readonly NetworkVariable<int> point = new();
         private readonly NetworkList<int> cards = new();
         private readonly NetworkVariable<int> chosenCard = new(0);
         public bool IsChoseCard => chosenCard.Value != 0;
@@ -21,7 +23,6 @@ namespace AsepStudios.Mechanic.PlayerCore
             chosenCard.OnValueChanged += ChosenCardOnValueChanged;
         }
         
-
         public int GetPoint()
         {
             return point.Value;
@@ -35,6 +36,8 @@ namespace AsepStudios.Mechanic.PlayerCore
         public void SetCards(List<int> cards)
         {
             ClearCards();
+            point.Value = 80;
+            chosenCard.Value = 0;
 
             foreach (var card in cards)
             {

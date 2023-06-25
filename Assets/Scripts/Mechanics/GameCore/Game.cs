@@ -44,7 +44,6 @@ namespace AsepStudios.Mechanic.GameCore
             
             isGameInitialized.Value = true;
             Debug.Log("Deal Cards");
-            CardDealer.DealCards(Lobby.Instance.GetPlayers(), board);
             
         }
         
@@ -55,10 +54,6 @@ namespace AsepStudios.Mechanic.GameCore
             board.Reset();
             
             isGameInitialized.Value = false;
-            CardDealer.RemoveAllCardsFromPlayers(Lobby.Instance.GetPlayers());
-
-            
-            
         }
         
         private void ChangeGameState(GameState gameState)

@@ -16,13 +16,7 @@ namespace AsepStudios.Mechanic.GameCore
             DealCardsToPlayers(players);
             DealCardsToBoard(board);
         }
-        public static void RemoveAllCardsFromPlayers(List<Player> players)
-        {
-            foreach (var player in players)
-            {
-                player.GamePlayer.ClearCards();
-            }
-        }
+
         private static void DealCardsToPlayers(List<Player> players)
         {
             for (var index = 0; index < players.Count; index++)

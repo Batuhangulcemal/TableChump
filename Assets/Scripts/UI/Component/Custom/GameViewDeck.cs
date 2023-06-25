@@ -19,6 +19,11 @@ namespace AsepStudios.UI
             AssignOnClickEvents();
         }
 
+        private void OnDestroy()
+        {
+            LocalPlayer.Instance.Player.GamePlayer.OnCardsChanged -= OnCardsChanged;
+        }
+
         private void OnCardsChanged(object sender, EventArgs e)
         {
             RefreshDeck();

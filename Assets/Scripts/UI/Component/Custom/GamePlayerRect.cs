@@ -1,4 +1,5 @@
-﻿using AsepStudios.Mechanic.PlayerCore;
+﻿using System;
+using AsepStudios.Mechanic.PlayerCore;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,6 +20,19 @@ namespace AsepStudios.UI
 
             avatarImage.sprite = ResourceProvider.GetAvatarFromIndex(player.GetAvatarIndex());
             usernameText.text = player.GetUsername();
+            pointText.text = player.GamePlayer.GetPoint().ToString();
+
+
+            player.GamePlayer.OnPointChanged += Player_OnPointChanged;
+            RefreshPoint();
+        }
+        
+        private void Player_OnPointChanged(object sender, EventArgs e)
+        {
+            RefreshPoint();
+        }
+        private void RefreshPoint()
+        {
             pointText.text = player.GamePlayer.GetPoint().ToString();
         }
     }

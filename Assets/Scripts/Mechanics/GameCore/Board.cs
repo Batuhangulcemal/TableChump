@@ -29,12 +29,12 @@ namespace AsepStudios.Mechanic.GameCore
         
         public void Initialize()
         {
+            CardDealer.DealCards(Lobby.Instance.GetPlayers(), this);
             SubscribePlayersCardAction();
         }
 
         public void Reset()
         {
-            ClearBoard();
             UnsubscribePlayersCardAction();
         }
 
@@ -42,6 +42,7 @@ namespace AsepStudios.Mechanic.GameCore
         {
             for (var index = 0; index < board.Count; index++)
             {
+                board[index].Clear();
                 board[index].Add(initialCards[index]);
             }
         }
@@ -56,15 +57,7 @@ namespace AsepStudios.Mechanic.GameCore
                 fourthRow
             };
         }
-
-        private void ClearBoard()
-        {
-            foreach (var row in board)
-            {
-                row.Clear();
-            }
-        }
-
+        
         private void PutCard(int card, GamePlayer gamePlayer)
         {
             int rowIndex = TryFindRowForCard(card);

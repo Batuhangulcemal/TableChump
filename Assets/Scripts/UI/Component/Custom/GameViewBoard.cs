@@ -31,6 +31,11 @@ namespace AsepStudios.UI
             RefreshBoard();
         }
 
+        private void OnDestroy()
+        {
+            Game.Instance.Board.OnBoardChanged -= OnBoardChanged;
+        }
+
         private void OnBoardChanged(object sender, EventArgs e)
         {
             RefreshBoard();

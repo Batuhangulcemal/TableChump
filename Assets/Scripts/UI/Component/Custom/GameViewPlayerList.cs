@@ -7,7 +7,7 @@ namespace AsepStudios.UI
     public class GameViewPlayerList : MonoBehaviour
     {
         [SerializeField] private GamePlayerRect gamePlayerRectPrefab;
-
+        
         public void RefreshPlayerList()
         {
             DestroyService.ClearChildren(transform);
