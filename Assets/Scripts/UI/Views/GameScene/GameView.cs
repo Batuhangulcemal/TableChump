@@ -28,7 +28,7 @@ namespace AsepStudios.UI
             
             testButton.onClick.AddListener(() =>
             {
-                Game.Instance.StopGame();
+                ServerGameController.Controller.StopGame();
             });
         }
 

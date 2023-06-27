@@ -16,14 +16,14 @@ namespace AsepStudios.Mechanic.LobbyCore
         public event EventHandler OnLobbyNameChanged;
         public bool IsHostPlayerActive => NetworkManager.Singleton.IsHost;
         public bool IsAllReady => GetIsAllReady();
+        public List<Player> Players => GetPlayers();
         public int PlayerCount => players.Count;
 
         private readonly NetworkVariable<FixedString32Bytes> lobbyName = new("");
         private NetworkList<PlayerData> players;
         
-
         [SerializeField] private NetworkObject playerPrefab;
-
+        
         private void Awake()
         {
             Instance = this;
@@ -50,9 +50,7 @@ namespace AsepStudios.Mechanic.LobbyCore
             players.OnListChanged += Players_OnListChanged;
             lobbyName.OnValueChanged += LobbyName_OnValueChanged;
         }
-
-
-
+        
         public override void OnNetworkDespawn()
         {
             base.OnNetworkDespawn();
@@ -66,17 +64,7 @@ namespace AsepStudios.Mechanic.LobbyCore
         }
         
 
-        public List<Player> GetPlayers()
-        {
-            List<Player> playerList = new();
-
-            foreach(var playerData in players)
-            {
-                playerList.Add(playerData.Player);
-            }
-            return playerList;
-        }
-
+        
         public Player GetPlayerFromClientId(ulong clientId)
         {
             foreach(var playerData in players)
@@ -99,6 +87,17 @@ namespace AsepStudios.Mechanic.LobbyCore
         public void SetLobbyName(string lobbyName)
         {
             this.lobbyName.Value = lobbyName;
+        }
+        
+        private List<Player> GetPlayers()
+        {
+            List<Player> playerList = new();
+
+            foreach(var playerData in players)
+            {
+                playerList.Add(playerData.Player);
+            }
+            return playerList;
         }
 
         private bool GetIsAllReady()

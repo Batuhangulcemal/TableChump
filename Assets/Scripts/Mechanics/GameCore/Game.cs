@@ -1,10 +1,9 @@
 ﻿using System;
 using AsepStudios.Mechanic.GameCore.Enum;
-using AsepStudios.Mechanic.LobbyCore;
 using AsepStudios.Mechanic.PlayerCore.LocalPlayerCore;
 using AsepStudios.UI;
 using Unity.Netcode;
-using UnityEngine;
+
 
 namespace AsepStudios.Mechanic.GameCore
 {
@@ -12,75 +11,26 @@ namespace AsepStudios.Mechanic.GameCore
     {
         public event EventHandler OnGameStateChanged;
         public static Game Instance { get; private set; }
-
-        [SerializeField] private Board board;
-        public Board Board => board;
-
+        
         public readonly NetworkVariable<GameState> GameState = new();
 
         private readonly NetworkVariable<bool> isGameInitialized = new();
-
+        
         private void Awake()
         {
             Instance = this;
         }
+        
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
-
+            
             GameState.OnValueChanged += GameStateOnValueChanged;
             ChangeViewByGameState();
         }
         
-        public void StartGame(){ ChangeGameState(Enum.GameState.Playing); }
-        public void PauseGame(){ ChangeGameState(Enum.GameState.Paused); }
-        public void StopGame(){ ChangeGameState(Enum.GameState.Over); }
-        public void RestartGame(){ ChangeGameState(Enum.GameState.NotStarted); }
-        
-        private void TryInitializeGame()
+        public void ChangeGameState(GameState gameState)
         {
-            if (isGameInitialized.Value) return;
-
-            board.Initialize();
-            
-            isGameInitialized.Value = true;
-            Debug.Log("Deal Cards");
-            
-        }
-        
-        private void TryResetGame()
-        {
-            if (!isGameInitialized.Value) return;
-
-            board.Reset();
-            
-            isGameInitialized.Value = false;
-        }
-        
-        private void ChangeGameState(GameState gameState)
-        {
-            if (!IsServer)
-            {
-                Debug.LogWarning("Clients can not change game state!");
-                return;
-            }
-            
-            switch (gameState)
-            {
-                case Enum.GameState.NotStarted:
-                    TryResetGame();
-                    break;
-                case Enum.GameState.Playing:
-                    TryInitializeGame();
-                    break;
-                case Enum.GameState.Paused:
-                    break;
-                case Enum.GameState.Over:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-            
             GameState.Value = gameState;
         }
 

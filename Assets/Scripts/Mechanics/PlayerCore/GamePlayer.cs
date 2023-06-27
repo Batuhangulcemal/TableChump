@@ -63,6 +63,11 @@ namespace AsepStudios.Mechanic.PlayerCore
             return result;
         }
 
+        public bool IsCardsEmpty()
+        {
+            return cards.Count == 0;
+        }
+
         [ServerRpc]
         public void ChooseCardServerRpc(int number)
         {

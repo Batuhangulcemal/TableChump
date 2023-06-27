@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1130991627493163857}
   - component: {fileID: 2029350935935941488}
   - component: {fileID: 9149181014051593582}
+  - component: {fileID: 5834285868124326031}
   m_Layer: 5
   m_Name: ProfileAvatarButton
   m_TagString: Untagged
@@ -35,8 +36,8 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -131,6 +132,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 5520521563309002837}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e67ec6dc61559b44c9c547d3a2a65c40, type: 3}
+  m_Script: {fileID: 11500000, guid: 81ff94eef45d4063ad30629a7cee367d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  outline: {fileID: 5834285868124326031}
+--- !u!114 &5834285868124326031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5520521563309002837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 3, y: 3}
+  m_UseGraphicAlpha: 1

@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   profileAvatarButtonsTransform: {fileID: 7122833267582908236}
-  profileAvatarButtonPrefab: {fileID: 9149181014051593582, guid: 8ecb2a6a29d20304cb2ee594844d4abe, type: 3}
+  profileAvatarButtonBasePrefab: {fileID: 9149181014051593582, guid: 8ecb2a6a29d20304cb2ee594844d4abe, type: 3}
   usernameInputField: {fileID: 1968755270881149035}
   backButton: {fileID: 6916784798632770020}
 --- !u!1 &936688048127810825

@@ -30,13 +30,13 @@ namespace AsepStudios.UI
                 fourthRowTransform
             };
             
-            Game.Instance.Board.OnBoardChanged += OnBoardChanged;
+            Board.Instance.OnBoardChanged += OnBoardChanged;
             RefreshBoard();
         }
 
         private void OnDestroy()
         {
-            Game.Instance.Board.OnBoardChanged -= OnBoardChanged;
+            Board.Instance.OnBoardChanged -= OnBoardChanged;
         }
 
         private void OnBoardChanged(object sender, EventArgs e)
@@ -49,12 +49,12 @@ namespace AsepStudios.UI
         {
             DestroyService.ClearChildren(chosenCardsTransform);
 
-            for (var index = 0; index < Game.Instance.Board.ChosenCards.Count; index++)
+            for (var index = 0; index < Board.Instance.ChosenCards.GetLength(1); index++)
             {
-                var cardNumber = Game.Instance.Board.ChosenCards[index];
-                var playerClientId = Game.Instance.Board.ChosenCardsPlayers[index];
+                var cardNumber = Board.Instance.ChosenCards[index][0];
+                var playerClientId = Board.Instance.ChosenCards[index][1];
 
-                string userName = Lobby.Instance.GetPlayerFromClientId(playerClientId).GetUsername();
+                string userName = Lobby.Instance.GetPlayerFromClientId((ulong)playerClientId).GetUsername();
 
                 Instantiate(cardPrefab, chosenCardsTransform).SetCard(cardNumber, userName);
             }
@@ -64,20 +64,24 @@ namespace AsepStudios.UI
         {
             ClearBoard();
             
-            for (var i = 0; i < boardTransforms.Count; i++)
+            for (var i = 0; i < 4; i++)
             {
-                for (var j = 0; j < Game.Instance.Board.GetBoard()[i].Count; j++)
+                for (var j = 0; j < 4; j++)
                 {
-                    Instantiate(cardPrefab, boardTransforms[i][j]).SetCard(Game.Instance.Board.GetBoard()[i][j]);
+                    var value = Board.Instance.Values[i][j];
+                    if (value != 0)
+                    {
+                        Instantiate(cardPrefab, boardTransforms[i][j]).SetCard(value);
+                    }
                 }
             }
         }
 
         private void ClearBoard()
         {
-            for (var i = 0; i < boardTransforms.Count; i++)
+            for (var i = 0; i < 4; i++)
             {
-                for (var j = 0; j < boardTransforms[i].Count; j++)
+                for (var j = 0; j < 4; j++)
                 {
                     DestroyService.ClearChildren(boardTransforms[i][j]);
                 }

@@ -16,7 +16,7 @@ namespace AsepStudios.UI
             
             testButton.onClick.AddListener(() =>
             {
-                Game.Instance.RestartGame();
+                ServerGameController.Controller.RestartGame();
             });
         }
     }

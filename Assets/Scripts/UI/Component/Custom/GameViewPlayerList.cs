@@ -12,7 +12,7 @@ namespace AsepStudios.UI
         {
             DestroyService.ClearChildren(transform);
 
-            foreach (var player in Lobby.Instance.GetPlayers())
+            foreach (var player in Lobby.Instance.Players)
             {
                 Instantiate(gamePlayerRectPrefab, transform).SetGamePlayerRect(player);
             }

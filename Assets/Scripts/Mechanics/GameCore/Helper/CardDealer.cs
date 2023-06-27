@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using AsepStudios.Mechanic.LobbyCore;
 using AsepStudios.Mechanic.PlayerCore;
 using AsepStudios.Utils;
 
@@ -9,11 +10,11 @@ namespace AsepStudios.Mechanic.GameCore
     {
         private static readonly List<int> Cards = Enumerable.Range(1, 199).ToList();
 
-        public static void DealCards(List<Player> players, Board board)
+        public static void DealCards(BoardController boardController)
         {
             Cards.Shuffle();
-            DealCardsToPlayers(players);
-            DealCardsToBoard(board);
+            DealCardsToPlayers(Lobby.Instance.Players);
+            DealCardsToBoard(boardController);
         }
 
         private static void DealCardsToPlayers(List<Player> players)
@@ -25,9 +26,17 @@ namespace AsepStudios.Mechanic.GameCore
             }
         }
 
-        private static void DealCardsToBoard(Board board)
+        private static void DealCardsToBoard(BoardController boardController)
         {
-            board.PutInitialCards(Cards.TakeLast(4).ToList());
+            int[] last = Cards.TakeLast(4).ToArray();
+            boardController.PutInitialCards(new[]
+            {
+                new[] {last[0], -1, -1, -1},
+                new[] {last[1], -1, -1, -1},
+                new[] {last[2], -1, -1, -1},
+                new[] {last[3], -1, -1, -1}
+                
+            });
         }
     }
 }

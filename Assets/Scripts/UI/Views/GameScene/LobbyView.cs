@@ -39,7 +39,7 @@ namespace AsepStudios.UI
                 {
                     if (Lobby.Instance.IsAllReady && Lobby.Instance.PlayerCount >= 0)
                     {
-                        Game.Instance.StartGame();
+                        ServerGameController.Controller.StartGame();
                     }
                 });
             }
@@ -74,7 +74,7 @@ namespace AsepStudios.UI
         {
             DestroyService.ClearChildren(lobbyPlayerRectsTransform);
 
-            foreach(var player in Lobby.Instance.GetPlayers())
+            foreach(var player in Lobby.Instance.Players)
             {
                 Instantiate(lobbyPlayerRectPrefab, lobbyPlayerRectsTransform).SetLobbyPlayerRect(player);
             }
