@@ -1,4 +1,5 @@
-﻿using AsepStudios.Mechanic.GameCore.Enum;
+﻿using System;
+using AsepStudios.Mechanic.GameCore.Enum;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -6,9 +7,38 @@ namespace AsepStudios.Mechanic.GameCore
 {
     public class Round : NetworkBehaviour
     {
-        public readonly NetworkVariable<RoundState> RoundState = new();
+        public event EventHandler OnRoundStateChanged;
+        public event EventHandler OnRowChoosePlayerChanged;
         
-        [SerializeField] private Board board;
-        public Board Board => board;
+        public static Round Instance { get; private set; }
+        
+        private readonly NetworkVariable<RoundState> roundState = new();
+        private readonly NetworkVariable<int> rowChoosePlayer = new(-1);
+
+        public RoundState RoundState => roundState.Value;
+        public int RowChoosePlayer => rowChoosePlayer.Value;
+
+        private void Awake()
+        {
+            Instance = this;
+        }
+
+        public override void OnNetworkSpawn()
+        {
+            base.OnNetworkSpawn();
+            
+            roundState.OnValueChanged += RoundState_OnValueChanged;
+            rowChoosePlayer.OnValueChanged += RowChoosePlayer_OnStatePlayer;
+        }
+        
+        private void RoundState_OnValueChanged(RoundState previousValue, RoundState newValue)
+        {
+            OnRoundStateChanged?.Invoke(this, EventArgs.Empty);
+        }
+        
+        private void RowChoosePlayer_OnStatePlayer(int previousValue, int newValue)
+        {
+            OnRowChoosePlayerChanged?.Invoke(this, EventArgs.Empty);
+        }
     }
 }

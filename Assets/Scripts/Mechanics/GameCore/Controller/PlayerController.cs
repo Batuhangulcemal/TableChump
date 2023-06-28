@@ -11,6 +11,7 @@ namespace AsepStudios.Mechanic.GameCore
     public class PlayerController
     {
         public event EventHandler OnAnyPlayerChosenCardChanged;
+        public event EventHandler OnAnyPlayerChosenRowChanged;
 
         public int[][] ChosenCards => GetChosenCardsSorted();
         public bool IsEveryoneChose => CheckEveryPlayerChooseACard();
@@ -47,7 +48,7 @@ namespace AsepStudios.Mechanic.GameCore
                 var player = list[index];
                 result[index] = new[]
                 {
-                    player.GamePlayer.GetChosenCard(),
+                    player.GamePlayer.ChosenCard,
                     (int)player.OwnerClientId
                 };
             }

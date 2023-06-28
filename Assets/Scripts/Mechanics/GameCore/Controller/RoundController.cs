@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using AsepStudios.Mechanic.LobbyCore;
-using AsepStudios.Utils;
 
 namespace AsepStudios.Mechanic.GameCore
 {
@@ -9,11 +7,13 @@ namespace AsepStudios.Mechanic.GameCore
     public class RoundController
     {
         public event EventHandler OnRoundEnded;
-
+        
+        private readonly Round round;
         private readonly BoardController boardController;
         private readonly PlayerController playerController;
         public RoundController()
         {
+            round = Round.Instance;
             boardController = new BoardController();
             playerController = new PlayerController();
             
@@ -51,6 +51,7 @@ namespace AsepStudios.Mechanic.GameCore
         {
             //Put cards to board with order
             int[][] cards = playerController.ChosenCards;
+            playerController.RemoveChosenCardsFromPlayers();
             
             boardController.PutChosenCards(cards);
 
@@ -61,12 +62,26 @@ namespace AsepStudios.Mechanic.GameCore
             else
             {
                 //PutCards
-                boardController.PutCards(cards, out Dictionary<int, int> dict);
+                ExecutePutAction(cards);
             }
-            
-            //Remove chosen cards from players
-            playerController.RemoveChosenCardsFromPlayers();
+        }
 
+        private void ExecutePutAction(int[][] cards)
+        {
+            PutCardsToBoard(cards, out Dictionary<int, int> playerDamages);
+            ApplyDamageToPlayers(playerDamages);
+            
+        }
+
+        private void PutCardsToBoard(int[][] cards, out Dictionary<int, int> playerDamages)
+        {
+            boardController.PutCards(cards, out Dictionary<int, int> _playerDamages);
+            playerDamages = _playerDamages;
+        }
+
+        private void ApplyDamageToPlayers(Dictionary<int, int> playerDamages)
+        {
+            
         }
     }
 }

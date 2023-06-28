@@ -25,10 +25,15 @@ namespace AsepStudios.Utils
         {
             return JsonConvert.SerializeObject(array);
         }
-
-        public static int[][] DeserializeArray(this FixedString512Bytes array)
+        
+        public static FixedString512Bytes SerializeArray(this int[] array)
         {
-            return JsonConvert.DeserializeObject<int[][]>(array.ToString());
+            return JsonConvert.SerializeObject(array);
+        }
+
+        public static T DeserializeArray<T>(this FixedString512Bytes array)
+        {
+            return JsonConvert.DeserializeObject<T>(array.ToString());
         }
     }
 }

@@ -52,12 +52,12 @@ namespace AsepStudios.Mechanic.GameCore
 
         private int[][] GetValues()
         {
-            return values.Value.DeserializeArray();
+            return values.Value.DeserializeArray<int[][]>();
         }
 
         private int[][] GetChosenCards()
         {
-            return chosenCards.Value.DeserializeArray();
+            return chosenCards.Value.DeserializeArray<int[][]>();
         }
         
         private void Board_OnValuesChanged(FixedString512Bytes previousValues, FixedString512Bytes newValues)

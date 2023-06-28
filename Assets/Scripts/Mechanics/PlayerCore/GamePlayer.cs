@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
+using AsepStudios.Utils;
+using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Video;
 
 namespace AsepStudios.Mechanic.PlayerCore
 {
@@ -11,97 +15,87 @@ namespace AsepStudios.Mechanic.PlayerCore
         public event EventHandler OnCardsChanged; 
         public event EventHandler OnPointChanged;
         public event EventHandler OnChosenCardChanged;
+        public event EventHandler OnChosenRowChanged;
 
+        private readonly NetworkVariable<FixedString512Bytes> cards = new();
         private readonly NetworkVariable<int> point = new();
-        private readonly NetworkVariable<int> chosenCard = new();
+        private readonly NetworkVariable<int> chosenCard = new(-1);
+        private readonly NetworkVariable<int> chosenRow = new(-1);
+
+        public int[] Cards => GetCards();
+        public int Point => point.Value;
+        public int ChosenCard => chosenCard.Value;
+        public int ChosenRow => chosenRow.Value;
+        public bool IsChoseCard => chosenCard.Value != -1;
+        public bool IsCardsEmpty => Cards.Length == 0;
+
         
-        private NetworkList<int> cards;
-        public bool IsChoseCard => chosenCard.Value != 0;
-
-        private void Awake()
-        {
-            cards = new();
-        }
-
         public override void OnNetworkSpawn()
         {
-            cards.OnListChanged += CardsOnListChanged;
+            cards.OnValueChanged += CardsOnValueChanged;
             point.OnValueChanged += PointOnValueChanged;
             chosenCard.OnValueChanged += ChosenCardOnValueChanged;
+            chosenRow.OnValueChanged += ChosenRowOnValueChanged;
         }
         
-        public int GetPoint()
-        {
-            return point.Value;
-        }
-
         public void DecreasePoint(int value)
         {
             point.Value -= value;
         }
         
-        public void SetCards(List<int> cards)
+        public void SetCards(int[] newCards)
         {
-            ClearCards();
-            point.Value = 40;
-            chosenCard.Value = 0;
+            cards.Value = newCards.SerializeArray();
+        }
 
-            foreach (var card in cards)
+        private int[] GetCards()
+        {
+            var currentCards = cards.Value.DeserializeArray<int[]>();
+            
+            if (currentCards != null)
             {
-                this.cards.Add(card);
+                return currentCards;
             }
-        }
 
-        public List<int> GetCards()
-        {
-            var result = new List<int>();
-            foreach (var card in cards)
-            {
-                result.Add(card);
-            }
-            return result;
+            return new int[]{};
         }
-
-        public bool IsCardsEmpty()
-        {
-            return cards.Count == 0;
-        }
-
+        
         [ServerRpc]
         public void ChooseCardServerRpc(int number)
         {
             chosenCard.Value = number;
         }
 
-        public int GetChosenCard()
-        {
-            return chosenCard.Value;
-        }
-
         public void UseChosenCard()
         {
-            cards.Remove(chosenCard.Value);
-            chosenCard.Value = 0;
-        }
+            int[] newCards = Cards.Clone() as int[];
+            newCards = newCards.Where(val => val != chosenCard.Value).ToArray();
+            
+            SetCards(newCards);
 
-        private void ClearCards()
-        {
-            cards.Clear();
+            chosenCard.Value = -1;
+
         }
         
-        private void CardsOnListChanged(NetworkListEvent<int> changeEvent)
+        
+        private void CardsOnValueChanged(FixedString512Bytes previousValue, FixedString512Bytes newValue)
         {
             OnCardsChanged?.Invoke(this, EventArgs.Empty);
         }
         
-        private void PointOnValueChanged(int previousvalue, int newvalue)
+        private void PointOnValueChanged(int previousValue, int newValue)
         {
             OnPointChanged?.Invoke(this,EventArgs.Empty);
         }
         
-        private void ChosenCardOnValueChanged(int previousvalue, int newvalue)
+        private void ChosenCardOnValueChanged(int previousValue, int newValue)
         {
             OnChosenCardChanged?.Invoke(this,EventArgs.Empty);
+        }
+        
+        private void ChosenRowOnValueChanged(int previousValue, int newValue)
+        {
+            OnChosenRowChanged?.Invoke(this, EventArgs.Empty);
         }
 
     }

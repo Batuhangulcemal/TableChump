@@ -20,7 +20,7 @@ namespace AsepStudios.UI
 
             avatarImage.sprite = ResourceProvider.GetAvatarFromIndex(player.GetAvatarIndex());
             usernameText.text = player.GetUsername();
-            pointText.text = player.GamePlayer.GetPoint().ToString();
+            pointText.text = player.GamePlayer.Point.ToString();
 
 
             player.GamePlayer.OnPointChanged += Player_OnPointChanged;
@@ -33,7 +33,7 @@ namespace AsepStudios.UI
         }
         private void RefreshPoint()
         {
-            pointText.text = player.GamePlayer.GetPoint().ToString();
+            pointText.text = player.GamePlayer.Point.ToString();
         }
     }
 }

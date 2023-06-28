@@ -35,7 +35,7 @@ namespace AsepStudios.UI
             DestroyService.ClearChildren(transform);
             cards.Clear();
 
-            foreach (var number in LocalPlayer.Instance.Player.GamePlayer.GetCards())
+            foreach (var number in LocalPlayer.Instance.Player.GamePlayer.Cards)
             {
                 var card = Instantiate(cardPrefab, transform).SetCard(number);
                 cards.Add(card);

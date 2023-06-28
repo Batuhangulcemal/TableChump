@@ -22,7 +22,7 @@ namespace AsepStudios.Mechanic.GameCore
             for (var index = 0; index < players.Count; index++)
             {
                 var player = players[index].GamePlayer;
-                player.SetCards(Cards.GetRange(index * 10, 10));
+                player.SetCards(Cards.GetRange(index * 10, 10).ToArray());
             }
         }
 
