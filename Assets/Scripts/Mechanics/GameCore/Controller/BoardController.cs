@@ -15,11 +15,11 @@ namespace AsepStudios.Mechanic.GameCore
         //there is no lesser card
         public void PutCards(int[][] chosenCards, out Dictionary<int, int> playerDamages)
         {
-            int[][] newBoard = this.board.Values.Clone() as int[][];
+            int[][] newBoard = board.Values.Clone() as int[][];
 
             Dictionary<int, int> damages = new();
 
-            for (var index = 0; index < chosenCards.GetLength(0); index++)
+            for (var index = 0; index < chosenCards.Length; index++)
             {
                 var card = chosenCards[index][0];
                 var player = chosenCards[index][1];
@@ -41,7 +41,7 @@ namespace AsepStudios.Mechanic.GameCore
                 BoardHelper.AddCardToRow(card, rowIndex, newBoard);
             }
 
-
+            
             board.SetBoardValues(newBoard);
             playerDamages = damages;
         }

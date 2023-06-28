@@ -12,16 +12,15 @@ namespace AsepStudios.Mechanic.PlayerCore
         public event EventHandler OnPointChanged;
         public event EventHandler OnChosenCardChanged;
 
-        private NetworkVariable<int> point;
+        private readonly NetworkVariable<int> point = new();
+        private readonly NetworkVariable<int> chosenCard = new();
+        
         private NetworkList<int> cards;
-        private NetworkVariable<int> chosenCard;
         public bool IsChoseCard => chosenCard.Value != 0;
 
         private void Awake()
         {
-            point = new();
             cards = new();
-            chosenCard = new();
         }
 
         public override void OnNetworkSpawn()

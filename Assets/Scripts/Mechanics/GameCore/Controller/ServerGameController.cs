@@ -19,7 +19,7 @@ namespace AsepStudios.Mechanic.GameCore
 
         private static GameController GetController()
         {
-            if (!NetworkManager.Singleton.IsServer)
+            if (NetworkManager.Singleton.IsServer)
             {
                 return Instance.controller;
             }

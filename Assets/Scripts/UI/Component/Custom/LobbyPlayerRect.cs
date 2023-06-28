@@ -20,7 +20,6 @@ namespace AsepStudios.UI
 
         public void SetLobbyPlayerRect(Player player)
         {
-            Debug.Log("Playeeer");
             this.player = player;
             this.player.OnAnyPlayerPropertyChanged += Player_OnAnyPlayerPropertyChanged;
 

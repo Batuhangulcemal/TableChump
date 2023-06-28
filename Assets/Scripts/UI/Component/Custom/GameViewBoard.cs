@@ -31,25 +31,58 @@ namespace AsepStudios.UI
             };
             
             Board.Instance.OnBoardChanged += OnBoardChanged;
+            Board.Instance.OnChosenCardsChanged += OnChosenCardsChanged;
             RefreshBoard();
+            RefreshChosenCards();
+
         }
 
         private void OnDestroy()
         {
             Board.Instance.OnBoardChanged -= OnBoardChanged;
+            Board.Instance.OnChosenCardsChanged -= OnChosenCardsChanged;
         }
 
         private void OnBoardChanged(object sender, EventArgs e)
         {
-            RefreshChosenCards();
             RefreshBoard();
         }
 
+        private void OnChosenCardsChanged(object sender, EventArgs e)
+        {
+            RefreshChosenCards();
+        }
+
+
+
+        private void RefreshBoard()
+        {
+            ClearBoard();
+            BoardHelper.PrintBoard(Board.Instance.Values);
+
+            for (var i = 0; i < 4; i++)
+            {
+                for (var j = 0; j < 4; j++)
+                {
+                    var value = Board.Instance.Values[i][j];
+                    if (value != -1)
+                    {
+                        Instantiate(cardPrefab, boardTransforms[i][j]).SetCard(value);
+                    }
+                }
+            }
+        }
+        
         private void RefreshChosenCards()
         {
             DestroyService.ClearChildren(chosenCardsTransform);
 
-            for (var index = 0; index < Board.Instance.ChosenCards.GetLength(1); index++)
+            if (Board.Instance.ChosenCards == null)
+            {
+                return;
+            }
+
+            for (var index = 0; index < Board.Instance.ChosenCards.Length; index++)
             {
                 var cardNumber = Board.Instance.ChosenCards[index][0];
                 var playerClientId = Board.Instance.ChosenCards[index][1];
@@ -57,23 +90,6 @@ namespace AsepStudios.UI
                 string userName = Lobby.Instance.GetPlayerFromClientId((ulong)playerClientId).GetUsername();
 
                 Instantiate(cardPrefab, chosenCardsTransform).SetCard(cardNumber, userName);
-            }
-        }
-
-        private void RefreshBoard()
-        {
-            ClearBoard();
-            
-            for (var i = 0; i < 4; i++)
-            {
-                for (var j = 0; j < 4; j++)
-                {
-                    var value = Board.Instance.Values[i][j];
-                    if (value != 0)
-                    {
-                        Instantiate(cardPrefab, boardTransforms[i][j]).SetCard(value);
-                    }
-                }
             }
         }
 

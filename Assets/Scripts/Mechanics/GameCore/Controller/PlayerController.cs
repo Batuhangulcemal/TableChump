@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Linq;
 using AsepStudios.Mechanic.LobbyCore;
+using AsepStudios.Mechanic.PlayerCore;
 using AsepStudios.Utils;
+using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace AsepStudios.Mechanic.GameCore
 {
@@ -41,11 +45,14 @@ namespace AsepStudios.Mechanic.GameCore
             for (var index = 0; index < list.Count; index++)
             {
                 var player = list[index];
-                result[index][0] = player.GamePlayer.GetChosenCard();
-                result[index][1] = (int)player.OwnerClientId;
+                result[index] = new[]
+                {
+                    player.GamePlayer.GetChosenCard(),
+                    (int)player.OwnerClientId
+                };
             }
 
-            result.Sort();
+            var sorted = result.OrderBy(x => x[0]).ToArray();
             return result;
         }
         

@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections;
-using AsepStudios.Mechanic.PlayerCore;
+using AsepStudios.Utils;
+using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -12,18 +12,23 @@ namespace AsepStudios.Mechanic.GameCore
         public event EventHandler OnChosenCardsChanged;
         public static Board Instance { get; private set; }
 
-        private NetworkVariable<int[][]> values;
-        private NetworkVariable<int[][]> chosenCards;
+        private readonly NetworkVariable<FixedString512Bytes> values = new(new []
+        {
+            new [] {-1, -1, -1, -1},
+            new [] {-1, -1, -1, -1},
+            new [] {-1, -1, -1, -1},
+            new [] {-1, -1, -1, -1}
+            
+        }.SerializeArray());
+        
+        private readonly NetworkVariable<FixedString512Bytes> chosenCards = new();
 
-        public int[][] Values => values.Value;
-        public int[][] ChosenCards => chosenCards.Value;
+        public int[][] Values => GetValues();
+        public int[][] ChosenCards => GetChosenCards();
         
         private void Awake()
         {
             Instance = this;
-
-            values = new();
-            chosenCards = new();
         }
 
         public override void OnNetworkSpawn()
@@ -32,24 +37,35 @@ namespace AsepStudios.Mechanic.GameCore
             
             values.OnValueChanged += Board_OnValuesChanged;
             chosenCards.OnValueChanged += ChosenCards_OnValuesChanged;
+            
         }
 
         internal void SetBoardValues(int[][] newValues)
         {
-            values.Value = newValues;
+            values.Value = newValues.SerializeArray();
         }
 
         internal void SetChosenCards(int[][] newChosenCards)
         {
-            chosenCards.Value = newChosenCards;
+            chosenCards.Value = newChosenCards.SerializeArray();
+        }
+
+        private int[][] GetValues()
+        {
+            return values.Value.DeserializeArray();
+        }
+
+        private int[][] GetChosenCards()
+        {
+            return chosenCards.Value.DeserializeArray();
         }
         
-        private void Board_OnValuesChanged(int[][] previousValues, int[][] newValues)
+        private void Board_OnValuesChanged(FixedString512Bytes previousValues, FixedString512Bytes newValues)
         {
             OnBoardChanged?.Invoke(this, EventArgs.Empty);
         }
         
-        private void ChosenCards_OnValuesChanged(int[][] previousValues, int[][] newValues)
+        private void ChosenCards_OnValuesChanged(FixedString512Bytes previousValues, FixedString512Bytes newValues)
         {
             OnChosenCardsChanged?.Invoke(this, EventArgs.Empty);
         }

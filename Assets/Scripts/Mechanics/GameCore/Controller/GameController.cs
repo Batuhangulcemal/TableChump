@@ -34,13 +34,15 @@ namespace AsepStudios.Mechanic.GameCore
             
             roundController.OnRoundEnded -= Round_OnRoundEnded;
             roundController.OnRoundEnded += Round_OnRoundEnded;
+            
+            roundController.StartRound();
 
         }
 
         public void StartGame()
         {
-            ChangeGameState(GameState.Playing);
             InitializeGame();
+            ChangeGameState(GameState.Playing);
 
         }
 

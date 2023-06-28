@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace AsepStudios.Mechanic.GameCore
 {
-    public class Round
+    public class Round : NetworkBehaviour
     {
         public readonly NetworkVariable<RoundState> RoundState = new();
         

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using AsepStudios.Mechanic.LobbyCore;
 using AsepStudios.Utils;
 
@@ -50,6 +51,8 @@ namespace AsepStudios.Mechanic.GameCore
         {
             //Put cards to board with order
             int[][] cards = playerController.ChosenCards;
+            
+            boardController.PutChosenCards(cards);
 
             if (boardController.IsThereAnyLesserCardThanBoard(cards, out int clientId))
             {
@@ -58,7 +61,7 @@ namespace AsepStudios.Mechanic.GameCore
             else
             {
                 //PutCards
-                boardController.PutChosenCards(cards);
+                boardController.PutCards(cards, out Dictionary<int, int> dict);
             }
             
             //Remove chosen cards from players
