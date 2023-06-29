@@ -57,9 +57,6 @@ namespace AsepStudios.Mechanic.GameCore
                 case Enum.GameState.Playing:
                     ViewManager.ShowView<GameView>();
                     break;
-                case Enum.GameState.Paused:
-                    ViewManager.ShowView<PauseView>();
-                    break;
                 case Enum.GameState.Over:
                     ViewManager.ShowView<GameOverView>();
                     break;

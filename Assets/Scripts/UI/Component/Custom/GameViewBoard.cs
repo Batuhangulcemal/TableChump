@@ -5,6 +5,7 @@ using AsepStudios.Mechanic.GameCore.Enum;
 using AsepStudios.Mechanic.LobbyCore;
 using AsepStudios.Mechanic.PlayerCore.LocalPlayerCore;
 using AsepStudios.Utils;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,6 +26,8 @@ namespace AsepStudios.UI
         [SerializeField] private Button secondRowButton;
         [SerializeField] private Button thirdRowButton;
         [SerializeField] private Button fourthRowButton;
+
+        [SerializeField] private TextMeshProUGUI logText;
 
         private List<List<Transform>> boardTransforms;
         private List<Button> rowButtons;
@@ -67,18 +70,20 @@ namespace AsepStudios.UI
             Board.Instance.OnBoardChanged += OnBoardChanged;
             Board.Instance.OnChosenCardsChanged += OnChosenCardsChanged;
             Round.Instance.OnRoundStateChanged += OnRoundStateChanged;
+            Round.Instance.OnRowChoosePlayerChanged += OnRowChoosePlayerChanged;
             RefreshBoard();
             RefreshChosenCards();
             RefreshRowButtons();
+            RefreshLogText();
 
         }
-
-
-
+        
         private void OnDestroy()
         {
             Board.Instance.OnBoardChanged -= OnBoardChanged;
             Board.Instance.OnChosenCardsChanged -= OnChosenCardsChanged;
+            Round.Instance.OnRoundStateChanged -= OnRoundStateChanged;
+            Round.Instance.OnRowChoosePlayerChanged -= OnRowChoosePlayerChanged;
         }
 
         private void OnBoardChanged(object sender, EventArgs e)
@@ -94,6 +99,12 @@ namespace AsepStudios.UI
         private void OnRoundStateChanged(object sender, EventArgs e)
         {
             RefreshRowButtons();
+            RefreshLogText();
+        }
+        private void OnRowChoosePlayerChanged(object sender, EventArgs e)
+        {
+            RefreshRowButtons();
+            RefreshLogText();
         }
         
         private void RefreshBoard()
@@ -151,6 +162,35 @@ namespace AsepStudios.UI
             {
                 HideRowButtons();
 
+            }
+        }
+
+        private void RefreshLogText()
+        {
+            switch (Round.Instance.RoundState)
+            {
+                case RoundState.WaitingForStart:
+                    logText.text = "Waiting for start.";
+                    break;
+                case RoundState.Dealing:
+                    logText.text = "Cards are dealing.";
+                    break;
+                case RoundState.WaitingForPlayers:
+                    logText.text = "Waiting for players to choose a card.";
+                    break;
+                case RoundState.WaitingForPlayerChooseARow:
+                    if (Round.Instance.RowChoosePlayer != -1)
+                    {
+                        string playerName = Lobby.Instance.GetPlayerFromClientId((ulong)Round.Instance.RowChoosePlayer).GetUsername();
+                        logText.text = $"Waiting {playerName}  to choose a row.";
+                    }
+                    break;
+                case RoundState.Animating:
+                    break;
+                case RoundState.Ended:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 

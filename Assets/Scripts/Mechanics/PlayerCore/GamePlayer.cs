@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using AsepStudios.Mechanic.GameCore;
+using AsepStudios.Mechanic.GameCore.Enum;
 using AsepStudios.Utils;
 using Unity.Collections;
 using Unity.Netcode;
@@ -15,7 +17,7 @@ namespace AsepStudios.Mechanic.PlayerCore
         public event EventHandler OnChosenRowChanged;
 
         private readonly NetworkVariable<FixedString512Bytes> cards = new();
-        private readonly NetworkVariable<int> point = new();
+        private readonly NetworkVariable<int> point = new(80);
         private readonly NetworkVariable<int> chosenCard = new(-1);
         private readonly NetworkVariable<int> chosenRow = new(-1);
 
@@ -36,9 +38,10 @@ namespace AsepStudios.Mechanic.PlayerCore
             chosenRow.OnValueChanged += ChosenRowOnValueChanged;
         }
         
-        public void DecreasePoint(int value)
+        public void DecreasePointByCardNumber(int cardNumber)
         {
-            point.Value -= value;
+            int decreasingPoint = CardPointCalculator.Calculate(cardNumber);
+            point.Value -= decreasingPoint;
         }
         
         public void SetCards(int[] newCards)
@@ -61,13 +64,19 @@ namespace AsepStudios.Mechanic.PlayerCore
         [ServerRpc]
         public void ChooseCardServerRpc(int number)
         {
-            chosenCard.Value = number;
+            if (Round.Instance.RoundState == RoundState.WaitingForPlayers)
+            {
+                chosenCard.Value = number;
+            }
         }
         
         [ServerRpc]
         public void ChooseRowServerRpc(int rowIndex)
         {
-            chosenRow.Value = rowIndex;
+            if (IsChoseCard)
+            {
+                chosenRow.Value = rowIndex;
+            }
         }
 
         public void UseChosenCard()

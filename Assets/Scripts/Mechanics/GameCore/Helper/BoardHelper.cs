@@ -106,9 +106,11 @@ namespace AsepStudios.Mechanic.GameCore
         
         public static bool IsThereAnyLesserCardThanBoard(int[][] chosenCards, int[][] board, out int playerId)
         {
-            int smallestEdgeCard = BoardHelper.GetSmallestEdgeCard(board);
+            int smallestEdgeCard = GetSmallestEdgeCard(board);
             playerId = -1;
 
+            PrintBoard(chosenCards);
+            
             foreach (var card in chosenCards)
             {
                 if (card[0] < smallestEdgeCard)
@@ -139,10 +141,15 @@ namespace AsepStudios.Mechanic.GameCore
             var log = "Board: \n";
             foreach (var row in board)
             {
-                log += row[0] + " " + row[1] + " " + row[2] + " " + row[3];
+                foreach (var card in row)
+                {
+                    log += card + " ";
+                }
                 log += "\n";
             }
             Debug.Log(log);
         }
+        
+        
     }
 }

@@ -23,7 +23,9 @@ namespace AsepStudios.Mechanic.GameCore
         public int[] ChosenRow => GetChosenRow();
         public bool IsEveryoneChoseCard => CheckEveryPlayerChooseACard();
         public bool IsRightPlayerChoseRow => CheckTheRightPlayerChooseARow();
-
+        public bool IsEveryoneAboveZero => CheckEveryPlayerAboveZeroHealth();
+        public bool IsPlayerCardsRunOut => CheckPlayerCardsRunOut();
+        
         public PlayerController()
         {
             foreach (var player in Lobby.Instance.Players)
@@ -69,8 +71,9 @@ namespace AsepStudios.Mechanic.GameCore
                     (int)player.OwnerClientId
                 };
             }
-
-            var sorted = result.OrderBy(x => x[0]).ToArray();
+                
+            result.Sort();
+            BoardHelper.PrintBoard(result);
             return result;
         }
         
@@ -82,8 +85,7 @@ namespace AsepStudios.Mechanic.GameCore
             
             result[0] = player.GamePlayer.ChosenRow;
             result[1] = player.GamePlayer.ChosenCard;
-            result[2] = (int)player.OwnerClientId;
-            
+            result[2] = (int)player.OwnerClientId;            
             return result;
         }
         
@@ -105,6 +107,23 @@ namespace AsepStudios.Mechanic.GameCore
             var player = Lobby.Instance.GetPlayerFromClientId((ulong)rightPlayer);
 
             return player.GamePlayer.IsChoseRow;
+        }
+        
+        private bool CheckEveryPlayerAboveZeroHealth()
+        {
+            foreach (var player in Lobby.Instance.Players)
+            {
+                if (player.GamePlayer.Point <= 0)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        
+        private bool CheckPlayerCardsRunOut()
+        {
+            return Lobby.Instance.Players[0].GamePlayer.IsCardsEmpty;
         }
         
         private void GamePlayer_OnAnyPlayerChosenCardChanged(object sender, EventArgs e)

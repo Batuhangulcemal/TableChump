@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace AsepStudios.Mechanic.GameCore
@@ -6,6 +7,15 @@ namespace AsepStudios.Mechanic.GameCore
     public class BoardController
     {
         private readonly Board board;
+        
+        public int[][] OriginalBoard = new []
+        {
+            new int[] {-1, -1, -1 , -1},
+            new int[] {-1, -1, -1 , -1},
+            new int[] {-1, -1, -1 , -1},
+            new int[] {-1, -1, -1 , -1}
+        };
+        public int[][] OriginalChosenCards;
         public BoardController()
         {
             board = Board.Instance;
@@ -15,7 +25,7 @@ namespace AsepStudios.Mechanic.GameCore
         //there is no lesser card
         public void PutCards(int[][] chosenCards, out Dictionary<int, int> playerDamages)
         {
-            int[][] newBoard = board.Values.Clone() as int[][];
+            int[][] newBoard = OriginalBoard.Clone() as int[][];
 
             Dictionary<int, int> damages = new();
 
@@ -42,14 +52,14 @@ namespace AsepStudios.Mechanic.GameCore
             }
 
             
-            board.SetBoardValues(newBoard);
+            SetBoard(newBoard);
             playerDamages = damages;
         }
 
         public void TakeRow(int rowIndex, int card, int playerId, out Dictionary<int, int> playerDamages)
         {
-            int[][] newBoard = board.Values.Clone() as int[][];
-            
+            int[][] newBoard = OriginalBoard.Clone() as int[][];
+
             Dictionary<int, int> damages = new();
             var point = BoardHelper.CalculateTotalPointInRow(rowIndex, newBoard);
             damages.Add(playerId, point);
@@ -58,29 +68,41 @@ namespace AsepStudios.Mechanic.GameCore
             BoardHelper.ClearRow(rowIndex, newBoard);
             BoardHelper.AddCardToRow(card, rowIndex, newBoard);
             
-            board.SetBoardValues(newBoard);
+            SetBoard(newBoard);
         }
         
         public void PutInitialCards(int[][] initialCards)
         {
-            board.SetBoardValues(initialCards);
+            SetBoard(initialCards);
         }
 
         public void PutChosenCards(int[][] chosenCards)
         {
-            board.SetChosenCards(chosenCards);
+            SetChosenCards(chosenCards);
         }
 
         public bool IsThereAnyLesserCardThanBoard(int[][] chosenCards, out int playerId)
         {
-            var value = BoardHelper.IsThereAnyLesserCardThanBoard(chosenCards, board.Values, out int id);
+            var value = BoardHelper.IsThereAnyLesserCardThanBoard(chosenCards, OriginalBoard, out int id);
 
             playerId = id;
             return value;
         }
         public bool IsBoardEmpty()
         {
-            return BoardHelper.IsBoardEmpty(board.Values);
+            return BoardHelper.IsBoardEmpty(OriginalBoard);
+        }
+
+        private void SetBoard(int[][] newBoard)
+        {
+            OriginalBoard = newBoard;
+            board.SetBoardValues(OriginalBoard);
+        }
+
+        private void SetChosenCards(int[][] chosenCards)
+        {
+            OriginalChosenCards = chosenCards;
+            board.SetChosenCards(chosenCards);
         }
         
         

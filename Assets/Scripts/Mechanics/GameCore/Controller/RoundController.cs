@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using AsepStudios.Mechanic.GameCore.Enum;
+using AsepStudios.Mechanic.LobbyCore;
+using UnityEngine;
 
 namespace AsepStudios.Mechanic.GameCore
 {
@@ -25,25 +27,12 @@ namespace AsepStudios.Mechanic.GameCore
         
         public void StartRound()
         {
-            if (CheckIfNeedToDealCards())
-            {
-                round.ChangeRoundState(RoundState.Dealing);
-                CardDealer.DealCards(boardController);
-            }
-            
+            round.ChangeRoundState(RoundState.Dealing);
+            CardDealer.DealCards(boardController);
             round.ChangeRoundState(RoundState.WaitingForPlayers);
+            
         }
         
-        private bool CheckIfNeedToDealCards()
-        {
-            if (boardController.IsBoardEmpty())
-            {
-                return true;
-            }
-
-            return false;
-        }
-
         private void PlayerController_OnOnAnyPlayerChosenCardChanged(object sender, EventArgs e)
         {
             if (playerController.IsEveryoneChoseCard)
@@ -87,40 +76,62 @@ namespace AsepStudios.Mechanic.GameCore
 
         private void ExecutePutAction(int[][] cards)
         {
+            round.ChangeRowChoosePlayer(-1);
             round.ChangeRoundState(RoundState.Animating);
             playerController.RemoveChosenCardsFromPlayers();
             playerController.ResetChosenRowFromPlayers();
-            PutCardsToBoard(cards, out Dictionary<int, int> playerDamages);
-            ApplyDamageToPlayers(playerDamages);
-            
-            OnRoundEnded?.Invoke(this, EventArgs.Empty);
+            PutCardsToBoard(cards);
+
+            OnActionsEnd();
         }
 
         private void ExecuteRowTakeAction()
         {
-            int chosenRowIndex = playerController.ChosenRow[0];
-            int chosenCard = playerController.ChosenRow[1];
-            int playerId = playerController.ChosenRow[2];
-            boardController.TakeRow(chosenRowIndex, chosenCard, playerId, out Dictionary<int, int> playerDamages);
-            ApplyDamageToPlayers(playerDamages);
-
-            var oldCards = Board.Instance.ChosenCards.Clone() as int[][];
-
+            TakeRowFromBoard();
+            
+            var oldCards = boardController.OriginalChosenCards.Clone() as int[][];
             var newCards = oldCards.Skip(1).ToArray();
             boardController.PutChosenCards(newCards);
+            
             ExecutePutAction(newCards);
 
         }
 
-        private void PutCardsToBoard(int[][] cards, out Dictionary<int, int> playerDamages)
+        private void PutCardsToBoard(int[][] cards)
         {
-            boardController.PutCards(cards, out Dictionary<int, int> _playerDamages);
-            playerDamages = _playerDamages;
+            boardController.PutCards(cards, out Dictionary<int, int> playerDamages);
+            ApplyDamageToPlayers(playerDamages);
+        }
+
+        private void TakeRowFromBoard()
+        {
+            int[] data = playerController.ChosenRow;
+            int chosenRowIndex = data[0];
+            int chosenCard = data[1];
+            int playerId = data[2];
+
+            boardController.TakeRow(chosenRowIndex, chosenCard, playerId, out Dictionary<int, int> playerDamages);
+            ApplyDamageToPlayers(playerDamages);
         }
 
         private void ApplyDamageToPlayers(Dictionary<int, int> playerDamages)
         {
-            
+            foreach (var damages in playerDamages)
+            {
+                Lobby.Instance.GetPlayerFromClientId((ulong)damages.Key).GamePlayer.DecreasePointByCardNumber(damages.Value);
+            }
+        }
+        
+        private void OnActionsEnd()
+        {
+            if (playerController.IsPlayerCardsRunOut)
+            {
+                OnRoundEnded?.Invoke(this,EventArgs.Empty);
+            }
+            else
+            {
+                round.ChangeRoundState(RoundState.WaitingForPlayers);
+            }
         }
     }
 }

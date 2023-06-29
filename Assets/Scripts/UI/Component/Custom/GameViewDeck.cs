@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using AsepStudios.Mechanic.GameCore;
+using AsepStudios.Mechanic.GameCore.Enum;
 using AsepStudios.Mechanic.PlayerCore.LocalPlayerCore;
 using AsepStudios.Utils;
 using UnityEngine;
@@ -15,21 +17,42 @@ namespace AsepStudios.UI
         public void Initialize()
         {
             LocalPlayer.Instance.Player.GamePlayer.OnCardsChanged += OnCardsChanged;
+            Round.Instance.OnRoundStateChanged += OnRoundStateChanged;
             RefreshDeck();
             AssignOnClickEvents();
+            RefreshButtonsState();
         }
 
         private void OnDestroy()
         {
             LocalPlayer.Instance.Player.GamePlayer.OnCardsChanged -= OnCardsChanged;
-        }
+            Round.Instance.OnRoundStateChanged -= OnRoundStateChanged;
 
+        }
+        
         private void OnCardsChanged(object sender, EventArgs e)
         {
             RefreshDeck();
             AssignOnClickEvents();
         }
         
+        private void OnRoundStateChanged(object sender, EventArgs e)
+        {
+            RefreshButtonsState();
+        }
+
+        private void RefreshButtonsState()
+        {
+            if (Round.Instance.RoundState == RoundState.WaitingForPlayers)
+            {
+                EnableAllCards();
+            }
+            else
+            {
+                DisableAllCards();
+            }
+        }
+
         private void RefreshDeck()
         {
             DestroyService.ClearChildren(transform);
@@ -76,6 +99,22 @@ namespace AsepStudios.UI
         {
             chosenCard = card;
             LocalPlayer.Instance.Player.GamePlayer.ChooseCardServerRpc(card == null ? 0 : card.Number);
+        }
+
+        private void DisableAllCards()
+        {
+            foreach (var card in cards)
+            {
+                card.Interactable = false;
+            }
+        }
+        
+        private void EnableAllCards()
+        {
+            foreach (var card in cards)
+            {
+                card.Interactable = true;
+            }
         }
         
         

@@ -1,12 +1,8 @@
 ﻿using System;
 using AsepStudios.Mechanic.GameCore;
 using AsepStudios.Mechanic.LobbyCore;
-using AsepStudios.Mechanic.PlayerCore.LocalPlayerCore;
-using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
-
 namespace AsepStudios.UI
 {
     public class GameView : View

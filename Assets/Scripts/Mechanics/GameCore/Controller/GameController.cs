@@ -50,12 +50,7 @@ namespace AsepStudios.Mechanic.GameCore
             ChangeGameState(GameState.Playing);
 
         }
-
-        public void PauseGame()
-        {
-            ChangeGameState(GameState.Paused);
-        }
-
+        
         public void StopGame()
         {
             ChangeGameState(GameState.Over);
