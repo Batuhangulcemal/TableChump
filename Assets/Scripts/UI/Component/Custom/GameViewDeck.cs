@@ -17,7 +17,7 @@ namespace AsepStudios.UI
         public void Initialize()
         {
             LocalPlayer.Instance.Player.GamePlayer.OnCardsChanged += OnCardsChanged;
-            Round.Instance.OnRoundStateChanged += OnRoundStateChanged;
+            Round.Instance.OnRoundInfoChanged += OnRoundInfoChanged;
             RefreshDeck();
             AssignOnClickEvents();
             RefreshButtonsState();
@@ -26,7 +26,7 @@ namespace AsepStudios.UI
         private void OnDestroy()
         {
             LocalPlayer.Instance.Player.GamePlayer.OnCardsChanged -= OnCardsChanged;
-            Round.Instance.OnRoundStateChanged -= OnRoundStateChanged;
+            Round.Instance.OnRoundInfoChanged -= OnRoundInfoChanged;
 
         }
         
@@ -36,7 +36,7 @@ namespace AsepStudios.UI
             AssignOnClickEvents();
         }
         
-        private void OnRoundStateChanged(object sender, EventArgs e)
+        private void OnRoundInfoChanged(object sender, EventArgs e)
         {
             RefreshButtonsState();
         }

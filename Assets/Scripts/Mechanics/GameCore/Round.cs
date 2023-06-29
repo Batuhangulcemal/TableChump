@@ -1,22 +1,35 @@
 ﻿using System;
 using AsepStudios.Mechanic.GameCore.Enum;
 using Unity.Netcode;
+using Unity.VisualScripting;
 
 namespace AsepStudios.Mechanic.GameCore
 {
+    public struct RoundInfo : INetworkSerializable, IEquatable<RoundInfo>
+    {
+        public RoundState RoundState;
+        public int RowChoosePlayer;
+        public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
+        {
+            serializer.SerializeValue(ref RoundState);
+            serializer.SerializeValue(ref RowChoosePlayer);
+        }
+        public bool Equals(RoundInfo other)
+        {
+            return RoundState == other.RoundState && RowChoosePlayer == other.RowChoosePlayer;
+        }
+    }
     public class Round : NetworkBehaviour
     {
-        public event EventHandler OnRoundStateChanged;
-        public event EventHandler OnRowChoosePlayerChanged;
+        public event EventHandler OnRoundInfoChanged;
         
         public static Round Instance { get; private set; }
-        
-        private readonly NetworkVariable<RoundState> roundState = new();
-        private readonly NetworkVariable<int> rowChoosePlayer = new(-1);
 
-        public RoundState RoundState => roundState.Value;
-        public int RowChoosePlayer => rowChoosePlayer.Value;
+        private readonly NetworkVariable<RoundInfo> roundInfo = new();
 
+        public RoundState RoundState => roundInfo.Value.RoundState;
+        public int RowChoosePlayer => roundInfo.Value.RowChoosePlayer;
+        public RoundInfo RoundInfo => roundInfo.Value;
         private void Awake()
         {
             Instance = this;
@@ -26,28 +39,26 @@ namespace AsepStudios.Mechanic.GameCore
         {
             base.OnNetworkSpawn();
             
-            roundState.OnValueChanged += RoundState_OnValueChanged;
-            rowChoosePlayer.OnValueChanged += RowChoosePlayer_OnStatePlayer;
+            roundInfo.OnValueChanged += RoundInfo_OnValueChanged;
         }
-
+        
         public void ChangeRoundState(RoundState roundState)
         {
-            this.roundState.Value = roundState;
+            RoundInfo newRoundInfo = roundInfo.Value;
+            newRoundInfo.RoundState = roundState;
+            roundInfo.Value = newRoundInfo;
         }
 
         public void ChangeRowChoosePlayer(int playerId)
         {
-            rowChoosePlayer.Value = playerId;
+            RoundInfo newRoundInfo = roundInfo.Value;
+            newRoundInfo.RowChoosePlayer = playerId;
+            roundInfo.Value = newRoundInfo;
         }
-        
-        private void RoundState_OnValueChanged(RoundState previousValue, RoundState newValue)
+
+        private void RoundInfo_OnValueChanged(RoundInfo previousvalue, RoundInfo newvalue)
         {
-            OnRoundStateChanged?.Invoke(this, EventArgs.Empty);
-        }
-        
-        private void RowChoosePlayer_OnStatePlayer(int previousValue, int newValue)
-        {
-            OnRowChoosePlayerChanged?.Invoke(this, EventArgs.Empty);
+            OnRoundInfoChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

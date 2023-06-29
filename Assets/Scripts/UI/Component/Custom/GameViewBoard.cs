@@ -69,8 +69,7 @@ namespace AsepStudios.UI
             
             Board.Instance.OnBoardChanged += OnBoardChanged;
             Board.Instance.OnChosenCardsChanged += OnChosenCardsChanged;
-            Round.Instance.OnRoundStateChanged += OnRoundStateChanged;
-            Round.Instance.OnRowChoosePlayerChanged += OnRowChoosePlayerChanged;
+            Round.Instance.OnRoundInfoChanged += OnRoundInfoChanged;
             RefreshBoard();
             RefreshChosenCards();
             RefreshRowButtons();
@@ -82,8 +81,7 @@ namespace AsepStudios.UI
         {
             Board.Instance.OnBoardChanged -= OnBoardChanged;
             Board.Instance.OnChosenCardsChanged -= OnChosenCardsChanged;
-            Round.Instance.OnRoundStateChanged -= OnRoundStateChanged;
-            Round.Instance.OnRowChoosePlayerChanged -= OnRowChoosePlayerChanged;
+            Round.Instance.OnRoundInfoChanged -= OnRoundInfoChanged;
         }
 
         private void OnBoardChanged(object sender, EventArgs e)
@@ -96,17 +94,11 @@ namespace AsepStudios.UI
             RefreshChosenCards();
         }
         
-        private void OnRoundStateChanged(object sender, EventArgs e)
+        private void OnRoundInfoChanged(object sender, EventArgs e)
         {
             RefreshRowButtons();
             RefreshLogText();
         }
-        private void OnRowChoosePlayerChanged(object sender, EventArgs e)
-        {
-            RefreshRowButtons();
-            RefreshLogText();
-        }
-        
         private void RefreshBoard()
         {
             ClearBoard();
