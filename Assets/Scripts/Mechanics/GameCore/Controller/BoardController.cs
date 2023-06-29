@@ -45,6 +45,21 @@ namespace AsepStudios.Mechanic.GameCore
             board.SetBoardValues(newBoard);
             playerDamages = damages;
         }
+
+        public void TakeRow(int rowIndex, int card, int playerId, out Dictionary<int, int> playerDamages)
+        {
+            int[][] newBoard = board.Values.Clone() as int[][];
+            
+            Dictionary<int, int> damages = new();
+            var point = BoardHelper.CalculateTotalPointInRow(rowIndex, newBoard);
+            damages.Add(playerId, point);
+            playerDamages = damages;
+            
+            BoardHelper.ClearRow(rowIndex, newBoard);
+            BoardHelper.AddCardToRow(card, rowIndex, newBoard);
+            
+            board.SetBoardValues(newBoard);
+        }
         
         public void PutInitialCards(int[][] initialCards)
         {
@@ -56,11 +71,11 @@ namespace AsepStudios.Mechanic.GameCore
             board.SetChosenCards(chosenCards);
         }
 
-        public bool IsThereAnyLesserCardThanBoard(int[][] chosenCards, out int clientId)
+        public bool IsThereAnyLesserCardThanBoard(int[][] chosenCards, out int playerId)
         {
             var value = BoardHelper.IsThereAnyLesserCardThanBoard(chosenCards, board.Values, out int id);
 
-            clientId = id;
+            playerId = id;
             return value;
         }
         public bool IsBoardEmpty()

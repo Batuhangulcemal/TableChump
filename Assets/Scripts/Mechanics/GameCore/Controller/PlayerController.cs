@@ -14,13 +14,26 @@ namespace AsepStudios.Mechanic.GameCore
         public event EventHandler OnAnyPlayerChosenRowChanged;
 
         public int[][] ChosenCards => GetChosenCardsSorted();
-        public bool IsEveryoneChose => CheckEveryPlayerChooseACard();
+        
+        /// <summary>
+        /// first element is rowIndex
+        /// second element is cardNumber
+        /// third element is playerId
+        /// </summary>
+        public int[] ChosenRow => GetChosenRow();
+        public bool IsEveryoneChoseCard => CheckEveryPlayerChooseACard();
+        public bool IsRightPlayerChoseRow => CheckTheRightPlayerChooseARow();
 
         public PlayerController()
         {
             foreach (var player in Lobby.Instance.Players)
             {
                 player.GamePlayer.OnChosenCardChanged += GamePlayer_OnAnyPlayerChosenCardChanged;
+            }
+
+            foreach (var player in Lobby.Instance.Players)
+            {
+                player.GamePlayer.OnChosenRowChanged += GamePlayer_OnAnyPlayerChosenRowChanged;
             }
         }
         
@@ -32,11 +45,15 @@ namespace AsepStudios.Mechanic.GameCore
             }
         }
 
-        private void GamePlayer_OnAnyPlayerChosenCardChanged(object sender, EventArgs e)
+        public void ResetChosenRowFromPlayers()
         {
-            OnAnyPlayerChosenCardChanged?.Invoke(this, EventArgs.Empty);
+            foreach (var player in Lobby.Instance.Players)
+            {
+                player.GamePlayer.ResetChosenRow();
+            }
         }
-        
+
+
         private int[][] GetChosenCardsSorted()
         {
             var list = Lobby.Instance.Players;
@@ -57,6 +74,19 @@ namespace AsepStudios.Mechanic.GameCore
             return result;
         }
         
+        private int[] GetChosenRow()
+        {
+            int[] result = new int[3];
+            var rightPlayer = Round.Instance.RowChoosePlayer;
+            var player = Lobby.Instance.GetPlayerFromClientId((ulong)rightPlayer);
+            
+            result[0] = player.GamePlayer.ChosenRow;
+            result[1] = player.GamePlayer.ChosenCard;
+            result[2] = (int)player.OwnerClientId;
+            
+            return result;
+        }
+        
         private bool CheckEveryPlayerChooseACard()
         {
             foreach (var player in Lobby.Instance.Players)
@@ -68,5 +98,24 @@ namespace AsepStudios.Mechanic.GameCore
             }
             return true;
         }
+
+        private bool CheckTheRightPlayerChooseARow()
+        {
+            var rightPlayer = Round.Instance.RowChoosePlayer;
+            var player = Lobby.Instance.GetPlayerFromClientId((ulong)rightPlayer);
+
+            return player.GamePlayer.IsChoseRow;
+        }
+        
+        private void GamePlayer_OnAnyPlayerChosenCardChanged(object sender, EventArgs e)
+        {
+            OnAnyPlayerChosenCardChanged?.Invoke(this, EventArgs.Empty);
+        }
+        
+        private void GamePlayer_OnAnyPlayerChosenRowChanged(object sender, EventArgs e)
+        {
+            OnAnyPlayerChosenRowChanged?.Invoke(this, EventArgs.Empty);
+        }
+
     }
 }

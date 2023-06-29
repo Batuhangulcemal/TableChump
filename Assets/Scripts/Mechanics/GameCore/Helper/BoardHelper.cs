@@ -104,16 +104,16 @@ namespace AsepStudios.Mechanic.GameCore
             return min;
         }
         
-        public static bool IsThereAnyLesserCardThanBoard(int[][] chosenCards, int[][] board, out int clientId)
+        public static bool IsThereAnyLesserCardThanBoard(int[][] chosenCards, int[][] board, out int playerId)
         {
             int smallestEdgeCard = BoardHelper.GetSmallestEdgeCard(board);
-            clientId = -1;
+            playerId = -1;
 
             foreach (var card in chosenCards)
             {
                 if (card[0] < smallestEdgeCard)
                 {
-                    clientId = card[1];
+                    playerId = card[1];
                     return true;
                 }
             }

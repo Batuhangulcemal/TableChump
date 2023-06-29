@@ -12,6 +12,7 @@ namespace AsepStudios.Mechanic.GameCore
         public GameController()
         {
             game = Game.Instance;
+            
         }
 
         private void Round_OnRoundEnded(object sender, EventArgs e)
@@ -19,6 +20,10 @@ namespace AsepStudios.Mechanic.GameCore
             if (CheckIsGameShouldOver())
             {
                 StopGame();
+            }
+            else
+            {
+                roundController.StartRound();
             }
         }
 

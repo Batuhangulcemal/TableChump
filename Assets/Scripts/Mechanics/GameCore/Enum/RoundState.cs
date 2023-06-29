@@ -5,7 +5,7 @@
         WaitingForStart,
         Dealing,
         WaitingForPlayers,
-        WaitingForPlayerPickARow,
+        WaitingForPlayerChooseARow,
         Animating,
         Ended
             

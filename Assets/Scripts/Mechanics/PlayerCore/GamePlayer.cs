@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
 using AsepStudios.Utils;
 using Unity.Collections;
 using Unity.Netcode;
-using UnityEngine;
-using UnityEngine.Video;
+
 
 namespace AsepStudios.Mechanic.PlayerCore
 {
@@ -27,6 +24,7 @@ namespace AsepStudios.Mechanic.PlayerCore
         public int ChosenCard => chosenCard.Value;
         public int ChosenRow => chosenRow.Value;
         public bool IsChoseCard => chosenCard.Value != -1;
+        public bool IsChoseRow => chosenRow.Value != -1;
         public bool IsCardsEmpty => Cards.Length == 0;
 
         
@@ -65,6 +63,12 @@ namespace AsepStudios.Mechanic.PlayerCore
         {
             chosenCard.Value = number;
         }
+        
+        [ServerRpc]
+        public void ChooseRowServerRpc(int rowIndex)
+        {
+            chosenRow.Value = rowIndex;
+        }
 
         public void UseChosenCard()
         {
@@ -75,6 +79,11 @@ namespace AsepStudios.Mechanic.PlayerCore
 
             chosenCard.Value = -1;
 
+        }
+
+        public void ResetChosenRow()
+        {
+            chosenRow.Value = -1;
         }
         
         

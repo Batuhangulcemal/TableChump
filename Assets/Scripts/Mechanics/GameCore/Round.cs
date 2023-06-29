@@ -1,7 +1,6 @@
 ﻿using System;
 using AsepStudios.Mechanic.GameCore.Enum;
 using Unity.Netcode;
-using UnityEngine;
 
 namespace AsepStudios.Mechanic.GameCore
 {
@@ -29,6 +28,16 @@ namespace AsepStudios.Mechanic.GameCore
             
             roundState.OnValueChanged += RoundState_OnValueChanged;
             rowChoosePlayer.OnValueChanged += RowChoosePlayer_OnStatePlayer;
+        }
+
+        public void ChangeRoundState(RoundState roundState)
+        {
+            this.roundState.Value = roundState;
+        }
+
+        public void ChangeRowChoosePlayer(int playerId)
+        {
+            rowChoosePlayer.Value = playerId;
         }
         
         private void RoundState_OnValueChanged(RoundState previousValue, RoundState newValue)
