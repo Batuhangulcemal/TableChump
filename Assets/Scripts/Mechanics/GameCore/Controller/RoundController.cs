@@ -35,7 +35,7 @@ namespace AsepStudios.Mechanic.GameCore
         
         private void PlayerController_OnOnAnyPlayerChosenCardChanged(object sender, EventArgs e)
         {
-            if (playerController.IsEveryoneChoseCard)
+            if (PlayerController.IsEveryoneChoseCard)
             {
                 OnEveryoneChose();
 
@@ -46,7 +46,7 @@ namespace AsepStudios.Mechanic.GameCore
         {
             if (round.RoundState != RoundState.WaitingForPlayerChooseARow) return;
 
-            if (!playerController.IsRightPlayerChoseRow) return;
+            if (!PlayerController.IsRightPlayerChoseRow) return;
             
             //right player chose a row.
             
@@ -57,7 +57,7 @@ namespace AsepStudios.Mechanic.GameCore
         {
             if (round.RoundState != RoundState.WaitingForPlayers) return;
             //Put cards to board with order
-            int[][] cards = playerController.ChosenCards;
+            int[][] cards = PlayerController.ChosenCards;
             
             boardController.PutChosenCards(cards);
 
@@ -78,8 +78,8 @@ namespace AsepStudios.Mechanic.GameCore
         {
             round.ChangeRowChoosePlayer(-1);
             round.ChangeRoundState(RoundState.Animating);
-            playerController.RemoveChosenCardsFromPlayers();
-            playerController.ResetChosenRowFromPlayers();
+            PlayerController.RemoveChosenCardsFromPlayers();
+            PlayerController.ResetChosenRowFromPlayers();
             PutCardsToBoard(cards);
 
             OnActionsEnd();
@@ -105,7 +105,7 @@ namespace AsepStudios.Mechanic.GameCore
 
         private void TakeRowFromBoard()
         {
-            int[] data = playerController.ChosenRow;
+            int[] data = PlayerController.ChosenRow;
             int chosenRowIndex = data[0];
             int chosenCard = data[1];
             int playerId = data[2];
@@ -124,7 +124,7 @@ namespace AsepStudios.Mechanic.GameCore
         
         private void OnActionsEnd()
         {
-            if (playerController.IsPlayerCardsRunOut)
+            if (PlayerController.IsPlayerCardsRunOut)
             {
                 OnRoundEnded?.Invoke(this,EventArgs.Empty);
             }

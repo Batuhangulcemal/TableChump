@@ -13,18 +13,18 @@ namespace AsepStudios.Mechanic.GameCore
         public event EventHandler OnAnyPlayerChosenCardChanged;
         public event EventHandler OnAnyPlayerChosenRowChanged;
 
-        public int[][] ChosenCards => GetChosenCardsSorted();
+        public static int[][] ChosenCards => GetChosenCardsSorted();
         
         /// <summary>
         /// first element is rowIndex
         /// second element is cardNumber
         /// third element is playerId
         /// </summary>
-        public int[] ChosenRow => GetChosenRow();
-        public bool IsEveryoneChoseCard => CheckEveryPlayerChooseACard();
-        public bool IsRightPlayerChoseRow => CheckTheRightPlayerChooseARow();
-        public bool IsEveryoneAboveZero => CheckEveryPlayerAboveZeroHealth();
-        public bool IsPlayerCardsRunOut => CheckPlayerCardsRunOut();
+        public static int[] ChosenRow => GetChosenRow();
+        public static bool IsEveryoneChoseCard => CheckEveryPlayerChooseACard();
+        public static bool IsRightPlayerChoseRow => CheckTheRightPlayerChooseARow();
+        public static bool IsEveryoneAboveZero => CheckEveryPlayerAboveZeroHealth();
+        public static bool IsPlayerCardsRunOut => CheckPlayerCardsRunOut();
         
         public PlayerController()
         {
@@ -39,7 +39,7 @@ namespace AsepStudios.Mechanic.GameCore
             }
         }
         
-        public void RemoveChosenCardsFromPlayers()
+        public static void RemoveChosenCardsFromPlayers()
         {
             foreach (var player in Lobby.Instance.Players)
             {
@@ -47,7 +47,7 @@ namespace AsepStudios.Mechanic.GameCore
             }
         }
 
-        public void ResetChosenRowFromPlayers()
+        public static void ResetChosenRowFromPlayers()
         {
             foreach (var player in Lobby.Instance.Players)
             {
@@ -55,8 +55,16 @@ namespace AsepStudios.Mechanic.GameCore
             }
         }
 
+        public static void SetPlayersPoint(int value)
+        {
+            foreach (var player in Lobby.Instance.Players)
+            {
+                player.GamePlayer.SetPoint(value);
+            }
+        }
 
-        private int[][] GetChosenCardsSorted()
+
+        private static int[][] GetChosenCardsSorted()
         {
             var list = Lobby.Instance.Players;
 
@@ -77,7 +85,7 @@ namespace AsepStudios.Mechanic.GameCore
             return result;
         }
         
-        private int[] GetChosenRow()
+        private static int[] GetChosenRow()
         {
             int[] result = new int[3];
             var rightPlayer = Round.Instance.RowChoosePlayer;
@@ -89,7 +97,7 @@ namespace AsepStudios.Mechanic.GameCore
             return result;
         }
         
-        private bool CheckEveryPlayerChooseACard()
+        private static bool CheckEveryPlayerChooseACard()
         {
             foreach (var player in Lobby.Instance.Players)
             {
@@ -101,7 +109,7 @@ namespace AsepStudios.Mechanic.GameCore
             return true;
         }
 
-        private bool CheckTheRightPlayerChooseARow()
+        private static bool CheckTheRightPlayerChooseARow()
         {
             var rightPlayer = Round.Instance.RowChoosePlayer;
             var player = Lobby.Instance.GetPlayerFromClientId((ulong)rightPlayer);
@@ -109,7 +117,7 @@ namespace AsepStudios.Mechanic.GameCore
             return player.GamePlayer.IsChoseRow;
         }
         
-        private bool CheckEveryPlayerAboveZeroHealth()
+        private static bool CheckEveryPlayerAboveZeroHealth()
         {
             foreach (var player in Lobby.Instance.Players)
             {
@@ -121,7 +129,7 @@ namespace AsepStudios.Mechanic.GameCore
             return true;
         }
         
-        private bool CheckPlayerCardsRunOut()
+        private static bool CheckPlayerCardsRunOut()
         {
             return Lobby.Instance.Players[0].GamePlayer.IsCardsEmpty;
         }

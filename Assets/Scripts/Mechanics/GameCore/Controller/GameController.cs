@@ -7,13 +7,6 @@ namespace AsepStudios.Mechanic.GameCore
     public class GameController
     {
         private RoundController roundController;
-        private Game game;
-
-        public GameController()
-        {
-            game = Game.Instance;
-            
-        }
 
         private void Round_OnRoundEnded(object sender, EventArgs e)
         {
@@ -29,25 +22,35 @@ namespace AsepStudios.Mechanic.GameCore
 
         private bool CheckIsGameShouldOver()
         {
-            return false;
+            if (PlayerController.IsEveryoneAboveZero)
+            {
+                return false;
+            }
+
+            return true;
         }
         
         private void InitializeGame()
         {
-            
+            PlayerController.SetPlayersPoint(Game.Instance.PlayerPointStartValue);
             roundController = new RoundController();
             
             roundController.OnRoundEnded -= Round_OnRoundEnded;
             roundController.OnRoundEnded += Round_OnRoundEnded;
             
             roundController.StartRound();
+            ChangeGameState(GameState.Playing);
 
         }
 
         public void StartGame()
         {
-            InitializeGame();
-            ChangeGameState(GameState.Playing);
+            if (Game.Instance == null) return;
+            
+            if (Game.Instance.IsArgsInitialized)
+            {
+                InitializeGame();
+            }
 
         }
         

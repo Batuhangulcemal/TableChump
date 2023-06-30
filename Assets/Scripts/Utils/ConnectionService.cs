@@ -78,6 +78,13 @@ public static class ConnectionService
             response.Approved = false;
             return;
         }
+        
+        if (!Game.Instance.IsArgsInitialized)
+        {
+            response.Reason = ErrorMessage.RoomIsBeingCreated;
+            response.Approved = false;
+            return;
+        }
 
         if (Game.Instance.GameState.Value != GameState.NotStarted)
         {
@@ -85,8 +92,8 @@ public static class ConnectionService
             response.Approved = false;
             return;
         }
-
-        if (Lobby.Instance.PlayerCount >= 8) //let the host player set the max count
+        
+        if (Lobby.Instance.PlayerCount >= Game.Instance.MaxPlayerCount) 
         {
             response.Reason = ErrorMessage.RoomIsFull;
             response.Approved = false;

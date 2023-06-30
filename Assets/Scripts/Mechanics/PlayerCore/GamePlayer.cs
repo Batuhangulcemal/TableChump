@@ -17,9 +17,10 @@ namespace AsepStudios.Mechanic.PlayerCore
         public event EventHandler OnChosenRowChanged;
 
         private readonly NetworkVariable<FixedString512Bytes> cards = new();
-        private readonly NetworkVariable<int> point = new(80);
+        private readonly NetworkVariable<int> point = new(99);
         private readonly NetworkVariable<int> chosenCard = new(-1);
         private readonly NetworkVariable<int> chosenRow = new(-1);
+        
 
         public int[] Cards => GetCards();
         public int Point => point.Value;
@@ -42,6 +43,11 @@ namespace AsepStudios.Mechanic.PlayerCore
         {
             int decreasingPoint = CardPointCalculator.Calculate(cardNumber);
             point.Value -= decreasingPoint;
+        }
+
+        public void SetPoint(int value)
+        {
+            point.Value = value;
         }
         
         public void SetCards(int[] newCards)

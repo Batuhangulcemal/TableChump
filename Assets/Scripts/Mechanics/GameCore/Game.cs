@@ -13,9 +13,15 @@ namespace AsepStudios.Mechanic.GameCore
         public static Game Instance { get; private set; }
         
         public readonly NetworkVariable<GameState> GameState = new();
-
-        private readonly NetworkVariable<bool> isGameInitialized = new();
         
+        private readonly NetworkVariable<GameArgs> gameArgs = new(new GameArgs()
+        {
+            IsArgsInitialized = false
+        });
+
+        public bool IsArgsInitialized => gameArgs.Value.IsArgsInitialized;
+        public int PlayerPointStartValue => gameArgs.Value.PlayerPointStartValue;
+        public int MaxPlayerCount => gameArgs.Value.MaxPlayerCount;
         private void Awake()
         {
             Instance = this;
@@ -24,7 +30,11 @@ namespace AsepStudios.Mechanic.GameCore
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
-            
+
+            if (IsServer)
+            {
+                SetGameArgs(GameArgsHolder.GameArgs);
+            }
             GameState.OnValueChanged += GameStateOnValueChanged;
             ChangeViewByGameState();
         }
@@ -32,6 +42,11 @@ namespace AsepStudios.Mechanic.GameCore
         public void ChangeGameState(GameState gameState)
         {
             GameState.Value = gameState;
+        }
+
+        private void SetGameArgs(GameArgs args)
+        {
+            gameArgs.Value = args;
         }
 
         private void GameStateOnValueChanged(GameState previousGameState, GameState newGameState)
