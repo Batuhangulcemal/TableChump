@@ -1,4 +1,3 @@
-using System;
 using AsepStudios.Utils;
 using TMPro;
 using Unity.Netcode;
@@ -7,15 +6,16 @@ using UnityEngine.UI;
 
 namespace AsepStudios.UI
 {
-    public class JoinGameView : View
+    public class JoinGameWithIpView : View
     {
         [SerializeField] private Button joinButton;
         [SerializeField] private Button backButton;
-        [SerializeField] private Button joinWithIpButton;
         [SerializeField] private TextMeshProUGUI logText;
         [SerializeField] private GameObject loadingIcon;
 
-        [SerializeField] private TMP_InputField sessionCodeInputField; //To be activated
+        [SerializeField] private TMP_InputField ipInputField; //To be activated
+        [SerializeField] private TMP_InputField portInputField; //To be activated
+        
         protected override void OnEnable()
         {
             base.OnEnable();
@@ -24,23 +24,12 @@ namespace AsepStudios.UI
             logText.text = string.Empty;
             loadingIcon.SetActive(false);
             
-            joinButton.onClick.AddListener(() =>
-            {
-                logText.text = string.Empty;
-                loadingIcon.SetActive(true);
-                ConnectionService.ConnectAsClientLocally();
-            });
+            joinButton.onClick.AddListener(TryConnectAsHost);
 
             backButton.onClick.AddListener(() =>
             {
                 ConnectionService.Disconnect();
-                ViewManager.ShowView<SelectJoinOrHostView>();
-            });
-            
-            joinWithIpButton.onClick.AddListener(() =>
-            {
-                ConnectionService.Disconnect();
-                ViewManager.ShowView<JoinGameWithIpView>();
+                ViewManager.ShowView<JoinGameView>();
             });
         }
         
@@ -49,6 +38,22 @@ namespace AsepStudios.UI
             base.OnDisable();
             
             NetworkManager.Singleton.OnClientDisconnectCallback -= NetworkManager_OnClientDisconnected;
+        }
+
+        private void TryConnectAsHost()
+        {
+            logText.text = string.Empty;
+
+            if (!CheckInputFieldsFulfilled())
+            {
+                logText.text = ErrorMessage.PleaseFillRequiredFields;
+                return;
+            }
+            
+            loadingIcon.SetActive(true);
+            var ip = ipInputField.text;
+            var port = ushort.Parse(portInputField.text);
+            ConnectionService.ConnectAsClient(ip, port);
         }
         
         private void NetworkManager_OnClientDisconnected(ulong obj)
@@ -63,7 +68,11 @@ namespace AsepStudios.UI
             }
             
             loadingIcon.SetActive(false);
+        }
 
+        private bool CheckInputFieldsFulfilled()
+        {
+            return !string.IsNullOrEmpty(ipInputField.text) && !string.IsNullOrEmpty(portInputField.text);
         }
     }
 
