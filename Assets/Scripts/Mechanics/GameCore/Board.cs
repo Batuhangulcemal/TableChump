@@ -50,6 +50,11 @@ namespace AsepStudios.Mechanic.GameCore
             chosenCards.Value = newChosenCards.SerializeArray();
         }
 
+        internal void ClearChosenCards()
+        {
+            chosenCards.Value.Clear();
+        }
+
         private int[][] GetValues()
         {
             return values.Value.DeserializeArray<int[][]>();

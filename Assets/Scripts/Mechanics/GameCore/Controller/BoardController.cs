@@ -73,6 +73,7 @@ namespace AsepStudios.Mechanic.GameCore
         
         public void PutInitialCards(int[][] initialCards)
         {
+            EmptyChosenCards();
             SetBoard(initialCards);
         }
 
@@ -88,11 +89,7 @@ namespace AsepStudios.Mechanic.GameCore
             playerId = id;
             return value;
         }
-        public bool IsBoardEmpty()
-        {
-            return BoardHelper.IsBoardEmpty(OriginalBoard);
-        }
-
+        
         private void SetBoard(int[][] newBoard)
         {
             OriginalBoard = newBoard;
@@ -102,7 +99,12 @@ namespace AsepStudios.Mechanic.GameCore
         private void SetChosenCards(int[][] chosenCards)
         {
             OriginalChosenCards = chosenCards;
-            board.SetChosenCards(chosenCards);
+            board.SetChosenCards(OriginalChosenCards);
+        }
+
+        private void EmptyChosenCards()
+        {
+            board.ClearChosenCards();
         }
         
         

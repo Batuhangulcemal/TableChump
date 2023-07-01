@@ -20,7 +20,6 @@ namespace AsepStudios.Mechanic.PlayerCore
         private readonly NetworkVariable<int> point = new(99);
         private readonly NetworkVariable<int> chosenCard = new(-1);
         private readonly NetworkVariable<int> chosenRow = new(-1);
-        
 
         public int[] Cards => GetCards();
         public int Point => point.Value;

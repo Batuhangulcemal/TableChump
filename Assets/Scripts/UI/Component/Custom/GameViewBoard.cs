@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using AsepStudios.Input;
 using AsepStudios.Mechanic.GameCore;
 using AsepStudios.Mechanic.GameCore.Enum;
 using AsepStudios.Mechanic.LobbyCore;
@@ -76,7 +77,9 @@ namespace AsepStudios.UI
             RefreshLogText();
 
         }
-        
+
+
+
         private void OnDestroy()
         {
             Board.Instance.OnBoardChanged -= OnBoardChanged;

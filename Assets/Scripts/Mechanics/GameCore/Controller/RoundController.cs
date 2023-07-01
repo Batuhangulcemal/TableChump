@@ -19,6 +19,7 @@ namespace AsepStudios.Mechanic.GameCore
         {
             round = Round.Instance;
             boardController = new BoardController();
+            
             playerController = new PlayerController();
             
             playerController.OnAnyPlayerChosenCardChanged += PlayerController_OnOnAnyPlayerChosenCardChanged;

@@ -191,7 +191,7 @@ MonoBehaviour:
   youAreTheHostText: {fileID: 4933232641628484552}
   lobbyPlayerRectsTransform: {fileID: 2873929453078685564}
   lobbyPlayerRectPrefab: {fileID: 6783462020682832676, guid: 75d0c3a01755e9c4e89740d67c904ad0, type: 3}
-  backButton: {fileID: 3116659140922082384}
+  logoutButton: {fileID: 3116659140922082384}
   readyButton: {fileID: 4656357456664640589}
   startButton: {fileID: 1041001026917127788}
 --- !u!1 &3252014413714255797
@@ -495,7 +495,7 @@ GameObject:
   - component: {fileID: 8544946608576323774}
   - component: {fileID: 3116659140922082384}
   m_Layer: 5
-  m_Name: BackButton
+  m_Name: LogoutButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -549,7 +549,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6439f5adad2c04740b911c236385a106, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8334b096d5154bd4a8060d847d6ffdec, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

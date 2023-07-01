@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using AsepStudios.Mechanic.PlayerCore.LocalPlayerCore;
 using TMPro;
 using Unity.Netcode;
+using UnityEngine.Serialization;
 
 namespace AsepStudios.UI
 {
@@ -18,7 +19,7 @@ namespace AsepStudios.UI
         [SerializeField] private Transform lobbyPlayerRectsTransform;
         [SerializeField] private LobbyPlayerRect lobbyPlayerRectPrefab;
 
-        [SerializeField] private Button backButton;
+        [SerializeField] private Button logoutButton;
         [SerializeField] private ButtonBase readyButton;
         [SerializeField] private Button startButton;
         
@@ -44,7 +45,7 @@ namespace AsepStudios.UI
                 });
             }
             
-            backButton.onClick.AddListener(ConnectionService.Disconnect);
+            logoutButton.onClick.AddListener(ConnectionService.Disconnect);
 
             readyButton.OnClick.AddListener(() =>
             {
