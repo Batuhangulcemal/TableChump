@@ -38,10 +38,9 @@ namespace AsepStudios.Mechanic.PlayerCore
             chosenRow.OnValueChanged += ChosenRowOnValueChanged;
         }
         
-        public void DecreasePointByCardNumber(int cardNumber)
+        public void DecreasePoint(int point)
         {
-            int decreasingPoint = CardPointCalculator.Calculate(cardNumber);
-            point.Value -= decreasingPoint;
+            this.point.Value -= point;
         }
 
         public void SetPoint(int value)

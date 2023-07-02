@@ -13,17 +13,18 @@ namespace AsepStudios.UI
         [SerializeField] private ProfileAvatarButton profileAvatarButtonBasePrefab;
         [SerializeField] private TMP_InputField usernameInputField;
 
+        [SerializeField] private Button doneButton;
         [SerializeField] private Button backButton;
 
         private bool isGoingToPlayGame;
-        private List<ProfileAvatarButton> avatarButtons = new();
+        private readonly List<ProfileAvatarButton> avatarButtons = new();
         private int chosenAvatarIndex = -1;
 
         protected override void OnEnable()
         {
             base.OnEnable();
 
-            backButton.onClick.AddListener(() =>
+            doneButton.onClick.AddListener(() =>
             {
                 if (string.IsNullOrEmpty(usernameInputField.text) || chosenAvatarIndex == -1)
                 {
@@ -35,13 +36,16 @@ namespace AsepStudios.UI
                     ShowNextView();
                 }
             });
+            
+            backButton.onClick.AddListener(() =>
+            {
+                ViewManager.ShowView<MainMenuView>();
+            });
 
             CreateAvatarButtons();
             AssignAvatarButtonOnClicks();
         }
-
-
-
+        
         public override void PassArgs(object args = null)
         {
             base.PassArgs(args);

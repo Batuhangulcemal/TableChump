@@ -13,9 +13,13 @@ namespace AsepStudios.UI
         [SerializeField] private Button restartGameButton;
         [SerializeField] private Button logoutButton;
 
+        [SerializeField] private GameViewQuitPanel quitPanel;
+
         protected override void OnEnable()
         {
             base.OnEnable();
+            
+            quitPanel.Initialize();
             
             if (Lobby.Instance.IsHostPlayerActive)
             {
@@ -30,7 +34,10 @@ namespace AsepStudios.UI
                 waitingHostToRestartGameText.gameObject.SetActive(true);
             }
             
-            logoutButton.onClick.AddListener(ConnectionService.Disconnect);
+            logoutButton.onClick.AddListener(() =>
+            {
+                quitPanel.ChangeState();
+            });
         }
 
 

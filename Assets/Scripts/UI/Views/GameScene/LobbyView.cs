@@ -6,8 +6,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using AsepStudios.Mechanic.PlayerCore.LocalPlayerCore;
 using TMPro;
-using Unity.Netcode;
-using UnityEngine.Serialization;
 
 namespace AsepStudios.UI
 {
@@ -23,9 +21,13 @@ namespace AsepStudios.UI
         [SerializeField] private ButtonBase readyButton;
         [SerializeField] private Button startButton;
         
+        [SerializeField] private GameViewQuitPanel quitPanel;
+        
         protected override void OnEnable()
         {
             base.OnEnable();
+            
+            quitPanel.Initialize();
             
             Lobby.Instance.OnPlayerListChanged += Lobby_OnPlayerListChanged;
             Lobby.Instance.OnLobbyNameChanged += Lobby_OnLobbyNameChanged;
@@ -45,7 +47,10 @@ namespace AsepStudios.UI
                 });
             }
             
-            logoutButton.onClick.AddListener(ConnectionService.Disconnect);
+            logoutButton.onClick.AddListener(() =>
+            {
+                quitPanel.ChangeState();
+            });
 
             readyButton.OnClick.AddListener(() =>
             {

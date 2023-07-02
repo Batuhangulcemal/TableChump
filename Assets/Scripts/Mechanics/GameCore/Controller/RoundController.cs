@@ -119,7 +119,7 @@ namespace AsepStudios.Mechanic.GameCore
         {
             foreach (var damages in playerDamages)
             {
-                Lobby.Instance.GetPlayerFromClientId((ulong)damages.Key).GamePlayer.DecreasePointByCardNumber(damages.Value);
+                Lobby.Instance.GetPlayerFromClientId((ulong)damages.Key).GamePlayer.DecreasePoint(damages.Value);
             }
         }
         
