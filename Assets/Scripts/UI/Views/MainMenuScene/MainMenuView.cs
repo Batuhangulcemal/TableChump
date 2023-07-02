@@ -17,12 +17,15 @@ namespace AsepStudios.UI
         [SerializeField] private Transform profilePanel;
         [SerializeField] private Image avatarImage;
         [SerializeField] private TextMeshProUGUI usernameText;
+
+        [SerializeField] private MainMenuQuitPanel quitPanel;
         
         protected override void OnEnable()
         {
             base.OnEnable();
             
-
+            quitPanel.Initialize();
+            
             playButton.onClick.AddListener(() =>
             {
                 if (Session.IsInitialized)
@@ -45,7 +48,10 @@ namespace AsepStudios.UI
 
             });
 
-            quitButton.onClick.AddListener(Application.Quit);
+            quitButton.onClick.AddListener(() =>
+            {
+                quitPanel.ChangeState();
+            });
             
             SetProfilePanel();
 
