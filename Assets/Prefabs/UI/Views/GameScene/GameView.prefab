@@ -167,6 +167,7 @@ GameObject:
   - component: {fileID: 3856973086070986151}
   - component: {fileID: 691528908758530595}
   - component: {fileID: 7250436775945023872}
+  - component: {fileID: 5765923565870933918}
   m_Layer: 5
   m_Name: QuitPanel
   m_TagString: Untagged
@@ -269,6 +270,18 @@ MonoBehaviour:
   animator: {fileID: 691528908758530595}
   resumeButton: {fileID: 4176194924535281150}
   quitButton: {fileID: 479908749642652236}
+--- !u!225 &5765923565870933918
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 484380245100589690}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &749481475670933003
 GameObject:
   m_ObjectHideFlags: 0
@@ -2506,7 +2519,6 @@ GameObject:
   - component: {fileID: 3281170276939586304}
   - component: {fileID: 8190385623283706773}
   - component: {fileID: 4937444506334646623}
-  - component: {fileID: 2782043843458528289}
   m_Layer: 5
   m_Name: QuitRect
   m_TagString: Untagged
@@ -2575,18 +2587,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!225 &2782043843458528289
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3858457033750303196}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!1 &3918840687056684515
 GameObject:
   m_ObjectHideFlags: 0
