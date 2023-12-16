@@ -1,13 +1,13 @@
-using AsepStudios.Mechanic.PlayerCore;
-using AsepStudios.Mechanics.PlayerCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AsepStudios.TableChump.Mechanics.PlayerCore;
+using AsepStudios.TableChump.Utils;
 using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
-namespace AsepStudios.Mechanic.LobbyCore
+namespace AsepStudios.TableChump.Mechanics.LobbyCore
 {
     public class Lobby : NetworkBehaviour
     {

@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using AsepStudios.TableChump.Utils;
+using UnityEngine;
 using UnityEngine.UI;
 
-namespace AsepStudios.UI
+namespace AsepStudios.TableChump.UI.Component.Custom
 {
     public class GameViewQuitPanel : MonoBehaviour
     {

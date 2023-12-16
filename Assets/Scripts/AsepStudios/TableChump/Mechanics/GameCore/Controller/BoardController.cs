@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Unity.VisualScripting;
+using AsepStudios.TableChump.Mechanics.GameCore.Helper;
 using UnityEngine;
 
-namespace AsepStudios.Mechanic.GameCore
+namespace AsepStudios.TableChump.Mechanics.GameCore.Controller
 {
     public class BoardController
     {

@@ -1,4 +1,4 @@
-﻿namespace AsepStudios.Mechanic.GameCore
+﻿namespace AsepStudios.TableChump.Mechanics.GameCore
 {
     public static class GameArgsHolder
     {

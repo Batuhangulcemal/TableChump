@@ -1,10 +1,13 @@
-using AsepStudios.UI;
+using AsepStudios.TableChump.UI;
 using UnityEngine;
 
-public class MainMenuSceneInitializer : MonoBehaviour
+namespace AsepStudios.TableChump.Utils
 {
-    private void Start()
+    public class MainMenuSceneInitializer : MonoBehaviour
     {
-        ViewManager.Initialize();
+        private void Start()
+        {
+            ViewManager.Initialize();
+        }
     }
 }

@@ -1,12 +1,12 @@
-using AsepStudios.App;
-using AsepStudios.Mechanic.PlayerCore.LocalPlayerCore;
 using System;
-using AsepStudios.Mechanic.LobbyCore;
+using AsepStudios.TableChump.App;
+using AsepStudios.TableChump.Mechanics.LobbyCore;
+using AsepStudios.TableChump.Mechanics.PlayerCore.LocalPlayerCore;
 using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
-namespace AsepStudios.Mechanic.PlayerCore
+namespace AsepStudios.TableChump.Mechanics.PlayerCore
 {
     [RequireComponent(typeof(GamePlayer))]
     public class Player : NetworkBehaviour

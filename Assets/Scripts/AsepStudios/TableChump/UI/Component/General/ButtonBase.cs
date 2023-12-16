@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace AsepStudios.UI
+namespace AsepStudios.TableChump.UI.Component.General
 {
     public class ButtonBase : MonoBehaviour
     {

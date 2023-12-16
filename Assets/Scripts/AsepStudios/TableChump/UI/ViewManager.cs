@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace AsepStudios.UI
+namespace AsepStudios.TableChump.UI
 {
     [RequireComponent(typeof(ViewRefHolder))]
     public class ViewManager : MonoBehaviour

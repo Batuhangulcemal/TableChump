@@ -1,8 +1,7 @@
-﻿using System;
-using Unity.Netcode;
+﻿using Unity.Netcode;
 using UnityEngine;
 
-namespace AsepStudios.Mechanic.GameCore
+namespace AsepStudios.TableChump.Mechanics.GameCore.Controller
 {
     public class ServerGameController : MonoBehaviour
     {

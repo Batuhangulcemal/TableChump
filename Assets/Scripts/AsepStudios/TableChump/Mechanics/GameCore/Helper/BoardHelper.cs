@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace AsepStudios.Mechanic.GameCore
+namespace AsepStudios.TableChump.Mechanics.GameCore.Helper
 {
     public static class BoardHelper
     {

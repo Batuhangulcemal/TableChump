@@ -1,17 +1,20 @@
 using System;
-using AsepStudios.Mechanic.PlayerCore.LocalPlayerCore;
-using AsepStudios.UI;
+using AsepStudios.TableChump.Mechanics.PlayerCore.LocalPlayerCore;
+using AsepStudios.TableChump.UI;
 using UnityEngine;
 
-public class GameSceneInitializer : MonoBehaviour
+namespace AsepStudios.TableChump.Utils
 {
-    private void Start()
+    public class GameSceneInitializer : MonoBehaviour
     {
-        LocalPlayer.Instance.OnPlayerAttached += OnLocalPlayerAttached;
-    }
+        private void Start()
+        {
+            LocalPlayer.Instance.OnPlayerAttached += OnLocalPlayerAttached;
+        }
 
-    private void OnLocalPlayerAttached(object sender, EventArgs e)
-    {
-        ViewManager.Initialize();
+        private void OnLocalPlayerAttached(object sender, EventArgs e)
+        {
+            ViewManager.Initialize();
+        }
     }
 }

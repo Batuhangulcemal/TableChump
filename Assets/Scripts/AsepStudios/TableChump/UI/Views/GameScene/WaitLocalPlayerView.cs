@@ -1,8 +1,6 @@
-﻿using System;
-using AsepStudios.Mechanic.PlayerCore.LocalPlayerCore;
-using UnityEngine.SocialPlatforms;
+﻿using AsepStudios.TableChump.Mechanics.PlayerCore.LocalPlayerCore;
 
-namespace AsepStudios.UI
+namespace AsepStudios.TableChump.UI.Views.GameScene
 {
     public class WaitLocalPlayerView : View
     {

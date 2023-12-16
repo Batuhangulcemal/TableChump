@@ -1,11 +1,13 @@
-using AsepStudios.UI;
 using System.Collections.Generic;
+using AsepStudios.TableChump.UI;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-[CreateAssetMenu()]
-public class ViewRefHolderSo : ScriptableObject
+namespace AsepStudios.TableChump.ScriptableObjects
 {
-    public List<View> viewList;
-    public View defaultView;
+    [CreateAssetMenu()]
+    public class ViewRefHolderSo : ScriptableObject
+    {
+        public List<View> viewList;
+        public View defaultView;
+    }
 }

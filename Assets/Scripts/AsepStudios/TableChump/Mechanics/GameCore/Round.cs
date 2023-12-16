@@ -1,9 +1,8 @@
 ﻿using System;
-using AsepStudios.Mechanic.GameCore.Enum;
+using AsepStudios.TableChump.Mechanics.GameCore.Enum;
 using Unity.Netcode;
-using Unity.VisualScripting;
 
-namespace AsepStudios.Mechanic.GameCore
+namespace AsepStudios.TableChump.Mechanics.GameCore
 {
     public struct RoundInfo : INetworkSerializable, IEquatable<RoundInfo>
     {

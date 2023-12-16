@@ -1,9 +1,11 @@
-using AsepStudios.App;
+using AsepStudios.TableChump.App;
+using AsepStudios.TableChump.UI.Component.Custom;
+using AsepStudios.TableChump.Utils;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace AsepStudios.UI
+namespace AsepStudios.TableChump.UI.Views.MainMenuScene
 {
     public class MainMenuView : View
     {

@@ -1,7 +1,6 @@
-using AsepStudios.App;
-using UnityEngine;
+using AsepStudios.TableChump.App;
 
-namespace AsepStudios.Utils
+namespace AsepStudios.TableChump.Utils
 {
     public static class PlayerPreferencesLoader
     {

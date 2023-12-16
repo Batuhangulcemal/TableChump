@@ -1,7 +1,7 @@
 ﻿using System;
 using Unity.Netcode;
 
-namespace AsepStudios.Mechanic.GameCore
+namespace AsepStudios.TableChump.Mechanics.GameCore
 {
     public struct GameArgs : INetworkSerializable, IEquatable<GameArgs>
     {

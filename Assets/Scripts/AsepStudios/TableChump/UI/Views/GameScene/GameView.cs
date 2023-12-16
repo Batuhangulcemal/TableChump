@@ -1,10 +1,10 @@
 ﻿using System;
-using AsepStudios.Input;
-using AsepStudios.Mechanic.GameCore;
-using AsepStudios.Mechanic.LobbyCore;
+using AsepStudios.TableChump.Input;
+using AsepStudios.TableChump.Mechanics.LobbyCore;
+using AsepStudios.TableChump.UI.Component.Custom;
 using UnityEngine;
-using UnityEngine.UI;
-namespace AsepStudios.UI
+
+namespace AsepStudios.TableChump.UI.Views.GameScene
 {
     public class GameView : View
     {

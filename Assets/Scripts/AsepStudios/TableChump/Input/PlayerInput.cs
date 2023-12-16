@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace AsepStudios.Input
+namespace AsepStudios.TableChump.Input
 {
     public class PlayerInput : MonoBehaviour
     {

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using AsepStudios.Mechanic.GameCore;
-using AsepStudios.Mechanic.GameCore.Enum;
-using AsepStudios.Mechanic.PlayerCore.LocalPlayerCore;
-using AsepStudios.Utils;
+using AsepStudios.TableChump.Mechanics.GameCore;
+using AsepStudios.TableChump.Mechanics.GameCore.Enum;
+using AsepStudios.TableChump.Mechanics.PlayerCore.LocalPlayerCore;
+using AsepStudios.TableChump.Utils.Service;
 using UnityEngine;
 
-namespace AsepStudios.UI
+namespace AsepStudios.TableChump.UI.Component.Custom
 {
     public class GameViewDeck  : MonoBehaviour
     {

@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Linq;
-using AsepStudios.Mechanic.GameCore;
-using AsepStudios.Mechanic.GameCore.Enum;
-using AsepStudios.Utils;
+using AsepStudios.TableChump.Mechanics.GameCore;
+using AsepStudios.TableChump.Mechanics.GameCore.Enum;
+using AsepStudios.TableChump.Utils.Service;
 using Unity.Collections;
 using Unity.Netcode;
 
-
-namespace AsepStudios.Mechanic.PlayerCore
+namespace AsepStudios.TableChump.Mechanics.PlayerCore
 {
     public class GamePlayer : NetworkBehaviour
     {

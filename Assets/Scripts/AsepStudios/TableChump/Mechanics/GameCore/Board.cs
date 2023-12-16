@@ -1,10 +1,9 @@
 ﻿using System;
-using AsepStudios.Utils;
+using AsepStudios.TableChump.Utils.Service;
 using Unity.Collections;
 using Unity.Netcode;
-using UnityEngine;
 
-namespace AsepStudios.Mechanic.GameCore
+namespace AsepStudios.TableChump.Mechanics.GameCore
 {
     public class Board : NetworkBehaviour
     {

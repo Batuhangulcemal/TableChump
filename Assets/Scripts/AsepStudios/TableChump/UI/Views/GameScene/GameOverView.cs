@@ -1,11 +1,11 @@
-﻿using AsepStudios.Mechanic.GameCore;
-using AsepStudios.Mechanic.LobbyCore;
+﻿using AsepStudios.TableChump.Mechanics.GameCore.Controller;
+using AsepStudios.TableChump.Mechanics.LobbyCore;
+using AsepStudios.TableChump.UI.Component.Custom;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-namespace AsepStudios.UI
+namespace AsepStudios.TableChump.UI.Views.GameScene
 {
     public class GameOverView : View
     {

@@ -1,4 +1,4 @@
-﻿namespace AsepStudios.Utils
+﻿namespace AsepStudios.TableChump.Utils.Service
 {
     public class ErrorMessage
     {

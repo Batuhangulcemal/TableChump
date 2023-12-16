@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AsepStudios.Mechanic.GameCore.Enum;
-using AsepStudios.Mechanic.LobbyCore;
-using UnityEngine;
+using AsepStudios.TableChump.Mechanics.GameCore.Enum;
+using AsepStudios.TableChump.Mechanics.GameCore.Helper;
+using AsepStudios.TableChump.Mechanics.LobbyCore;
 
-namespace AsepStudios.Mechanic.GameCore
+namespace AsepStudios.TableChump.Mechanics.GameCore.Controller
 {
     //this class is server only
     public class RoundController

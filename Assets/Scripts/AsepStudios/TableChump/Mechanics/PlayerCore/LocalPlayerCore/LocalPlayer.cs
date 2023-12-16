@@ -1,9 +1,9 @@
 using System;
-using AsepStudios.Mechanic.GameCore;
-using AsepStudios.Mechanic.GameCore.Enum;
+using AsepStudios.TableChump.Mechanics.GameCore;
+using AsepStudios.TableChump.Mechanics.GameCore.Enum;
 using UnityEngine;
 
-namespace AsepStudios.Mechanic.PlayerCore.LocalPlayerCore
+namespace AsepStudios.TableChump.Mechanics.PlayerCore.LocalPlayerCore
 {
     public class LocalPlayer : MonoBehaviour
     {

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 using Unity.Collections;
-using UnityEngine;
 using Random = System.Random;
 
-namespace AsepStudios.Utils
+namespace AsepStudios.TableChump.Utils.Service
 {
     public static class ShuffleService
     {

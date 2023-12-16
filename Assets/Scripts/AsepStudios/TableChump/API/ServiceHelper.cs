@@ -1,11 +1,11 @@
-using BestHTTP;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using BestHTTP;
+using Newtonsoft.Json;
 using UnityEngine;
 
-namespace AsepStudios.API
+namespace AsepStudios.TableChump.API
 {
     internal class ServiceHelper
     {

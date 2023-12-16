@@ -1,12 +1,11 @@
-﻿using System;
-using AsepStudios.Mechanic.GameCore;
-using AsepStudios.Mechanic.PlayerCore;
-using AsepStudios.Utils;
+﻿using AsepStudios.TableChump.Mechanics.GameCore.Helper;
+using AsepStudios.TableChump.UI.Component.General;
+using AsepStudios.TableChump.Utils.Service;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace AsepStudios.UI
+namespace AsepStudios.TableChump.UI.Component.Custom
 {
     public class Card : ButtonBase, IToggleButton
     {

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace AsepStudios.UI
+namespace AsepStudios.TableChump.UI.Component.Custom
 {
     public class MainMenuQuitPanel : MonoBehaviour
     {

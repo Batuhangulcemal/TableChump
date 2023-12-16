@@ -1,4 +1,4 @@
-namespace AsepStudios.API.Dto
+namespace AsepStudios.TableChump.API.Dto
 {
     public class IpDto
     {

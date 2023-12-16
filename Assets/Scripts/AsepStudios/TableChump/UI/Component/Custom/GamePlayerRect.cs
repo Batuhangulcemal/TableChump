@@ -1,10 +1,11 @@
 ﻿using System;
-using AsepStudios.Mechanic.PlayerCore;
+using AsepStudios.TableChump.Mechanics.PlayerCore;
+using AsepStudios.TableChump.Utils;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace AsepStudios.UI
+namespace AsepStudios.TableChump.UI.Component.Custom
 {
     public class GamePlayerRect : MonoBehaviour
     {

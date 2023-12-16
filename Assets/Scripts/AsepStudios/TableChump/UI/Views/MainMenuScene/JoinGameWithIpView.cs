@@ -1,10 +1,11 @@
-using AsepStudios.Utils;
+using AsepStudios.TableChump.Utils;
+using AsepStudios.TableChump.Utils.Service;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace AsepStudios.UI
+namespace AsepStudios.TableChump.UI.Views.MainMenuScene
 {
     public class JoinGameWithIpView : View
     {

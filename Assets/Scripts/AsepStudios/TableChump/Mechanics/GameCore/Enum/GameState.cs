@@ -1,4 +1,4 @@
-﻿namespace AsepStudios.Mechanic.GameCore.Enum
+﻿namespace AsepStudios.TableChump.Mechanics.GameCore.Enum
 {
     public enum GameState
     {

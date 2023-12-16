@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Linq;
-using AsepStudios.Mechanic.LobbyCore;
-using AsepStudios.Mechanic.PlayerCore;
-using AsepStudios.Utils;
-using UnityEngine;
-using UnityEngine.Rendering;
+using AsepStudios.TableChump.Mechanics.GameCore.Helper;
+using AsepStudios.TableChump.Mechanics.LobbyCore;
+using AsepStudios.TableChump.Utils.Service;
 
-namespace AsepStudios.Mechanic.GameCore
+namespace AsepStudios.TableChump.Mechanics.GameCore.Controller
 {
     public class PlayerController
     {

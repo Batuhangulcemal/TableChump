@@ -1,7 +1,7 @@
 ﻿using System;
-using AsepStudios.Mechanic.GameCore.Enum;
+using AsepStudios.TableChump.Mechanics.GameCore.Enum;
 
-namespace AsepStudios.Mechanic.GameCore
+namespace AsepStudios.TableChump.Mechanics.GameCore.Controller
 {
     //this class is server only
     public class GameController

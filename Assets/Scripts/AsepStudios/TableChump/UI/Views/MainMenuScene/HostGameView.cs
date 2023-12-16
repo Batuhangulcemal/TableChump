@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using AsepStudios.Mechanic.GameCore;
+using AsepStudios.TableChump.Mechanics.GameCore;
+using AsepStudios.TableChump.Utils;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-namespace AsepStudios.UI
+namespace AsepStudios.TableChump.UI.Views.MainMenuScene
 {
     public class HostGameView : View
     {

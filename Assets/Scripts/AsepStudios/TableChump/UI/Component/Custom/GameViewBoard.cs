@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using AsepStudios.Input;
-using AsepStudios.Mechanic.GameCore;
-using AsepStudios.Mechanic.GameCore.Enum;
-using AsepStudios.Mechanic.LobbyCore;
-using AsepStudios.Mechanic.PlayerCore.LocalPlayerCore;
-using AsepStudios.Utils;
+using AsepStudios.TableChump.Mechanics.GameCore;
+using AsepStudios.TableChump.Mechanics.GameCore.Enum;
+using AsepStudios.TableChump.Mechanics.GameCore.Helper;
+using AsepStudios.TableChump.Mechanics.LobbyCore;
+using AsepStudios.TableChump.Mechanics.PlayerCore.LocalPlayerCore;
+using AsepStudios.TableChump.Utils.Service;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace AsepStudios.UI
+namespace AsepStudios.TableChump.UI.Component.Custom
 {
     public class GameViewBoard : MonoBehaviour
     {

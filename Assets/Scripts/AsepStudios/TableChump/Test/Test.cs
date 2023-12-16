@@ -1,21 +1,18 @@
-using System.Collections.Generic;
-using AsepStudios.API;
-using AsepStudios.API.Dto;
-using AsepStudios.API.Service;
-using AsepStudios.Mechanic.GameCore;
-using AsepStudios.Mechanic.LobbyCore;
-using AsepStudios.Mechanic.PlayerCore.LocalPlayerCore;
+using AsepStudios.TableChump.Mechanics.GameCore.Helper;
 using UnityEngine;
 
-public class Test : MonoBehaviour
+namespace AsepStudios.TableChump.Test
 {
-
-    private void Update()
+    public class Test : MonoBehaviour
     {
-        if (Input.GetKeyDown(KeyCode.T))
+
+        private void Update()
         {
-            CardDealer cardDealer = new CardDealer();
-        }
+            if (UnityEngine.Input.GetKeyDown(KeyCode.T))
+            {
+                CardDealer cardDealer = new CardDealer();
+            }
         
+        }
     }
 }

@@ -1,11 +1,11 @@
 ﻿using System;
-using AsepStudios.Mechanic.GameCore.Enum;
-using AsepStudios.Mechanic.PlayerCore.LocalPlayerCore;
-using AsepStudios.UI;
+using AsepStudios.TableChump.Mechanics.GameCore.Enum;
+using AsepStudios.TableChump.Mechanics.PlayerCore.LocalPlayerCore;
+using AsepStudios.TableChump.UI;
+using AsepStudios.TableChump.UI.Views.GameScene;
 using Unity.Netcode;
 
-
-namespace AsepStudios.Mechanic.GameCore
+namespace AsepStudios.TableChump.Mechanics.GameCore
 {
     public class Game : NetworkBehaviour
     {
@@ -59,7 +59,7 @@ namespace AsepStudios.Mechanic.GameCore
         {
             switch (GameState.Value)
             {
-                case Enum.GameState.NotStarted:
+                case TableChump.Mechanics.GameCore.Enum.GameState.NotStarted:
                     if (LocalPlayer.Instance.Player != null)
                     {
                         ViewManager.ShowView<LobbyView>();
@@ -69,10 +69,10 @@ namespace AsepStudios.Mechanic.GameCore
                         ViewManager.ShowView<WaitLocalPlayerView>();
                     }
                     break;
-                case Enum.GameState.Playing:
+                case TableChump.Mechanics.GameCore.Enum.GameState.Playing:
                     ViewManager.ShowView<GameView>();
                     break;
-                case Enum.GameState.Over:
+                case TableChump.Mechanics.GameCore.Enum.GameState.Over:
                     ViewManager.ShowView<GameOverView>();
                     break;
                 default:

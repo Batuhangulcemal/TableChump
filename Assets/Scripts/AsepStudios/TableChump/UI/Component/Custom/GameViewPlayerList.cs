@@ -1,8 +1,8 @@
-﻿using AsepStudios.Mechanic.LobbyCore;
-using AsepStudios.Utils;
+﻿using AsepStudios.TableChump.Mechanics.LobbyCore;
+using AsepStudios.TableChump.Utils.Service;
 using UnityEngine;
 
-namespace AsepStudios.UI
+namespace AsepStudios.TableChump.UI.Component.Custom
 {
     public class GameViewPlayerList : MonoBehaviour
     {

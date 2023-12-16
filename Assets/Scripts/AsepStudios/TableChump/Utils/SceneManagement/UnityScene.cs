@@ -1,4 +1,4 @@
-namespace AsepStudios.SceneManagement
+namespace AsepStudios.TableChump.Utils.SceneManagement
 {
     public enum UnityScene
     {

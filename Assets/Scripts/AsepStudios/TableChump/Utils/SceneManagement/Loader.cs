@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace AsepStudios.SceneManagement
+namespace AsepStudios.TableChump.Utils.SceneManagement
 {
     public class Loader : MonoBehaviour
     {

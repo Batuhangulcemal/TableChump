@@ -1,6 +1,7 @@
 using BestHTTP;
-using AsepStudios.API.Dto;
 using System.Threading.Tasks;
+using AsepStudios.TableChump.API;
+using AsepStudios.TableChump.API.Dto;
 
 namespace AsepStudios.API.Service
 {

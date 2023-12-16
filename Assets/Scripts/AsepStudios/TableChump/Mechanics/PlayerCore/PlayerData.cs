@@ -1,9 +1,7 @@
 ﻿using System;
-using AsepStudios.Mechanic.PlayerCore;
 using Unity.Netcode;
-using UnityEngine.Serialization;
 
-namespace AsepStudios.Mechanics.PlayerCore
+namespace AsepStudios.TableChump.Mechanics.PlayerCore
 {
     public struct PlayerData : INetworkSerializable, IEquatable<PlayerData>
     {

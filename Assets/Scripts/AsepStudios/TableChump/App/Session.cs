@@ -1,4 +1,4 @@
-namespace AsepStudios.App
+namespace AsepStudios.TableChump.App
 {
     public static class Session
     {

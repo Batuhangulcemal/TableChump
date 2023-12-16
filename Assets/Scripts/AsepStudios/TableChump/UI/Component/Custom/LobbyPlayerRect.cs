@@ -1,12 +1,12 @@
-using AsepStudios.Mechanic.PlayerCore;
 using System;
-using AsepStudios.Utils;
+using AsepStudios.TableChump.Mechanics.PlayerCore;
+using AsepStudios.TableChump.Utils;
+using AsepStudios.TableChump.Utils.Service;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-namespace AsepStudios.UI
+namespace AsepStudios.TableChump.UI.Component.Custom
 {
     public class LobbyPlayerRect : MonoBehaviour
     {

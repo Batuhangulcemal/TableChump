@@ -1,15 +1,17 @@
-using AsepStudios.SceneManagement;
-using AsepStudios.Utils;
+using AsepStudios.TableChump.Utils.SceneManagement;
 using UnityEngine;
 
-public class BootstrapScene : MonoBehaviour
+namespace AsepStudios.TableChump.Utils
 {
-    [SerializeField] private ResourceProvider resourceProvider;
-    private void Awake()
+    public class BootstrapScene : MonoBehaviour
     {
-        resourceProvider.Initialize();
-        resourceProvider.Initialize();
-        PlayerPreferencesLoader.LoadPreferences();
-        Loader.Load(UnityScene.MainMenuScene);
+        [SerializeField] private ResourceProvider resourceProvider;
+        private void Awake()
+        {
+            resourceProvider.Initialize();
+            resourceProvider.Initialize();
+            PlayerPreferencesLoader.LoadPreferences();
+            Loader.Load(UnityScene.MainMenuScene);
+        }
     }
 }

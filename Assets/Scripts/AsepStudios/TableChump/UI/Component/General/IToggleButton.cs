@@ -1,4 +1,4 @@
-namespace AsepStudios.UI
+namespace AsepStudios.TableChump.UI.Component.General
 {
     public interface IToggleButton
     {

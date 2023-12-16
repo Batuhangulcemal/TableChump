@@ -1,4 +1,4 @@
-namespace AsepStudios.API
+namespace AsepStudios.TableChump.API
 {
     public class ActionResult<T> : ActionResult
     {

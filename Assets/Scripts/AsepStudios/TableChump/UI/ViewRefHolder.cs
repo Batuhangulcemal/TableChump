@@ -1,8 +1,8 @@
 using System.Collections.Generic;
+using AsepStudios.TableChump.ScriptableObjects;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace AsepStudios.UI
+namespace AsepStudios.TableChump.UI
 {
     internal class ViewRefHolder : MonoBehaviour
     {

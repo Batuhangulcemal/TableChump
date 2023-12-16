@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace AsepStudios.SceneManagement
+namespace AsepStudios.TableChump.Utils.SceneManagement
 {
     public class LoaderCallback : MonoBehaviour
     {

@@ -1,13 +1,16 @@
 using UnityEngine;
 
-[CreateAssetMenu()]
-public class ColorPaletteSo : ScriptableObject
+namespace AsepStudios.TableChump.ScriptableObjects
 {
-    public Color Orange;
-    public Color Beach;
-    public Color Cream;
-    public Color Navy;
-    public Color Blue;
-    public Color Red;
-    public Color Green;
+    [CreateAssetMenu()]
+    public class ColorPaletteSo : ScriptableObject
+    {
+        public Color Orange;
+        public Color Beach;
+        public Color Cream;
+        public Color Navy;
+        public Color Blue;
+        public Color Red;
+        public Color Green;
+    }
 }

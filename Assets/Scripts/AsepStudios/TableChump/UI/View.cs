@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace AsepStudios.UI
+namespace AsepStudios.TableChump.UI
 {
     public abstract class View : MonoBehaviour
     {

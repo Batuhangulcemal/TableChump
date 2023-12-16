@@ -1,8 +1,9 @@
-﻿using AsepStudios.Utils;
+﻿using AsepStudios.TableChump.UI.Component.General;
+using AsepStudios.TableChump.Utils.Service;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace AsepStudios.UI
+namespace AsepStudios.TableChump.UI.Component.Custom
 {
     public class ProfileAvatarButton : ButtonBase, IToggleButton
     {

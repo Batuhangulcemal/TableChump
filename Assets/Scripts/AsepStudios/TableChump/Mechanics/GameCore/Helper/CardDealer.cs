@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using AsepStudios.Mechanic.LobbyCore;
-using AsepStudios.Mechanic.PlayerCore;
-using AsepStudios.Utils;
+using AsepStudios.TableChump.Mechanics.GameCore.Controller;
+using AsepStudios.TableChump.Mechanics.LobbyCore;
+using AsepStudios.TableChump.Mechanics.PlayerCore;
+using AsepStudios.TableChump.Utils.Service;
 
-namespace AsepStudios.Mechanic.GameCore
+namespace AsepStudios.TableChump.Mechanics.GameCore.Helper
 {
     public class CardDealer
     {

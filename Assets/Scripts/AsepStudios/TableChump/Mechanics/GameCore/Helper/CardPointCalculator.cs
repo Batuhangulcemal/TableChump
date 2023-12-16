@@ -1,4 +1,4 @@
-﻿namespace AsepStudios.Mechanic.GameCore
+﻿namespace AsepStudios.TableChump.Mechanics.GameCore.Helper
 {
     public static class CardPointCalculator
     {

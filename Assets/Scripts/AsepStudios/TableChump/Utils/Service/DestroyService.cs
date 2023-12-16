@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace AsepStudios.Utils
+namespace AsepStudios.TableChump.Utils.Service
 {
     public static class DestroyService
     {

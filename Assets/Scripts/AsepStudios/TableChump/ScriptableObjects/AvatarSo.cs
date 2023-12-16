@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-
-namespace ScriptableObjects
+namespace AsepStudios.TableChump.ScriptableObjects
 {
     [CreateAssetMenu()]
     public class AvatarSo : ScriptableObject

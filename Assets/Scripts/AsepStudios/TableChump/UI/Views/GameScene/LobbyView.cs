@@ -1,13 +1,15 @@
-using AsepStudios.Utils;
-using AsepStudios.Mechanic.LobbyCore;
 using System;
-using AsepStudios.Mechanic.GameCore;
+using AsepStudios.TableChump.Mechanics.GameCore.Controller;
+using AsepStudios.TableChump.Mechanics.LobbyCore;
+using AsepStudios.TableChump.Mechanics.PlayerCore.LocalPlayerCore;
+using AsepStudios.TableChump.UI.Component.Custom;
+using AsepStudios.TableChump.UI.Component.General;
+using AsepStudios.TableChump.Utils.Service;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using AsepStudios.Mechanic.PlayerCore.LocalPlayerCore;
-using TMPro;
 
-namespace AsepStudios.UI
+namespace AsepStudios.TableChump.UI.Views.GameScene
 {
     public class LobbyView : View
     {
