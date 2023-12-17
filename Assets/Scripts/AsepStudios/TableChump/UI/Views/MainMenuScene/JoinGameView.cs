@@ -47,8 +47,11 @@ namespace AsepStudios.TableChump.UI.Views.MainMenuScene
         protected override void OnDisable()
         {
             base.OnDisable();
-            
-            NetworkManager.Singleton.OnClientDisconnectCallback -= NetworkManager_OnClientDisconnected;
+
+            if (NetworkManager.Singleton != null)
+            {
+                NetworkManager.Singleton.OnClientDisconnectCallback -= NetworkManager_OnClientDisconnected;
+            }
         }
         
         private void NetworkManager_OnClientDisconnected(ulong obj)

@@ -38,7 +38,10 @@ namespace AsepStudios.TableChump.UI.Views.MainMenuScene
         {
             base.OnDisable();
             
-            NetworkManager.Singleton.OnClientDisconnectCallback -= NetworkManager_OnClientDisconnected;
+            if (NetworkManager.Singleton != null)
+            {
+                NetworkManager.Singleton.OnClientDisconnectCallback -= NetworkManager_OnClientDisconnected;
+            }
         }
 
         private void TryConnectAsHost()
