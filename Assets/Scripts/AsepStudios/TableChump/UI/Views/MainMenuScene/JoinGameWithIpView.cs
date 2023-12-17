@@ -25,7 +25,7 @@ namespace AsepStudios.TableChump.UI.Views.MainMenuScene
             logText.text = string.Empty;
             loadingIcon.SetActive(false);
             
-            joinButton.onClick.AddListener(TryConnectAsHost);
+            joinButton.onClick.AddListener(TryConnectAsClient);
 
             backButton.onClick.AddListener(() =>
             {
@@ -44,7 +44,7 @@ namespace AsepStudios.TableChump.UI.Views.MainMenuScene
             }
         }
 
-        private void TryConnectAsHost()
+        private void TryConnectAsClient()
         {
             logText.text = string.Empty;
 
