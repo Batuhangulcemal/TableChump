@@ -4,9 +4,9 @@ namespace AsepStudios.TableChump.App
 {
     public static class PlayerPreferences
     {
-        private const string IS_REGISTERED = "IsRegistered";
-        private const string USERNAME = "Username";
-        private const string AVATAR_INDEX = "AvatarIndex";
+        private const string IsRegisteredKey = "IsRegistered";
+        private const string UsernameKey = "Username";
+        private const string AvatarIndexKey = "AvatarIndex";
 
         public static void ClearPreferences()
         {
@@ -15,20 +15,20 @@ namespace AsepStudios.TableChump.App
         
         public static bool IsRegistered
         {
-            get => PlayerPrefs.GetInt(IS_REGISTERED, 0) == 1;
-            set => PlayerPrefs.SetInt(IS_REGISTERED, value ? 1 : 0);
+            get => PlayerPrefs.GetInt(IsRegisteredKey, 0) == 1;
+            set => PlayerPrefs.SetInt(IsRegisteredKey, value ? 1 : 0);
         }
         
         public static string Username
         {
-            get => PlayerPrefs.GetString(USERNAME, string.Empty);
-            set => PlayerPrefs.SetString(USERNAME, value);
+            get => PlayerPrefs.GetString(UsernameKey, string.Empty);
+            set => PlayerPrefs.SetString(UsernameKey, value);
         }
         
         public static int AvatarIndex
         {
-            get => PlayerPrefs.GetInt(AVATAR_INDEX, 0);
-            set => PlayerPrefs.SetInt(AVATAR_INDEX, value);
+            get => PlayerPrefs.GetInt(AvatarIndexKey, 0);
+            set => PlayerPrefs.SetInt(AvatarIndexKey, value);
         }
     }
 
