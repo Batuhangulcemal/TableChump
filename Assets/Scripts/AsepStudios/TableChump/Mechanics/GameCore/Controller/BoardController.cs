@@ -6,35 +6,28 @@ namespace AsepStudios.TableChump.Mechanics.GameCore.Controller
 {
     public class BoardController
     {
-        private readonly Board board;
-        
-        public int[][] OriginalBoard = new []
-        {
-            new int[] {-1, -1, -1 , -1},
-            new int[] {-1, -1, -1 , -1},
-            new int[] {-1, -1, -1 , -1},
-            new int[] {-1, -1, -1 , -1}
+        private int[][] _originalBoard = {
+            new[] {-1, -1, -1 , -1},
+            new[] {-1, -1, -1 , -1},
+            new[] {-1, -1, -1 , -1},
+            new[] {-1, -1, -1 , -1}
         };
         public int[][] OriginalChosenCards;
-        public BoardController()
-        {
-            board = Board.Instance;
-        }
 
         //return player and player hit damage
         //there is no lesser card
         public void PutCards(int[][] chosenCards, out Dictionary<int, int> playerDamages)
         {
-            int[][] newBoard = OriginalBoard.Clone() as int[][];
+            int[][] newBoard = _originalBoard.Clone() as int[][];
 
             Dictionary<int, int> damages = new();
 
-            for (var index = 0; index < chosenCards.Length; index++)
+            foreach (var chosen in chosenCards)
             {
-                var card = chosenCards[index][0];
-                var player = chosenCards[index][1];
+                var card = chosen[0];
+                var player = chosen[1];
                 
-                int rowIndex = BoardHelper.TryFindRowForCard(card, newBoard);
+                var rowIndex = BoardHelper.TryFindRowForCard(card, newBoard);
 
                 if (rowIndex == -1)
                 {
@@ -50,7 +43,6 @@ namespace AsepStudios.TableChump.Mechanics.GameCore.Controller
                 }
                 BoardHelper.AddCardToRow(card, rowIndex, newBoard);
             }
-
             
             SetBoard(newBoard);
             playerDamages = damages;
@@ -58,7 +50,7 @@ namespace AsepStudios.TableChump.Mechanics.GameCore.Controller
 
         public void TakeRow(int rowIndex, int card, int playerId, out Dictionary<int, int> playerDamages)
         {
-            int[][] newBoard = OriginalBoard.Clone() as int[][];
+            int[][] newBoard = _originalBoard.Clone() as int[][];
 
             Dictionary<int, int> damages = new();
             var point = BoardHelper.CalculateTotalPointInRow(rowIndex, newBoard);
@@ -84,7 +76,7 @@ namespace AsepStudios.TableChump.Mechanics.GameCore.Controller
 
         public bool IsThereAnyLesserCardThanBoard(int[][] chosenCards, out int playerId)
         {
-            var value = BoardHelper.IsThereAnyLesserCardThanBoard(chosenCards, OriginalBoard, out int id);
+            var value = BoardHelper.IsThereAnyLesserCardThanBoard(chosenCards, _originalBoard, out int id);
 
             playerId = id;
             return value;
@@ -92,19 +84,19 @@ namespace AsepStudios.TableChump.Mechanics.GameCore.Controller
         
         private void SetBoard(int[][] newBoard)
         {
-            OriginalBoard = newBoard;
-            board.SetBoardValues(OriginalBoard);
+            _originalBoard = newBoard;
+            Board.Instance.SetBoardValues(_originalBoard);
         }
 
         private void SetChosenCards(int[][] chosenCards)
         {
             OriginalChosenCards = chosenCards;
-            board.SetChosenCards(OriginalChosenCards);
+            Board.Instance.SetChosenCards(OriginalChosenCards);
         }
 
         private void EmptyChosenCards()
         {
-            board.ClearChosenCards();
+            Board.Instance.ClearChosenCards();
         }
         
         
