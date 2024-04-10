@@ -10,10 +10,10 @@ namespace AsepStudios.TableChump.Mechanics.PlayerCore
 {
     public class GamePlayer : NetworkBehaviour
     {
-        public event EventHandler OnCardsChanged; 
-        public event EventHandler OnPointChanged;
-        public event EventHandler OnChosenCardChanged;
-        public event EventHandler OnChosenRowChanged;
+        public event Action OnCardsChanged; 
+        public event Action OnPointChanged;
+        public event Action OnChosenCardChanged;
+        public event Action OnChosenRowChanged;
 
         private readonly NetworkVariable<FixedString512Bytes> cards = new();
         private readonly NetworkVariable<int> point = new(99);
@@ -101,22 +101,22 @@ namespace AsepStudios.TableChump.Mechanics.PlayerCore
         
         private void CardsOnValueChanged(FixedString512Bytes previousValue, FixedString512Bytes newValue)
         {
-            OnCardsChanged?.Invoke(this, EventArgs.Empty);
+            OnCardsChanged?.Invoke();
         }
         
         private void PointOnValueChanged(int previousValue, int newValue)
         {
-            OnPointChanged?.Invoke(this,EventArgs.Empty);
+            OnPointChanged?.Invoke();
         }
         
         private void ChosenCardOnValueChanged(int previousValue, int newValue)
         {
-            OnChosenCardChanged?.Invoke(this,EventArgs.Empty);
+            OnChosenCardChanged?.Invoke();
         }
         
         private void ChosenRowOnValueChanged(int previousValue, int newValue)
         {
-            OnChosenRowChanged?.Invoke(this, EventArgs.Empty);
+            OnChosenRowChanged?.Invoke();
         }
 
     }

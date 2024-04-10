@@ -30,13 +30,13 @@ namespace AsepStudios.TableChump.UI.Component.Custom
 
         }
         
-        private void OnCardsChanged(object sender, EventArgs e)
+        private void OnCardsChanged()
         {
             RefreshDeck();
             AssignOnClickEvents();
         }
         
-        private void OnRoundInfoChanged(object sender, EventArgs e)
+        private void OnRoundInfoChanged()
         {
             RefreshButtonsState();
         }

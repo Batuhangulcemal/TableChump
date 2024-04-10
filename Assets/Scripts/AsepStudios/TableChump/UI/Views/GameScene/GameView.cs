@@ -1,5 +1,4 @@
-﻿using System;
-using AsepStudios.TableChump.Input;
+﻿using AsepStudios.TableChump.Input;
 using AsepStudios.TableChump.Mechanics.LobbyCore;
 using AsepStudios.TableChump.UI.Component.Custom;
 using UnityEngine;
@@ -35,12 +34,12 @@ namespace AsepStudios.TableChump.UI.Views.GameScene
             
         }
 
-        private void Lobby_OnPlayerListChanged(object sender, EventArgs e)
+        private void Lobby_OnPlayerListChanged()
         {
             playerList.RefreshPlayerList();
         }
         
-        private void OnEscapePerformed(object sender, EventArgs e)
+        private void OnEscapePerformed()
         {
             quitPanel.ChangeState();
         }

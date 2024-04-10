@@ -1,5 +1,4 @@
-﻿using System;
-using AsepStudios.TableChump.Mechanics.PlayerCore;
+﻿using AsepStudios.TableChump.Mechanics.PlayerCore;
 using AsepStudios.TableChump.Utils;
 using TMPro;
 using UnityEngine;
@@ -28,7 +27,7 @@ namespace AsepStudios.TableChump.UI.Component.Custom
             RefreshPoint();
         }
         
-        private void Player_OnPointChanged(object sender, EventArgs e)
+        private void Player_OnPointChanged()
         {
             RefreshPoint();
         }

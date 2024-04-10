@@ -10,7 +10,7 @@ namespace AsepStudios.TableChump.Mechanics.GameCore.Controller
     //this class is server only
     public class RoundController
     {
-        public event EventHandler OnRoundEnded;
+        public event Action OnRoundEnded;
         
         private readonly Round round;
         private readonly BoardController boardController;
@@ -34,7 +34,7 @@ namespace AsepStudios.TableChump.Mechanics.GameCore.Controller
             
         }
         
-        private void PlayerController_OnOnAnyPlayerChosenCardChanged(object sender, EventArgs e)
+        private void PlayerController_OnOnAnyPlayerChosenCardChanged()
         {
             if (PlayerController.IsEveryoneChoseCard)
             {
@@ -43,7 +43,7 @@ namespace AsepStudios.TableChump.Mechanics.GameCore.Controller
             }
         }
         
-        private void PlayerController_OnAnyPlayerChosenRowChanged(object sender, EventArgs e)
+        private void PlayerController_OnAnyPlayerChosenRowChanged()
         {
             if (round.RoundState != RoundState.WaitingForPlayerChooseARow) return;
 
@@ -127,7 +127,7 @@ namespace AsepStudios.TableChump.Mechanics.GameCore.Controller
         {
             if (PlayerController.IsPlayerCardsRunOut)
             {
-                OnRoundEnded?.Invoke(this,EventArgs.Empty);
+                OnRoundEnded?.Invoke();
             }
             else
             {

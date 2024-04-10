@@ -1,4 +1,3 @@
-using System;
 using AsepStudios.TableChump.Mechanics.GameCore.Controller;
 using AsepStudios.TableChump.Mechanics.LobbyCore;
 using AsepStudios.TableChump.Mechanics.PlayerCore.LocalPlayerCore;
@@ -72,11 +71,11 @@ namespace AsepStudios.TableChump.UI.Views.GameScene
             LocalPlayer.Instance.Player.OnAnyPlayerPropertyChanged -= Player_OnAnyPlayerPropertyChanged;
         }
         
-        private void Lobby_OnPlayerListChanged(object sender, EventArgs e) { RefreshPlayerList(); }
+        private void Lobby_OnPlayerListChanged() { RefreshPlayerList(); }
         
-        private void Lobby_OnLobbyNameChanged(object sender, EventArgs e) { RefreshLobbyName(); }
+        private void Lobby_OnLobbyNameChanged() { RefreshLobbyName(); }
         
-        private void Player_OnAnyPlayerPropertyChanged(object sender, EventArgs e) { SetReadyButton(); }
+        private void Player_OnAnyPlayerPropertyChanged() { SetReadyButton(); }
 
         private void RefreshPlayerList()
         {

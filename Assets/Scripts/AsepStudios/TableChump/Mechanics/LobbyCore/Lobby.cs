@@ -12,8 +12,8 @@ namespace AsepStudios.TableChump.Mechanics.LobbyCore
     public class Lobby : NetworkBehaviour
     {
         public static Lobby Instance { get; private set; }
-        public event EventHandler OnPlayerListChanged;
-        public event EventHandler OnLobbyNameChanged;
+        public event Action OnPlayerListChanged;
+        public event Action OnLobbyNameChanged;
         public bool IsHostPlayerActive => NetworkManager.Singleton.IsHost;
         public bool IsAllReady => GetIsAllReady();
         public List<Player> Players => GetPlayers();
@@ -107,11 +107,11 @@ namespace AsepStudios.TableChump.Mechanics.LobbyCore
 
         private void Players_OnListChanged(NetworkListEvent<PlayerData> changeEvent)
         {
-            OnPlayerListChanged?.Invoke(this, EventArgs.Empty);
+            OnPlayerListChanged?.Invoke();
         }
         private void LobbyName_OnValueChanged(FixedString32Bytes previousName, FixedString32Bytes newName)
         {
-            OnLobbyNameChanged?.Invoke(this, EventArgs.Empty);
+            OnLobbyNameChanged?.Invoke();
         }
 
         private void NetworkManager_OnClientConnectedCallback(ulong clientId)

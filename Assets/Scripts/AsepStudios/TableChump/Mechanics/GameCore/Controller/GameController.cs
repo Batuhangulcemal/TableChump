@@ -1,5 +1,4 @@
-﻿using System;
-using AsepStudios.TableChump.Mechanics.GameCore.Enum;
+﻿using AsepStudios.TableChump.Mechanics.GameCore.Enum;
 
 namespace AsepStudios.TableChump.Mechanics.GameCore.Controller
 {
@@ -8,7 +7,7 @@ namespace AsepStudios.TableChump.Mechanics.GameCore.Controller
     {
         private RoundController roundController;
 
-        private void Round_OnRoundEnded(object sender, EventArgs e)
+        private void Round_OnRoundEnded()
         {
             if (CheckIsGameShouldOver())
             {

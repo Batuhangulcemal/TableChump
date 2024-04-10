@@ -11,7 +11,7 @@ namespace AsepStudios.TableChump.Mechanics.PlayerCore
     [RequireComponent(typeof(GamePlayer))]
     public class Player : NetworkBehaviour
     {
-        public event EventHandler OnAnyPlayerPropertyChanged;
+        public event Action OnAnyPlayerPropertyChanged;
         
         public GamePlayer GamePlayer => GetGamePlayer();
         private GamePlayer gamePlayer;
@@ -90,17 +90,17 @@ namespace AsepStudios.TableChump.Mechanics.PlayerCore
         
         private void AvatarIndexOnValueChanged(int previousvalue, int newvalue)
         {
-            OnAnyPlayerPropertyChanged?.Invoke(this, EventArgs.Empty);
+            OnAnyPlayerPropertyChanged?.Invoke();
         }
 
         private void ReadyOnValueChanged(bool previousValue, bool newValue)
         {
-            OnAnyPlayerPropertyChanged?.Invoke(this, EventArgs.Empty);
+            OnAnyPlayerPropertyChanged?.Invoke();
         }
 
         private void UsernameOnValueChanged(FixedString32Bytes previousValue, FixedString32Bytes newValue)
         {
-            OnAnyPlayerPropertyChanged?.Invoke(this, EventArgs.Empty);
+            OnAnyPlayerPropertyChanged?.Invoke();
         }
 
 

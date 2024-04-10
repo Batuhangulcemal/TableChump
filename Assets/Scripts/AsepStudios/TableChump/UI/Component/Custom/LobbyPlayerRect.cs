@@ -1,4 +1,3 @@
-using System;
 using AsepStudios.TableChump.Mechanics.PlayerCore;
 using AsepStudios.TableChump.Utils;
 using AsepStudios.TableChump.Utils.Service;
@@ -36,7 +35,7 @@ namespace AsepStudios.TableChump.UI.Component.Custom
 
         }
 
-        private void Player_OnAnyPlayerPropertyChanged(object sender, EventArgs e)
+        private void Player_OnAnyPlayerPropertyChanged()
         {
             SetRectFields();
         }

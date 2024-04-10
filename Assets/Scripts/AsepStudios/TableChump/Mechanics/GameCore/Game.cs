@@ -9,7 +9,7 @@ namespace AsepStudios.TableChump.Mechanics.GameCore
 {
     public class Game : NetworkBehaviour
     {
-        public event EventHandler OnGameStateChanged;
+        public event Action OnGameStateChanged;
         public static Game Instance { get; private set; }
         
         public readonly NetworkVariable<GameState> GameState = new();
@@ -51,7 +51,7 @@ namespace AsepStudios.TableChump.Mechanics.GameCore
 
         private void GameStateOnValueChanged(GameState previousGameState, GameState newGameState)
         {
-            OnGameStateChanged?.Invoke(this, EventArgs.Empty);
+            OnGameStateChanged?.Invoke();
             ChangeViewByGameState();
         }
 

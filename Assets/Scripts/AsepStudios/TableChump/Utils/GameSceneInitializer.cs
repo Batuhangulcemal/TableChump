@@ -1,4 +1,3 @@
-using System;
 using AsepStudios.TableChump.Mechanics.PlayerCore.LocalPlayerCore;
 using AsepStudios.TableChump.UI;
 using UnityEngine;
@@ -12,7 +11,7 @@ namespace AsepStudios.TableChump.Utils
             LocalPlayer.Instance.OnPlayerAttached += OnLocalPlayerAttached;
         }
 
-        private void OnLocalPlayerAttached(object sender, EventArgs e)
+        private void OnLocalPlayerAttached()
         {
             ViewManager.Initialize();
         }

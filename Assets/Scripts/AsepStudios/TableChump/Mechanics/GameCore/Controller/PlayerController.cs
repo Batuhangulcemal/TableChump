@@ -7,8 +7,8 @@ namespace AsepStudios.TableChump.Mechanics.GameCore.Controller
 {
     public class PlayerController
     {
-        public event EventHandler OnAnyPlayerChosenCardChanged;
-        public event EventHandler OnAnyPlayerChosenRowChanged;
+        public event Action OnAnyPlayerChosenCardChanged;
+        public event Action OnAnyPlayerChosenRowChanged;
 
         public static int[][] ChosenCards => GetChosenCardsSorted();
         
@@ -131,14 +131,14 @@ namespace AsepStudios.TableChump.Mechanics.GameCore.Controller
             return Lobby.Instance.Players[0].GamePlayer.IsCardsEmpty;
         }
         
-        private void GamePlayer_OnAnyPlayerChosenCardChanged(object sender, EventArgs e)
+        private void GamePlayer_OnAnyPlayerChosenCardChanged()
         {
-            OnAnyPlayerChosenCardChanged?.Invoke(this, EventArgs.Empty);
+            OnAnyPlayerChosenCardChanged?.Invoke();
         }
         
-        private void GamePlayer_OnAnyPlayerChosenRowChanged(object sender, EventArgs e)
+        private void GamePlayer_OnAnyPlayerChosenRowChanged()
         {
-            OnAnyPlayerChosenRowChanged?.Invoke(this, EventArgs.Empty);
+            OnAnyPlayerChosenRowChanged?.Invoke();
         }
 
     }

@@ -6,7 +6,7 @@ namespace AsepStudios.TableChump.Input
 {
     public class PlayerInput : MonoBehaviour
     {
-        public event EventHandler OnEscapePerformed;
+        public event Action OnEscapePerformed;
 
         public static PlayerInput Instance { get; private set; }
         
@@ -28,7 +28,7 @@ namespace AsepStudios.TableChump.Input
 
         private void EscapeAction(InputAction.CallbackContext obj)
         {
-            OnEscapePerformed?.Invoke(this, EventArgs.Empty);
+            OnEscapePerformed?.Invoke();
         }
 
         private void OnDisable()

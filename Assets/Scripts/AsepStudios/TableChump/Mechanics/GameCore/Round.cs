@@ -20,7 +20,7 @@ namespace AsepStudios.TableChump.Mechanics.GameCore
     }
     public class Round : NetworkBehaviour
     {
-        public event EventHandler OnRoundInfoChanged;
+        public event Action OnRoundInfoChanged;
         
         public static Round Instance { get; private set; }
 
@@ -57,7 +57,7 @@ namespace AsepStudios.TableChump.Mechanics.GameCore
 
         private void RoundInfo_OnValueChanged(RoundInfo previousvalue, RoundInfo newvalue)
         {
-            OnRoundInfoChanged?.Invoke(this, EventArgs.Empty);
+            OnRoundInfoChanged?.Invoke();
         }
     }
 }

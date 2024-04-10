@@ -78,8 +78,6 @@ namespace AsepStudios.TableChump.UI.Component.Custom
 
         }
 
-
-
         private void OnDestroy()
         {
             Board.Instance.OnBoardChanged -= OnBoardChanged;
@@ -87,17 +85,17 @@ namespace AsepStudios.TableChump.UI.Component.Custom
             Round.Instance.OnRoundInfoChanged -= OnRoundInfoChanged;
         }
 
-        private void OnBoardChanged(object sender, EventArgs e)
+        private void OnBoardChanged()
         {
             RefreshBoard();
         }
 
-        private void OnChosenCardsChanged(object sender, EventArgs e)
+        private void OnChosenCardsChanged()
         {
             RefreshChosenCards();
         }
         
-        private void OnRoundInfoChanged(object sender, EventArgs e)
+        private void OnRoundInfoChanged()
         {
             RefreshRowButtons();
             RefreshLogText();

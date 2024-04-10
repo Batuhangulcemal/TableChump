@@ -7,8 +7,8 @@ namespace AsepStudios.TableChump.Mechanics.GameCore
 {
     public class Board : NetworkBehaviour
     {
-        public event EventHandler OnBoardChanged;
-        public event EventHandler OnChosenCardsChanged;
+        public event Action OnBoardChanged;
+        public event Action OnChosenCardsChanged;
         public static Board Instance { get; private set; }
 
         private readonly NetworkVariable<FixedString512Bytes> values = new(new []
@@ -66,12 +66,12 @@ namespace AsepStudios.TableChump.Mechanics.GameCore
         
         private void Board_OnValuesChanged(FixedString512Bytes previousValues, FixedString512Bytes newValues)
         {
-            OnBoardChanged?.Invoke(this, EventArgs.Empty);
+            OnBoardChanged?.Invoke();
         }
         
         private void ChosenCards_OnValuesChanged(FixedString512Bytes previousValues, FixedString512Bytes newValues)
         {
-            OnChosenCardsChanged?.Invoke(this, EventArgs.Empty);
+            OnChosenCardsChanged?.Invoke();
         }
     }
 }
